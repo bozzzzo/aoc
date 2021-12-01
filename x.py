@@ -25,6 +25,16 @@ def first(a):
 
 
 def second(a):
+    def window(s):
+        w = []
+        for i in s:
+            w.append(i)
+            if len(w) < 3:
+                continue
+            elif len(w) == 3:
+                w = w[1:]
+            yield(sum(w))
+    first(list(window(a)))
     pass
 
 def test():

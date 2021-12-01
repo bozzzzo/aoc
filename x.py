@@ -31,7 +31,7 @@ def second(a):
             w.append(i)
             if len(w) < 3:
                 continue
-            elif len(w) == 3:
+            elif len(w) > 3:
                 w = w[1:]
             yield(sum(w))
     b = list(window(a))

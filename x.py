@@ -19,6 +19,14 @@ def dbg(*x, **y):
     # print(*x, **y)
     pass
 
+
+def first(a):
+        print(sum(1 for p,n in zip(a[:-1],a[1:]) if n > p))
+
+
+def second(a):
+    pass
+
 def test():
     pass
 
@@ -33,6 +41,6 @@ for name in [("test_input"),
         a = tuple(int(l.strip()) for l in f)
         print(a)
 
-        print(sum(1 for p,n in zip(a[:-1],a[1:]) if n > p))
-
+        second(a)
+        
 print("==================",flush=True)

@@ -21,7 +21,7 @@ def dbg(*x, **y):
 
 
 def first(a):
-    pass
+    print(sum(a))
 
 
 

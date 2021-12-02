@@ -39,8 +39,8 @@ def second(a):
             return aim, depth, distance
         def forward(x, y):
             aim, depth, distance = x
-            distance += x
-            depth += aim * x
+            distance += y
+            depth += aim * y
             return aim, depth, distance
         return locals()
     def dispatch(x, ys, ops=ops()):

@@ -21,8 +21,10 @@ def dbg(*x, **y):
 
 
 def first(a):
-    print(functools.reduce(operator.add, a))
-
+    c = functools.reduce(operator.add, a)
+    dep = c['down'] - c['up']
+    dist = c['forward']
+    print(dep, dist, dep*dist)
 
 
 def second(a):

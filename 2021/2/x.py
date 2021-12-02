@@ -53,12 +53,12 @@ def parse(x):
     return collections.Counter({x[0]: int(x[1])})
 
 for name in [("test_input"),
-             ("input")][:1
+             ("input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = tuple(parse(l.strip()) for l in f)
-    print(a)
+    #print(a)
 
     first(a)
 

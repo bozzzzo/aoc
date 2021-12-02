@@ -28,18 +28,23 @@ def first(a):
 
 
 def second(a):
-    def window(s):
-        w = []
-        for i in s:
-            w.append(i)
-            if len(w) < 3:
-                continue
-            elif len(w) > 3:
-                w = w[1:]
-            yield(sum(w))
-    b = list(window(a))
-    print(b)
-    first(b)
+    def ops():
+        def up(x, y):
+            aim, depth, distance = x
+            aim -= y
+            return aim, depth, distance
+        def down(x, y):
+            aim, depth, distance = x
+            aim += y
+            return aim, depth, distance
+        def forward(x, y):
+            aim, depth, distance = x
+            distance += x
+            depth += aim * x
+            return aim, depth, distance
+        return locals()
+    ops = ops()
+    print(ops)
     pass
 
 def test():
@@ -60,6 +65,6 @@ for name in [("test_input"),
         a = tuple(parse(l.strip()) for l in f)
     #print(a)
 
-    first(a)
+    second(a)
 
 print("==================",flush=True)

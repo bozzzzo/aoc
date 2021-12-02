@@ -21,7 +21,8 @@ def dbg(*x, **y):
 
 
 def first(a):
-        print(sum(1 for p,n in zip(a[:-1],a[1:]) if n > p))
+    pass
+
 
 
 def second(a):
@@ -47,7 +48,7 @@ test()
 
 def parse(x):
     x = x.split()
-    return x
+    return collections.Counter([x])
 
 for name in [("test_input"),
              ("input")][:1

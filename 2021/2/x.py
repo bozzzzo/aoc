@@ -21,7 +21,7 @@ def dbg(*x, **y):
 
 
 def first(a):
-    print(sum(a), collections.Counter())
+    print(functools.reduce(operator.add, a))
 
 
 

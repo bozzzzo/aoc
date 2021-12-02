@@ -48,7 +48,7 @@ test()
 
 def parse(x):
     x = x.split()
-    return collections.Counter([x])
+    return collections.Counter(x)
 
 for name in [("test_input"),
              ("input")][:1

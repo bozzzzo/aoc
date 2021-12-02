@@ -43,9 +43,12 @@ def second(a):
             depth += aim * x
             return aim, depth, distance
         return locals()
-    ops = ops()
-    print(ops)
-    pass
+    def dispatch(x, ys, ops=ops()):
+        for op, y in ys.items():
+            x = ops[op](x, y)
+        return x
+    aim, depth, distance = functools.reduce(dispatch, a, (0,0,0))
+    print (aim, depth, distance, depth*distance)
 
 def test():
     pass

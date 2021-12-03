@@ -39,7 +39,7 @@ def second(a):
         c = count(a, i)
         l = (len(a) + 1) // 2
         bit = '1' if c >= l else '0'
-        return O([b for b in a if b[i] == bit])
+        return O([b for b in a if b[i] == bit], i+1)
     o = O(a, 0)
 
 def test():

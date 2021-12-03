@@ -40,8 +40,17 @@ def second(a):
         l = (len(a) + 1) // 2
         bit = '1' if c >= l else '0'
         return O([b for b in a if b[i] == bit], i+1)
+    def CO2(a, i):
+        print(a, i)
+        if len(a) == 1:
+            return int(a[0], 2)
+        c = count(a, i)
+        l = (len(a) + 1) // 2
+        bit = '0' if c <= l else '1'
+        return CO2([b for b in a if b[i] == bit], i+1)
     o = O(a, 0)
-    print(o)
+    co2 = CO2(a, 0)
+    print(o, co2)
 
 def test():
     pass

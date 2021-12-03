@@ -41,7 +41,7 @@ def second(a):
         bit = '1' if c >= l else '0'
         return O([b for b in a if b[i] == bit], i+1)
     def CO2(a, i):
-        print(a, i)
+        #print(a, i)
         if len(a) == 1:
             return int(a[0], 2)
         c = count(a, i)
@@ -69,7 +69,7 @@ def parse(x):
     return x
 
 for name in [("test_input"),
-             ("input")][:1
+             ("input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

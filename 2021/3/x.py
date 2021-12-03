@@ -33,7 +33,7 @@ def second(a):
         return sum(int(b[i]) for b in a)
     l = len(a)/2
     def O(a, i):
-        print(a, i)
+        #print(a, i)
         if len(a) == 1:
             return int(a[0], 2)
         c = count(a, i)

@@ -23,8 +23,10 @@ def dbg(*x, **y):
 def first(a):
     bits = tuple(map(sum, map(lambda x: map(int,x), zip(*a))))
     l = len(a)/2
-    print(l, tuple(bits), ['1' if b > l else '0' if b < l else '=' for b in bits])
-
+    gamma = int(''.join('1' if b > l else '0' if b < l else '=' for b in bits), 2)
+    epsilon = int(''.join('1' if b < l else '0' if b > l else '=' for b in bits), 2)
+    print(l, tuple(bits), gamma, epsilon, gamma*epsilon)
+    
 
 def second(a):
     pass

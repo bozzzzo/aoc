@@ -66,6 +66,7 @@ for name in [("test_input"),
         a = tuple(parse(l.strip()) for l in f)
     #print(a)
 
-    first(a)
+    #first(a)
+    second(a)
 
 print("==================",flush=True)

@@ -41,6 +41,7 @@ def second(a):
         bit = '1' if c >= l else '0'
         return O([b for b in a if b[i] == bit], i+1)
     o = O(a, 0)
+    print(o)
 
 def test():
     pass

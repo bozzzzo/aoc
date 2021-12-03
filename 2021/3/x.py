@@ -21,8 +21,8 @@ def dbg(*x, **y):
 
 
 def first(a):
-    bits = map(lambda x: map(int,x), zip(*a))
-    print(bits)
+    bits = map(sum, map(lambda x: map(int,x), zip(*a)))
+    print(tuple(bits))
 
 
 def second(a):

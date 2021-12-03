@@ -21,7 +21,8 @@ def dbg(*x, **y):
 
 
 def first(a):
-    pass
+    bits = zip(*a)
+    print(bits)
 
 
 def second(a):

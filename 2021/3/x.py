@@ -50,7 +50,7 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = tuple(parse(l.strip()) for l in f)
-    print(a)
+    #print(a)
 
     first(a)
 

@@ -22,7 +22,8 @@ def dbg(*x, **y):
 
 def first(a):
     bits = tuple(map(sum, map(lambda x: map(int,x), zip(*a))))
-    print(tuple(bits), ['1' if b > b/len(bits) else '0' if b < b/len(bits) else '=' for b in bits])
+    l = len(bits)/2
+    print(tuple(bits), ['1' if b > l else '0' if b < l else '=' for b in bits])
 
 
 def second(a):

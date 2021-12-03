@@ -21,7 +21,7 @@ def dbg(*x, **y):
 
 
 def first(a):
-    bits = zip(*a)
+    bits = tuple(zip(*a))
     print(bits)
 
 

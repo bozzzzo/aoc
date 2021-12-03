@@ -29,6 +29,17 @@ def first(a):
     
 
 def second(a):
+    def count(a, i):
+        return sum(int(b[i]) for b in a)
+    l = len(a)/2
+    def O(a, i):
+        print(a, i)
+        if len(a) == 1:
+            return a[0]
+        c = count(a, i)
+        l = (len(a) + 1) // 2
+        bit = '1' if c >= l else '0'
+        return O([b for b in a if b[i] == bit])
     pass
 
 def test():

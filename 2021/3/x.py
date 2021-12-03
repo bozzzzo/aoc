@@ -44,9 +44,9 @@ def second(a):
         print(a, i)
         if len(a) == 1:
             return int(a[0], 2)
-        c = len(a) - count(a, i)
+        c = count(a, i)
         l = (len(a) + 1) // 2
-        bit = '1' if c > l else '0'
+        bit = '1' if c < l else '0'
         return CO2([b for b in a if b[i] == bit], i+1)
     o = O(a, 0)
     co2 = CO2(a, 0)

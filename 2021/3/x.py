@@ -41,7 +41,7 @@ def strint(x):
     return x
 
 def parse(x):
-    return tuple(map(strint, x.split()))
+    return x
 
 for name in [("test_input"),
              ("input")][:1

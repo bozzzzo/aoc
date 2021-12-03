@@ -40,7 +40,7 @@ def second(a):
         l = (len(a) + 1) // 2
         bit = '1' if c >= l else '0'
         return O([b for b in a if b[i] == bit])
-    pass
+    o = O(a, 0)
 
 def test():
     pass
@@ -59,7 +59,7 @@ def parse(x):
     return x
 
 for name in [("test_input"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

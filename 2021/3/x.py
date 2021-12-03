@@ -35,7 +35,7 @@ def second(a):
     def O(a, i):
         print(a, i)
         if len(a) == 1:
-            return a[0]
+            return int(a[0], 2)
         c = count(a, i)
         l = (len(a) + 1) // 2
         bit = '1' if c >= l else '0'

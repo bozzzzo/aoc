@@ -21,34 +21,11 @@ def dbg(*x, **y):
 
 
 def first(a):
-    c = functools.reduce(operator.add, a)
-    dep = c['down'] - c['up']
-    dist = c['forward']
-    print(dep, dist, dep*dist)
+    pass
 
 
 def second(a):
-    def ops():
-        def up(x, y):
-            aim, depth, distance = x
-            aim -= y
-            return aim, depth, distance
-        def down(x, y):
-            aim, depth, distance = x
-            aim += y
-            return aim, depth, distance
-        def forward(x, y):
-            aim, depth, distance = x
-            distance += y
-            depth += aim * y
-            return aim, depth, distance
-        return locals()
-    def dispatch(x, ys, ops=ops()):
-        for op, y in ys.items():
-            x = ops[op](x, y)
-        return x
-    aim, depth, distance = functools.reduce(dispatch, a, (0,0,0))
-    print (aim, depth, distance, depth*distance)
+    pass
 
 def test():
     pass
@@ -56,18 +33,24 @@ def test():
 
 test()
 
+def strint(x):
+    try:
+        return int(x)
+    except:
+        pass
+    return x
+
 def parse(x):
-    x = x.split()
-    return collections.Counter({x[0]: int(x[1])})
+    return tuple(map(strint, x.split()))
 
 for name in [("test_input"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = tuple(parse(l.strip()) for l in f)
-    #print(a)
+    print(a)
 
-    second(a)
+    first(a)
 
 print("==================",flush=True)

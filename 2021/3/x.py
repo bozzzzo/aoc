@@ -50,7 +50,7 @@ def second(a):
         return CO2([b for b in a if b[i] == bit], i+1)
     o = O(a, 0)
     co2 = CO2(a, 0)
-    print(o, co2)
+    print(o, co2, o * co2)
 
 def test():
     pass

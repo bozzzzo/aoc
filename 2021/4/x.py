@@ -52,15 +52,19 @@ class Bingo:
 
 def parse(f):
     rand = list(map(int, f.readline().strip().split(',')))
+    def _trace(f):
+        r = f.readline()
+        print(r)
+        return r
     def parse_boards(f):
         while True:
             try:
-                assert not f.readline().strip()
+                assert not _trace(f.readline()).strip()
             except:
                 raise StopIteration
             rows = []
             for _ in range(5):
-                rows.append(tuple(map(int, f.readline().split())))
+                rows.append(tuple(map(int, _trace(f.readline()).split())))
             yield Board(rows=rows)
     boards = list(parse_boards(f))
     return Bingo(rand=rand, boards=boards)

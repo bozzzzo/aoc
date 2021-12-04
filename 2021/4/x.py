@@ -59,7 +59,8 @@ def parse(f):
     def parse_boards(f):
         while True:
             try:
-                assert _trace(f.readline()).strip()
+                line = _trace(f.readline()).strip()
+                print("l", line)
             except:
                 break
             rows = []

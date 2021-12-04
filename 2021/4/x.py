@@ -58,14 +58,14 @@ def parse_boards(f):
     while True:
         print(".")
         try:
-            line = _trace(f.readline()).strip()
+            line = _trace(f).strip()
             print("l", line)
         except:
             print("done")
             break
         rows = []
         for _ in range(5):
-            rows.append(tuple(map(int, _trace(f.readline()).split())))
+            rows.append(tuple(map(int, _trace(f).split())))
         yield Board(rows=rows)
 def parse(f):
     rand = list(map(int, f.readline().strip().split(',')))

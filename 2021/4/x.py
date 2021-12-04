@@ -61,7 +61,7 @@ class Board:
             return tuple(count+1 if n in row else count
                          for row, count in zip(rows, counts))
         rows = call_rows(self.rows, state.rows, n)
-        cols = call_rows(self.cols, state_cols, n)
+        cols = call_rows(self.cols, state.cols, n)
         called = state.called + (n,)
         return replace(state,
                        rows=rows,

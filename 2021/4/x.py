@@ -61,6 +61,7 @@ def parse_boards(f):
             line = _trace(f.readline()).strip()
             print("l", line)
         except:
+            print("done")
             break
         rows = []
         for _ in range(5):

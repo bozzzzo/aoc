@@ -132,7 +132,9 @@ for name in [("test_input"),
     #print(a)
 
     w = first(a)
-    print(w)
+    print("first", w)
+    w = second(a)
+    print("second", w)
     #second(a)
 
 print("==================",flush=True)

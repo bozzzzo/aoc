@@ -77,7 +77,7 @@ class BoardState:
     cols: Tuple[int] = field(default=(0,0,0,0,0))
 
     def winning(self):
-        return 5 in rows or 5 in cols
+        return 5 in self.rows or 5 in self.cols
 
     def score(self):
         missing = sum(set(self.board.idx) - set(self.called))

@@ -65,7 +65,10 @@ def parse_boards(f):
             break
         rows = []
         for _ in range(5):
-            rows.append(tuple(map(int, _trace(f).split())))
+            row = tuple(map(int, _trace(f).split()))
+            if not row:
+                return
+            rows.append(row)
         yield Board(rows=rows)
 def parse(f):
     rand = list(map(int, f.readline().strip().split(',')))

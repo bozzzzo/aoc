@@ -52,16 +52,12 @@ class Bingo:
 
 def _trace(f):
     r = f.readline()
-    print(r)
     return r
 def parse_boards(f):
     while True:
-        print(".")
         try:
             line = _trace(f).strip()
-            print("l", line)
         except:
-            print("done ")
             break
         rows = []
         for _ in range(5):

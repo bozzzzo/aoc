@@ -42,7 +42,9 @@ def strint(x):
 
 @dataclass
 class Board:
-    rows: Tuple[int]
+    rows: Tuple[Tuple[int]]
+    cols: Tuple[Tuple[int]]
+    idx: Tuple[Tuple[int]]
 
 
 @dataclass
@@ -66,7 +68,7 @@ def parse_boards(f):
                 return
             rows.append(tuple(row))
         cols = tuple(map(tuple, zip(*rows)))
-        yield Board(rows=rows, idx=set(*rows))
+        yield Board(rows=rows, cols=cols, idx=set(*rows))
 def parse(f):
     rand = list(map(int, f.readline().strip().split(',')))
     boards = list(parse_boards(f))

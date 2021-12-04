@@ -63,7 +63,7 @@ def parse(f):
                 rows.append(tuple(map(int, f.readline().split())))
             yield Board(rows=rows)
     boards = list(parse_boards(f))
-    return b
+    return Bingo(rand=rand, boards=boards)
 
 for name in [("test_input"),
              ("input")][:2

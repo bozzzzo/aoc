@@ -56,6 +56,7 @@ def _trace(f):
     return r
 def parse_boards(f):
     while True:
+        print(".")
         try:
             line = _trace(f.readline()).strip()
             print("l", line)

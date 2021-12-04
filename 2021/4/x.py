@@ -31,6 +31,15 @@ def first(a):
     pass
 
 def second(a):
+    states = a.states()
+    for number in a.rand:
+        states = [state.board.call(state, number) for state in states]
+        not_winning = [state for state in states if not state.winning()]
+        if not_winning:
+            states = not_winning
+        else:
+            winning = sorted((state.score(), state) for state in states if state.winning())
+            return winning[-1]
     pass
 
 def test():
@@ -120,7 +129,7 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = parse(f)
-    print(a)
+    #print(a)
 
     w = first(a)
     print(w)

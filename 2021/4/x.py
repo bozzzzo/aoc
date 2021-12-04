@@ -61,7 +61,7 @@ def parse(f):
             try:
                 assert not _trace(f.readline()).strip()
             except:
-                raise StopIteration
+                break
             rows = []
             for _ in range(5):
                 rows.append(tuple(map(int, _trace(f.readline()).split())))

@@ -5,7 +5,7 @@ import collections
 import pprint
 import operator
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace, field
 import numpy as np
 from typing import *
 from pprint import pprint
@@ -22,6 +22,12 @@ def dbg(*x, **y):
 
 
 def first(a):
+    states = a.states()
+    for number in a.rand:
+        states = [state.board.call(state, number) for state in states]
+        winning = sorted((state.score(), state) for state in states if state.winning())
+        if winning:
+            return winning[-1]
     pass
 
 def second(a):
@@ -46,11 +52,44 @@ class Board:
     cols: Tuple[Tuple[int]]
     idx: Tuple[Tuple[int]]
 
+    def call(self, state, n):
+        if n not in idx:
+            return state
+        if n in state.called:
+            return state
+        def call_rows(rows, counts, n):
+            return tuple(count+1 if n in row else count
+                         for row, count in zip(rows, counts))
+        rows = call_rows(self.rows, state.rows, n)
+        cols = call_rows(self.cols, state_cols, n)
+        called = state.called + (n,)
+        return replace(state,
+                       rows=rows,
+                       cols=cols,
+                       called=called)
+
+
+@dataclass
+class BoardState:
+    board: Board
+    called: Tuple[int] = field(default=())
+    rows: Tuple[int] = field(default=(0,0,0,0,0))
+    cols: Tuple[int] = field(default=(0,0,0,0,0))
+
+    def winning(self):
+        return 5 in rows or 5 in cols
+
+    def score(self):
+        missing = sum(set(self.board.idx) - set(self.called))
+        return missing * self.called[-1]
 
 @dataclass
 class Bingo:
     rand: List[str]
     boards: List[Board]
+
+    def states(self):
+        return [BoardState(board) for board in self.boards]
 
 def _trace(f):
     r = f.readline()
@@ -69,6 +108,7 @@ def parse_boards(f):
             rows.append(tuple(row))
         cols = tuple(map(tuple, zip(*rows)))
         yield Board(rows=rows, cols=cols, idx=set(itertools.chain(*rows)))
+
 def parse(f):
     rand = list(map(int, f.readline().strip().split(',')))
     boards = list(parse_boards(f))

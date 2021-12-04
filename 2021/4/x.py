@@ -40,12 +40,12 @@ def strint(x):
         pass
     return x
 
-@dataclasses.dataclass
+@dataclass
 class Board:
     rows: Tuple[int]
 
 
-@dataclasses.dataclass
+@dataclass
 class Bingo:
     rand: List[str]
     boards: List[Board]

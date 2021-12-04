@@ -115,7 +115,7 @@ def parse(f):
     return Bingo(rand=rand, boards=boards)
 
 for name in [("test_input"),
-             ("input")][:1
+             ("input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

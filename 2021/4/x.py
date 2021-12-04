@@ -122,7 +122,8 @@ for name in [("test_input"),
         a = parse(f)
     print(a)
 
-    first(a)
+    w = first(a)
+    print(w)
     #second(a)
 
 print("==================",flush=True)

@@ -68,7 +68,7 @@ def parse_boards(f):
                 return
             rows.append(tuple(row))
         cols = tuple(map(tuple, zip(*rows)))
-        yield Board(rows=rows, cols=cols, idx=set(*rows))
+        yield Board(rows=rows, cols=cols, idx=set(itertools.chain(*rows)))
 def parse(f):
     rand = list(map(int, f.readline().strip().split(',')))
     boards = list(parse_boards(f))

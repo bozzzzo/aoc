@@ -53,7 +53,7 @@ class Board:
     idx: Tuple[Tuple[int]]
 
     def call(self, state, n):
-        if n not in idx:
+        if n not in self.idx:
             return state
         if n in state.called:
             return state

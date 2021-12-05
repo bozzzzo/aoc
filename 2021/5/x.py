@@ -46,6 +46,11 @@ def _trace(f):
     return r
 
 def parse(f):
+    def parse_line(l):
+        return tuple(tuple(int(c) for c in t.strip().split(','))
+                     for i, t in enumerate(l.split("->")))
+
+    return list(map(parse_line, f))
     pass
 
 for name in [("test_input"),

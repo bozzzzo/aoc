@@ -24,8 +24,13 @@ def dbg(*x, **y):
 def first(a):
     m = collections.Counter()
     for (x1,y1),(x2,y2) in a:
-        print(x1,y1,x2,y2)
-    pass
+        if x1 == x2:
+            m.update((x1, y)
+                     for y in range(min(y1,y2), max(y1,y2)+1))
+        elif y1 == y2:
+            m.update((x, y1)
+                     for x in range(min(x1,x2), max(x1,x2)+1))
+    print(sum(1 for v in m.values() if v > 1))
 
 def second(a):
     pass

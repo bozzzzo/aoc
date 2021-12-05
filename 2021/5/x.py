@@ -22,6 +22,9 @@ def dbg(*x, **y):
 
 
 def first(a):
+    m = collections.Counter()
+    for (x1,y1),(x2,y2) in a:
+        print(x1,y1,x2,y2)
     pass
 
 def second(a):

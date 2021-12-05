@@ -62,12 +62,12 @@ def parse(f):
     pass
 
 for name in [("test_input"),
-             ("input")][:1
+             ("input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = parse(f)
-    print(a)
+    # print(a)
 
     w = first(a)
     print("first", w)

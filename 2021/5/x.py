@@ -32,7 +32,24 @@ def first(a):
                      for x in range(min(x1,x2), max(x1,x2)+1))
     return sum(1 for v in m.values() if v > 1)
 
+def irange(a,b):
+    d = 1 if b >= a else -1
+    return range(a,b+d,d)
+
 def second(a):
+    m = collections.Counter()
+    for (x1,y1),(x2,y2) in a:
+        if x1 == x2:
+            m.update((x1, y)
+                     for y in range(min(y1,y2), max(y1,y2)+1))
+        elif y1 == y2:
+            m.update((x, y1)
+                     for x in range(min(x1,x2), max(x1,x2)+1))
+        else:
+            m.update((x, y)
+                     for x,y in zip(irange(x1,x2), irange(y1,y2)))
+
+    return sum(1 for v in m.values() if v > 1)
     pass
 
 def test():

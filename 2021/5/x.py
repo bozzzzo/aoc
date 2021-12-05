@@ -30,7 +30,7 @@ def first(a):
         elif y1 == y2:
             m.update((x, y1)
                      for x in range(min(x1,x2), max(x1,x2)+1))
-    print(sum(1 for v in m.values() if v > 1))
+    return sum(1 for v in m.values() if v > 1)
 
 def second(a):
     pass

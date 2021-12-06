@@ -40,7 +40,7 @@ def cday(c):
             r[6] += count
             r[8] += count
         else:
-            r[count-1] += count
+            r[day-1] += count
     return r
 
 def first(a):

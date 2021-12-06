@@ -61,6 +61,8 @@ def second(a):
         return sum(c.values())
     for d in range(1, 81):
         c = cday(c)
+        if d < 5:
+            print(d, c)
     print("after 80", total(c))
     for d in range(81, 257):
         c = cday(c)

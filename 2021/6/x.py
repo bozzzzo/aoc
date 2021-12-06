@@ -57,7 +57,7 @@ def irange(a,b):
 
 def second(a):
     c = collections.Counter(a)
-    print(c, a)
+    print("initial", a, c)
     def total(c):
         return sum(c.values())
     for d in range(1, 81):

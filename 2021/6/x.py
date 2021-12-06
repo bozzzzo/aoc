@@ -37,6 +37,9 @@ def first(a):
     for d in range(1,19):
         a = day(a)
         print(f"After {d} day:", a)
+    for d in range(19,81):
+        a = day(a)
+    print(len(a))
 
 def irange(a,b):
     d = 1 if b >= a else -1

@@ -22,34 +22,13 @@ def dbg(*x, **y):
 
 
 def first(a):
-    m = collections.Counter()
-    for (x1,y1),(x2,y2) in a:
-        if x1 == x2:
-            m.update((x1, y)
-                     for y in range(min(y1,y2), max(y1,y2)+1))
-        elif y1 == y2:
-            m.update((x, y1)
-                     for x in range(min(x1,x2), max(x1,x2)+1))
-    return sum(1 for v in m.values() if v > 1)
+    pass
 
 def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
 def second(a):
-    m = collections.Counter()
-    for (x1,y1),(x2,y2) in a:
-        if x1 == x2:
-            m.update((x1, y)
-                     for y in range(min(y1,y2), max(y1,y2)+1))
-        elif y1 == y2:
-            m.update((x, y1)
-                     for x in range(min(x1,x2), max(x1,x2)+1))
-        else:
-            m.update((x, y)
-                     for x,y in zip(irange(x1,x2), irange(y1,y2)))
-
-    return sum(1 for v in m.values() if v > 1)
     pass
 
 def test():
@@ -71,20 +50,16 @@ def _trace(f):
     return r
 
 def parse(f):
-    def parse_line(l):
-        return tuple(tuple(int(c) for c in t.strip().split(','))
-                     for i, t in enumerate(l.split("->")))
-
-    return list(map(parse_line, f))
+    return f.read().strip().split(',')
     pass
 
 for name in [("test_input"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = parse(f)
-    # print(a)
+    print(a)
 
     w = first(a)
     print("first", w)

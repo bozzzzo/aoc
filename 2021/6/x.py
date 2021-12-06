@@ -78,8 +78,8 @@ for name in [("test_input"),
         a = parse(f)
     print(a)
 
-    w = first(a)
-    print("first", w)
+    #w = first(a)
+    #print("first", w)
     w = second(a)
     print("second", w)
     #second(a)

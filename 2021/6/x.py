@@ -21,8 +21,22 @@ def dbg(*x, **y):
     pass
 
 
+def day(a):
+    def fish(a):
+        new = []
+        for c in a:
+            if c == 0:
+                yield 6
+                new.append(8)
+            else:
+                yield c - 1
+        yield from new
+    return tuple(fish(a))
+
 def first(a):
-    pass
+    for d in range(1,19):
+        a = day(a)
+        print(f"After {d} day:", a)
 
 def irange(a,b):
     d = 1 if b >= a else -1
@@ -50,7 +64,7 @@ def _trace(f):
     return r
 
 def parse(f):
-    return f.read().strip().split(',')
+    return tuple(map(int, f.read().strip().split(',')))
     pass
 
 for name in [("test_input"),

@@ -46,6 +46,8 @@ def irange(a,b):
     return range(a,b+d,d)
 
 def second(a):
+    c = collections.Counter(a)
+    print(c)
     pass
 
 def test():

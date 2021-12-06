@@ -33,6 +33,16 @@ def day(a):
         yield from new
     return tuple(fish(a))
 
+def cday(c):
+    r = collections.Counter()
+    for day, count in c.items():
+        if day == 0:
+            r[6] += count
+            r[8] += count
+        else:
+            r[count-1] += count
+    return r
+
 def first(a):
     for d in range(1,19):
         a = day(a)
@@ -47,7 +57,14 @@ def irange(a,b):
 
 def second(a):
     c = collections.Counter(a)
-    print(c)
+    def total(c):
+        return sum(c.values())
+    for d in range(1, 81):
+        c = cday(c)
+    print("after 80", total(c))
+    for d in range(81, 257):
+        c = cday(c)
+    print("after 256", total(c))
     pass
 
 def test():

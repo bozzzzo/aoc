@@ -26,7 +26,7 @@ def price(a, n):
 
 def first(a):
     a=sorted(a)
-    p=sorted((n, price(a,n)) for n in range(min(a), max(a)))
+    p=sorted((price(a,n), n) for n in range(min(a), max(a)))
     print(p[:5])
     pass
  

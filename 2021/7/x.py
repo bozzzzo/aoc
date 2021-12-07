@@ -22,7 +22,7 @@ def dbg(*x, **y):
 
 
 def price(a, n):
-    return sum((x-n)**2 for x in a)
+    return sum(abs(x-n) for x in a)
 
 def first(a):
     a=sorted(a)

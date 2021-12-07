@@ -31,7 +31,10 @@ def first(a):
     pass
 
 def price2(a, n):
-    return sum((x-n)**2 for x in a)
+    def d(x,n):
+        l=abs(x-n)
+        return (l * (l+1)) // 2
+    return sum(d(x,n) for x in a)
 
 def irange(a,b):
     d = 1 if b >= a else -1

@@ -26,7 +26,8 @@ def price(a, n):
 
 def first(a):
     a=sorted(a)
-    print(min(a), max(a), a[len(a)//2])
+    p=sorted((n, price(a,n)) for n in range(min(a), max(a)))
+    print(p[:5])
     pass
  
 def irange(a,b):

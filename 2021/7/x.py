@@ -24,7 +24,7 @@ def dbg(*x, **y):
 
 def first(a):
     pass
-
+ 
 def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)

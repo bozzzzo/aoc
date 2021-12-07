@@ -21,8 +21,11 @@ def dbg(*x, **y):
     pass
 
 
+def price(a, n):
+    return sum((x-n)**2 for x in a)
 
 def first(a):
+    print(min(a), max(a))
     pass
  
 def irange(a,b):

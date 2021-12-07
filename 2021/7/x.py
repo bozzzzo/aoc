@@ -25,7 +25,8 @@ def price(a, n):
     return sum((x-n)**2 for x in a)
 
 def first(a):
-    print(min(a), max(a))
+    a=sorted(a)
+    print(min(a), max(a), a[len(a)//2])
     pass
  
 def irange(a,b):

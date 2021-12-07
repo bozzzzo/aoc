@@ -27,14 +27,20 @@ def price(a, n):
 def first(a):
     a=sorted(a)
     p=sorted((price(a,n), n) for n in range(min(a), max(a)))
-    print(p[:5])
+    return (p[:5])
     pass
- 
+
+def price2(a, n):
+    return sum((x-n)**2 for x in a)
+
 def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
 def second(a):
+    a=sorted(a)
+    p=sorted((price2(a,n), n) for n in range(min(a), max(a)))
+    return (p[:5])
     pass
 
 def test():

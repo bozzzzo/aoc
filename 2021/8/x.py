@@ -95,7 +95,12 @@ def decode1(l):
     se = [d for d in sbl[5] if not sf.issubset(d) and sc.issubset(d)][0] - sa - sc - sd - sg
 
     xform = dict(zip(letters, (x.copy().pop() for x in (sa,sb,sc,sd,se,sf,sg))))
-    print(xform)
+    def xf(d):
+        return "".join(map(xform.get, d))
+
+    failures = [x for x in samples + result if xf(x) not in digits_]
+    assert not failures, str(failures)
+    
     
     
     return 0

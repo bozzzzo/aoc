@@ -82,21 +82,34 @@ def decode1(l):
     lseven = 3
     lfour = 4
     leight = 7
-    scf = sbl[lone][0]
-    sacf = sbl[lseven][0]
+    cone = sbl[lone]
+    scf = cone[0]
+    cseven = sbl[lseven]
+    sacf = cseven[0]
     sa = sacf - scf
-    sbcdf = sbl[lfour][0]
+    cfour = sbl[lfour]
+    sbcdf = cfour[0]
     sbd = sbcdf - scf
-    sd = sbl[leight][0] - [d for d in sbl[6] if not sbd.issubset(d)][0]
+    czero = [d for d in sbl[6] if not sbd.issubset(d)]
+    assert len(czero) == 1
+    sd = sbl[leight][0] - dzero[0]
     sb = sbd - sd
-    sc = sbl[leight][0] - [d for d in sbl[6] if sd.issubset(d) and not scf.issubset(d)][0]
+    csix = [d for d in sbl[6] if sd.issubset(d) and not scf.issubset(d)]
+    assert len(csix) == 1
+    sc = sbl[leight][0] - csix[0]
     sf = scf - sc
-    sg = [d for d in sbl[5] if scf.issubset(d)][0] - sacf - sd
-    se = [d for d in sbl[5] if not sf.issubset(d) and sc.issubset(d)][0] - sa - sc - sd - sg
+    cthree = [d for d in sbl[5] if scf.issubset(d)]
+    sg = cthree[0] - sacf - sd
+    cfive = [d for d in sbl[5] if not sf.issubset(d) and sc.issubset(d)]
+    assert len(cfive) == 1
+    se = cfive[0] - sa - sc - sd - sg
 
     xform = dict(zip((x.copy().pop() for x in (sa,sb,sc,sd,se,sf,sg)), letters))
     def xf(d):
         return "".join(map(xform.get, d))
+
+    for n, c in enumerate([czero, cone, ctwo, cthree, cfour, cfive, csix, cseven, ceight, cnine]):
+        pass
 
     failures = [x for x in samples + result if xf(x) not in digits_]
     assert not failures, str(failures)

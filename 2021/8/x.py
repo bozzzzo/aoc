@@ -47,7 +47,10 @@ def strint(x):
 
 
 def parse(f):
-    return tuple(map(int, f.read().strip().split(',')))
+    def parse_line(l):
+        samples, result = l.split('|')
+        return samples.strip().split(), result.strip().split()
+    return tuple(map(parse_line, f))
     pass
 
 for name in [("test_input"),

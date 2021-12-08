@@ -116,7 +116,7 @@ def decode1(l):
     for n, c in enumerate([czero, cone, ctwo, cthree, cfour, cfive, csix, cseven, ceight, cnine]):
         assert len(c) == 1
         x = xf(c[0])
-        assert n == digits_[x]
+        print (n, c, x)
 
     failures = [x for x in samples + result if xf(x) not in digits_]
     assert not failures, str(failures)

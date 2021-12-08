@@ -75,7 +75,7 @@ def first(a):
 def decode1(l):
     letters = 'abcdefgh'
     samples, result = l
-    sbl = {k:tuple(set(v)) for k,v in itertools.groupby(sorted(samples, key=len), key=len)
+    sbl = {k:tuple(map(set,v)) for k,v in itertools.groupby(sorted(samples, key=len), key=len)
            }
     print(sbl)
     lone = 2

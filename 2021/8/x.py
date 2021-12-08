@@ -92,7 +92,9 @@ def decode1(l):
     sc = sbl[leight][0] - [d for d in sbl[6] if sd.issubset(d) and not scf.issubset(d)][0]
     sf = scf - sc
     sg = [d for d in sbl[5] if scf.issubset(d)][0] - sacf - sd
-    print('a', sa, 'bd', sbd, 'd', sd, 'c', sc, 'f', sf, 'g', sg)
+    se = [d for d in sbl[5] if not sf.issubset(d) and sc.issubset(d)][0] - sa - sc - sd - sg
+    print('a', sa, 'bd', sbd, 'd', sd, 'c', sc, 'f', sf, 'g', sg, 'e', se)
+    
     
     return 0
     pass

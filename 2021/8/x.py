@@ -70,8 +70,24 @@ def first(a):
     return n
     pass
 
+def decode1(l):
+    letters = 'abcdefgh'
+    samples, result = l
+    for y in itertools.permutations(letters):
+        code = dict(zip(y, letters))
+        def xform(x):
+            return "".join(map(code.get, x))
+        def valid(sample):
+            xform(sample) in digits_
+        if all(valid(s) for s in samples):
+            def dec(d):
+                return functools.reduce(lambda n,i: n*10 + i, d, 0)
+            return dec(map(digits_.get, map(xform, result)))
 
 def second(a):
+    n = map(decode1, a)
+    print(n)
+    return sum(n)
     pass
 
 def test():

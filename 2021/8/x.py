@@ -82,11 +82,15 @@ def decode1(l):
     lseven = 3
     lfour = 4
     leight = 7
-    sa = sbl[lseven][0] - sbl[lone][0]
-    sbd = sbl[lfour][0] - sbl[lone][0]
+    scf = sbl[lone][0]
+    sacf = sbl[lseven][0]
+    sa = sacf - scf
+    sbcdf = sbl[lfour][0]
+    sbd = sbcdf - scf
     sd = sbl[leight][0] - [d for d in sbl[6] if not sbd.issubset(d)][0]
-
-    print('a', sa, 'bd', sbd, 'd', sd)
+    sb = sbd - sd
+    sc = sbl[leight][0] - [d for d in sbl[6] if sd.issubset(d) and not scf.issubset(d)][0]
+    print('a', sa, 'bd', sbd, 'd', sd, 'c', sc)
     
     return 0
     pass

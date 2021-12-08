@@ -92,7 +92,7 @@ def decode1(l):
     sbd = sbcdf - scf
     czero = [d for d in sbl[6] if not sbd.issubset(d)]
     assert len(czero) == 1
-    sd = sbl[leight][0] - dzero[0]
+    sd = sbl[leight][0] - czero[0]
     sb = sbd - sd
     csix = [d for d in sbl[6] if sd.issubset(d) and not scf.issubset(d)]
     assert len(csix) == 1

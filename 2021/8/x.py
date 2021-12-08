@@ -49,7 +49,7 @@ def strint(x):
 def parse(f):
     def parse_line(l):
         samples, result = l.split('|')
-        return samples.strip().split(), result.strip().split()
+        return tuple(samples.strip().split()), tuple(result.strip().split())
     return tuple(map(parse_line, f))
     pass
 

@@ -24,6 +24,12 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+digits = {
+    
+}
+def decode0(l):
+    samples, result = l
+    
 
 def first(a):
     n = tuple(map(decode, a))
@@ -51,7 +57,8 @@ def strint(x):
 def parse(f):
     def parse_line(l):
         samples, result = l.split('|')
-        return tuple(samples.strip().split()), tuple(result.strip().split())
+        return (tuple("".join(s) for s in samples.strip().split()),
+                tuple("".join(r) for r in result.strip().split()))
     return tuple(map(parse_line, f))
     pass
 

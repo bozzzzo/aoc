@@ -100,9 +100,11 @@ def decode1(l):
     sf = scf - sc
     cthree = [d for d in sbl[5] if scf.issubset(d)]
     sg = cthree[0] - sacf - sd
-    cfive = [d for d in sbl[5] if not sf.issubset(d) and sc.issubset(d)]
+    ctwo = [d for d in sbl[5] if not sf.issubset(d) and sc.issubset(d)]
+    assert len(ctwo) == 1
+    se = ctwo[0] - sa - sc - sd - sg
+    cfive = [d for d in sbl[5] if sf.issubset(d) and not sc.issubset(d)]
     assert len(cfive) == 1
-    se = cfive[0] - sa - sc - sd - sg
 
     xform = dict(zip((x.copy().pop() for x in (sa,sb,sc,sd,se,sf,sg)), letters))
     def xf(d):

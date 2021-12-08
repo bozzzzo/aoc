@@ -59,6 +59,8 @@ digits_ = {v:k for k,v in digits.items()}
 
 bylen = {k:tuple(v) for k,v in itertools.groupby(sorted(digits_, key=len), key=len)
 }
+
+
 print(bylen)
 
 def decode0(l):
@@ -73,9 +75,17 @@ def first(a):
 def decode1(l):
     letters = 'abcdefgh'
     samples, result = l
-    sbl = {k:tuple(v) for k,v in itertools.groupby(sorted(samples, key=len), key=len)
+    sbl = {k:tuple(set(v)) for k,v in itertools.groupby(sorted(samples, key=len), key=len)
            }
     print(sbl)
+    lone = 2
+    lseven = 3
+    lfour = 4
+    leight = 7
+    sa = sbl[lseven][0] - sbl[lone][0]
+    sbd = sbl[lfour][0] - sbl[lone][0]
+    print('a', sa, 'bd', sbd)
+    
     return 0
     pass
 

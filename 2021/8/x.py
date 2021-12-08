@@ -85,7 +85,7 @@ def decode1(l):
             return dec(map(digits_.get, map(xform, result)))
 
 def second(a):
-    n = map(decode1, a)
+    n = tuple(map(decode1, a))
     print(n)
     return sum(n)
     pass

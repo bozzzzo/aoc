@@ -74,7 +74,7 @@ def decode1(l):
     letters = 'abcdefgh'
     samples, result = l
     pass
-    
+
 
 def second(a):
     n = tuple(map(decode1, a))

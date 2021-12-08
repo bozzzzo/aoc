@@ -73,6 +73,10 @@ def first(a):
 def decode1(l):
     letters = 'abcdefgh'
     samples, result = l
+    sbl = {k:tuple(v) for k,v in itertools.groupby(sorted(samples, key=len), key=len)
+           }
+    print(sbl)
+    return 0
     pass
 
 

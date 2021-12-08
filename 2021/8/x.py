@@ -106,7 +106,7 @@ def decode1(l):
     se = ctwo[0] - sa - sc - sd - sg
     cfive = [d for d in sbl[5] if sf.issubset(d) and not sc.issubset(d)]
     assert len(cfive) == 1
-    cnine = [d for d in sbl[6] if not sd.issubset(d) and nor sc.issubset(d)]
+    cnine = [d for d in sbl[6] if not sd.issubset(d) and not sc.issubset(d)]
     assert len(cnine) == 1
 
     xform = dict(zip((x.copy().pop() for x in (sa,sb,sc,sd,se,sf,sg)), letters))

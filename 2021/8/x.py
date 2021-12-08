@@ -94,7 +94,8 @@ def decode1(l):
     sg = [d for d in sbl[5] if scf.issubset(d)][0] - sacf - sd
     se = [d for d in sbl[5] if not sf.issubset(d) and sc.issubset(d)][0] - sa - sc - sd - sg
 
-    print('a', sa, 'b', sb, 'c', sc, 'd', sd, 'e', se, 'f', sf, 'g', sg)
+    xform = dict(zip(letters, (x.copy().pop() for x in (sa,sb,sc,sd,se,sf,sg))))
+    print(xform)
     
     
     return 0

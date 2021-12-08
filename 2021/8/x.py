@@ -121,10 +121,8 @@ def decode1(l):
 
     failures = [x for x in samples + result if xf(x) not in digits_]
     assert not failures, str(failures)
-    
-    
-    
-    return 0
+
+    return functools.reduce(lambda a,b: a*10+b, map(digits_.get, map(xf, result)))
     pass
 
 

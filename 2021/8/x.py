@@ -114,7 +114,8 @@ def decode1(l):
         return "".join(sorted(map(xform.get, d)))
 
     for n, c in enumerate([czero, cone, ctwo, cthree, cfour, cfive, csix, cseven, ceight, cnine]):
-        assert len(c) == 1
+        if not c:
+            continue
         x = xf(c[0])
         print (n, c, x, digits_.get(x, '???'))
 

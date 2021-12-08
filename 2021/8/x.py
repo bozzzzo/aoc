@@ -24,15 +24,49 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+"""
+  0:      1:      2:      3:      4:
+ aaaa    ....    aaaa    aaaa    ....
+b    c  .    c  .    c  .    c  b    c
+b    c  .    c  .    c  .    c  b    c
+ ....    ....    dddd    dddd    dddd
+e    f  .    f  e    .  .    f  .    f
+e    f  .    f  e    .  .    f  .    f
+ gggg    ....    gggg    gggg    ....
+
+  5:      6:      7:      8:      9:
+ aaaa    aaaa    aaaa    aaaa    aaaa
+b    .  b    .  .    c  b    c  b    c
+b    .  b    .  .    c  b    c  b    c
+ dddd    dddd    ....    dddd    dddd
+.    f  e    f  .    f  e    f  .    f
+.    f  e    f  .    f  e    f  .    f
+ gggg    gggg    ....    gggg    gggg
+"""
 digits = {
-    
+    0: 'abcefg',
+    1: 'cf',
+    2: 'acdeg',
+    3: 'acdfg',
+    4: 'bcdf',
+    5: 'abdfg',
+    6: 'abdefg',
+    7: 'acf',
+    8: 'abcdefg',
+    9: 'abcdfg'
 }
+digits_ = {v:k for k,v in digits.items()}
+
+bylen = {k:tuple(v) for k,v in itertools.groupby(sorted(digits_, key=len), key=len)
+}
+print(bylen)
+
 def decode0(l):
     samples, result = l
     
 
 def first(a):
-    n = tuple(map(decode, a))
+    n = tuple(map(decode0, a))
     return n
     pass
 

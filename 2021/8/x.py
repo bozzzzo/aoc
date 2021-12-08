@@ -83,6 +83,7 @@ def decode1(l):
             def dec(d):
                 return functools.reduce(lambda n,i: n*10 + i, d, 0)
             return dec(map(digits_.get, map(xform, result)))
+    
 
 def second(a):
     n = tuple(map(decode1, a))
@@ -113,7 +114,7 @@ def parse(f):
     pass
 
 for name in [("test_input"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

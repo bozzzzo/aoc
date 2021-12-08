@@ -26,6 +26,8 @@ def irange(a,b):
 
 
 def first(a):
+    n = tuple(map(decode, a))
+    return n
     pass
 
 

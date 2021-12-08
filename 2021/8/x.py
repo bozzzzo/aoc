@@ -84,7 +84,9 @@ def decode1(l):
     leight = 7
     sa = sbl[lseven][0] - sbl[lone][0]
     sbd = sbl[lfour][0] - sbl[lone][0]
-    print('a', sa, 'bd', sbd)
+    sd = sbl[leight] - [d for d in sbl[6] if sbd.issubset(d)][0]
+
+    print('a', sa, 'bd', sbd, 'd', sd)
     
     return 0
     pass

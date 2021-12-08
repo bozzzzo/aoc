@@ -111,10 +111,12 @@ def decode1(l):
 
     xform = dict(zip((x.copy().pop() for x in (sa,sb,sc,sd,se,sf,sg)), letters))
     def xf(d):
-        return "".join(map(xform.get, d))
+        return "".join(sorted(map(xform.get, d)))
 
     for n, c in enumerate([czero, cone, ctwo, cthree, cfour, cfive, csix, cseven, ceight, cnine]):
-        print(n,c)
+        assert len(c) == 1
+        x = xf(c[0])
+        assert n == digits_[x]
 
     failures = [x for x in samples + result if xf(x) not in digits_]
     assert not failures, str(failures)

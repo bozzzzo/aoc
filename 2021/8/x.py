@@ -114,7 +114,7 @@ def decode1(l):
         return "".join(map(xform.get, d))
 
     for n, c in enumerate([czero, cone, ctwo, cthree, cfour, cfive, csix, cseven, ceight, cnine]):
-        pass
+        print(n,c)
 
     failures = [x for x in samples + result if xf(x) not in digits_]
     assert not failures, str(failures)

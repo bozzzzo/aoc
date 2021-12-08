@@ -88,15 +88,16 @@ def decode1(l):
     sacf = cseven[0]
     sa = sacf - scf
     cfour = sbl[lfour]
+    ceigth = sbl[leight]
     sbcdf = cfour[0]
     sbd = sbcdf - scf
     czero = [d for d in sbl[6] if not sbd.issubset(d)]
     assert len(czero) == 1
-    sd = sbl[leight][0] - czero[0]
+    sd = ceight[0] - czero[0]
     sb = sbd - sd
     csix = [d for d in sbl[6] if sd.issubset(d) and not scf.issubset(d)]
     assert len(csix) == 1
-    sc = sbl[leight][0] - csix[0]
+    sc = ceigth[0] - csix[0]
     sf = scf - sc
     cthree = [d for d in sbl[5] if scf.issubset(d)]
     sg = cthree[0] - sacf - sd

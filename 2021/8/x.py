@@ -79,6 +79,7 @@ def decode1(l):
             return "".join(map(code.get, x))
         def valid(sample):
             xform(sample) in digits_
+        print(code)
         if all(valid(s) for s in samples):
             def dec(d):
                 return functools.reduce(lambda n,i: n*10 + i, d, 0)

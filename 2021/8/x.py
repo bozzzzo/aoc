@@ -88,7 +88,7 @@ def decode1(l):
     sacf = cseven[0]
     sa = sacf - scf
     cfour = sbl[lfour]
-    ceigth = sbl[leight]
+    ceight = sbl[leight]
     sbcdf = cfour[0]
     sbd = sbcdf - scf
     czero = [d for d in sbl[6] if not sbd.issubset(d)]

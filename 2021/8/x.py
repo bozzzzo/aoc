@@ -54,7 +54,7 @@ def parse(f):
     pass
 
 for name in [("test_input"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

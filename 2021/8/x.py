@@ -66,7 +66,7 @@ def decode0(l):
     return sum((len(r) in (2,3,4,7) for r in result))
 
 def first(a):
-    n = tuple(map(decode0, a))
+    n = sum(map(decode0, a))
     return n
     pass
 

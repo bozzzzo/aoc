@@ -50,7 +50,7 @@ def strint(x):
 def parse(f):
     def parse_line(l):
         return tuple(map(int,l.strip()))
-    return tuple(map(parse_line, f))
+    return {(x,y):z for y,row in enumerate(map(parse_line, f)) for x,z in enumerate(row)}
     pass
 
 for name in [("test_input"),

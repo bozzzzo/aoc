@@ -36,7 +36,7 @@ def islow(a, c):
     return True
 
 def findlow(a):
-    return {c:v for c,v in a.items() if islow(c)}
+    return {c:v for c,v in a.items() if islow(a, c)}
 
 def first(a):
     low = findlow(a)

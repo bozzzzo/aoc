@@ -36,12 +36,12 @@ def islow(a, c):
     return True
 
 def findlow(a):
-    return filter(lambda c: islow(a,c), a)
+    return {c:v for c,v in a.items() if islow(c)}
 
 def first(a):
-    low = tuple(findlow(a))
+    low = findlow(a)
     print(low)
-    return sum(1+v for c,v in low)
+    return sum(1+v for c,v in low.items())
     pass
 
 

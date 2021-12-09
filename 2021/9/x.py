@@ -55,7 +55,7 @@ def basin(a, l):
     while p:
         c = p.pop()
         b.add(c)
-        for n in neighbors(a,c):
+        for n in neighbor(a,c):
             if a[n] == 9 or n in b or n in p:
                 continue
             p.add(n)

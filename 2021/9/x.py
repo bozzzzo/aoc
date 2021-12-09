@@ -27,14 +27,13 @@ def irange(a,b):
 
 def islow(a, c):
     print()
-    for dx in (-1,1):
-        for dy in (-1,1):
-            n = (c[0]+dx, c[1]+dy)
-            if n not in a:
-                continue
-            print(c,a[c],n,a[n])
-            if a[n] <= a[c]:
-                return False
+    for dx, dy in ((-1,0), (1, 0), (0, -1), (0, 1)):
+        n = (c[0]+dx, c[1]+dy)
+        if n not in a:
+            continue
+        print(c,a[c],n,a[n])
+        if a[n] <= a[c]:
+            return False
     return True
 
 def findlow(a):

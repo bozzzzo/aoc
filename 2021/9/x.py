@@ -25,7 +25,19 @@ def irange(a,b):
     return range(a,b+d,d)
 
 
+def islow(a, c):
+    for dx in (-1,1):
+        for dy in (-1,1):
+            n = (c[0]+dx, c[1]+dy)
+            if a[n] <= a[c]:
+                return False
+    return True
+
+def findlow(a):
+    return filter(lambda c: islow(a,c), a)
+
 def first(a):
+    return sum(1+v for c,v in findlow(a))
     pass
 
 

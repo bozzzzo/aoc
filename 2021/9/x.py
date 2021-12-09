@@ -25,12 +25,16 @@ def irange(a,b):
     return range(a,b+d,d)
 
 
-def islow(a, c):
-    #print()
+def neigbor(a, c):
     for dx, dy in ((-1,0), (1, 0), (0, -1), (0, 1)):
         n = (c[0]+dx, c[1]+dy)
         if n not in a:
             continue
+        yield n
+
+def islow(a, c):
+    #print()
+    for n in neigbor(a,c):
         #print(c,a[c],n,a[n])
         if a[n] <= a[c]:
             return False
@@ -41,13 +45,27 @@ def findlow(a):
 
 def first(a):
     low = findlow(a)
-    print(low)
+    # print(low)
     return sum(1+v for c,v in low.items())
     pass
 
-
+def basin(a, l):
+    b = set()
+    p = set((l,))
+    while p:
+        c = p.pop()
+        b.add(c)
+        for n in neighbors(a,c):
+            if a[n] == 9 or n in b or n in p:
+                continue
+            p.add(n)
+    return len(b)
 
 def second(a):
+    low = findlow(a)
+    basins = sorted(basin(a,l) for l in low)
+    print(basins)
+    return reduce(operator.mul, basins[-3:])
     pass
 
 def test():

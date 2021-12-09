@@ -39,7 +39,9 @@ def findlow(a):
     return filter(lambda c: islow(a,c), a)
 
 def first(a):
-    return sum(1+v for c,v in findlow(a))
+    low = tuple(findlow(a))
+    print(low)
+    return sum(1+v for c,v in low)
     pass
 
 

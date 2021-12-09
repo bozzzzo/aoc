@@ -64,7 +64,7 @@ def basin(a, l):
 def second(a):
     low = findlow(a)
     basins = sorted(basin(a,l) for l in low)
-    print(basins)
+    #print(basins)
     return functools.reduce(operator.mul, basins[-3:])
     pass
 

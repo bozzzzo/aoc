@@ -31,6 +31,7 @@ def islow(a, c):
             n = (c[0]+dx, c[1]+dy)
             if n not in a:
                 continue
+            print(c,a[c],n,a[n])
             if a[n] <= a[c]:
                 return False
     return True

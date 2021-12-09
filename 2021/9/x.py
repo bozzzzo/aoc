@@ -26,6 +26,7 @@ def irange(a,b):
 
 
 def islow(a, c):
+    print()
     for dx in (-1,1):
         for dy in (-1,1):
             n = (c[0]+dx, c[1]+dy)

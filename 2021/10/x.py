@@ -33,21 +33,15 @@ class Corrupted(Exception):
         self.c = c
 
 def check(a, i, c):
-    print(f"check {i} {a[i:]}     | {c}")
+    print(f"check i {a[:i-1]}-{a[i:i]}-{a[i+1:]}     | {c}")
     o = a[i]
     e = pairs[o]
     j = i+1
     while j < len(a):
         if a[j] == e:
             j += 1
-            if j < len(a):
-                print(f"rest {j} {a[j:]}     | {c}")
-                o = a[j]
-                e = pairs[o]
-                j = j+1
-            else:
-                print(f"parsed {i}:{j} {a[i:j]}     | {c}")
-                return j, c
+            print(f"parsed {i}:{j} {a[i:j]}     | {c}")
+            return j, c
         elif a[j] in pairs:
             j, c = check(a, j, c)
             print(f"todo {j} {a[j:]}     | {c}")

@@ -85,7 +85,7 @@ def complete(l):
         return None
 
 def second(a):
-    c = tuple(map(complete,a))
+    c = tuple(filter(None, map(complete,a)))
     print(c)
     pass
 

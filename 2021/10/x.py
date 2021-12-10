@@ -41,7 +41,10 @@ def check(a, i, c):
         if a[j] == e:
             j += 1
             print(f"parsed {i}:{j} {a[i:j]}     | {c}")
-            return j, c
+            if j < len(a):
+                return check(a, j, c)
+            else:
+                return j, c
         elif a[j] in pairs:
             j, c = check(a, j, c)
             print(f"todo {j} {a[j:]}     | {c}")

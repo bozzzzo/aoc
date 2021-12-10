@@ -39,8 +39,15 @@ def check(a, i, c):
     j = i+1
     while j < len(a):
         if a[j] == e:
-            print(f"parsed {i}:{j} {a[i:j+1]}     | {c}")
-            return j+1, c
+            j += 1
+            if j < len(a):
+                print(f"rest {i} {a[i:]}     | {c}")
+                o = a[j]
+                e = pairs[o]
+                j = j+1
+            else:
+                print(f"parsed {i}:{j} {a[i:j]}     | {c}")
+                return j, c
         elif a[j] in pairs:
             j, c = check(a, j, c)
             print(f"todo {j} {a[j:]}     | {c}")
@@ -87,6 +94,7 @@ def second(a):
 def test():
     def _(a,b):
         assert a==b, f"{a}!={b}"
+    _(check('()()', 0, ''), (4, ''))
     _(check('()', 0, ''), (2, ''))
     _(check('(', 0, ''), (2, ')'))
     _(check('((', 0, ''), (4, '))'))

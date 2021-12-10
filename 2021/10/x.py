@@ -41,7 +41,7 @@ def check(a, i, c):
         if a[j] == e:
             j += 1
             if j < len(a):
-                print(f"rest {i} {a[i:]}     | {c}")
+                print(f"rest {j} {a[j:]}     | {c}")
                 o = a[j]
                 e = pairs[o]
                 j = j+1

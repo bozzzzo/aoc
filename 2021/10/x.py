@@ -33,7 +33,7 @@ class Corrupted(Exception):
         self.c = c
 
 def check(a, i, c):
-    print(f"check i {a[:i-1]}-{a[i:i+1]}-{a[i+1:]}     | {c}")
+    print(f"check {i} {a[:max(0,i-1)]}-{a[i:i+1]}-{a[i+1:]}     | {c}")
     o = a[i]
     e = pairs[o]
     j = i+1

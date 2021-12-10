@@ -41,7 +41,7 @@ def check(a, i, c):
         if a[j] == e:
             j += 1
             print(f"parsed {j} {a[:i]}-{a[i:j]}-{a[j:]}     | {c}")
-            if j < len(a):
+            if j < len(a) and a[j] in pairs:
                 return check(a, j, c)
             else:
                 return j, c

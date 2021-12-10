@@ -64,6 +64,7 @@ scores = {
 
 def score(l):
     try:
+        print("---------")
         check(l, 0, '')
     except Corrupted as c:
         return scores[c.c]

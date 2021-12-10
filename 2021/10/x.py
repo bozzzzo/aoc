@@ -79,6 +79,10 @@ def second(a):
     pass
 
 def test():
+    def _(a,b):
+        assert a==b, f"{a}!={b}"
+    _(check('()', 0, ''), (2, ''))
+    _(check('(', 0, ''), (2, ')'))
     pass
 
 

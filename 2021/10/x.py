@@ -48,7 +48,7 @@ def strint(x):
 
 def parse(f):
     def parse_line(l):
-        return l
+        return l.strip()
     return tuple(map(parse_line, f))
     pass
 

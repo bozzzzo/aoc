@@ -32,19 +32,19 @@ class Corrupted(Exception):
         super().__init__(*args, **kwargs)
         self.c = c
 
-def check(a, i):
+def check(a, i, c):
     o = a[i]
     e = pairs[o]
     i += 1
     while i < len(a):
         if a[i] == e:
-            return i+1
+            return i+1, c
         elif a[i] in pairs:
-            i = check(a, i)
+            i, c = check(a, i)
         else:
             raise Corrupted(a[i])
     else:
-        raise Incomplete()
+        return i, c+e
 
 scores = {
     ')': 3,
@@ -55,7 +55,7 @@ scores = {
 
 def score(l):
     try:
-        check(l, 0)
+        check(l, 0, '')
     except Corrupted as c:
         return scores[c.c]
     except:
@@ -66,7 +66,16 @@ def first(a):
     return sum(map(score, a))
     pass
 
+def complete(l):
+    try:
+        _, c = check(l, 0, '')
+        return c
+    except Corrupted:
+        return None
+
 def second(a):
+    c = tuple(map(complete,a))
+    print(c)
     pass
 
 def test():
@@ -90,12 +99,12 @@ def parse(f):
     pass
 
 for name in [("test_input"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = parse(f)
-    print(a)
+    #print(a)
 
     w = first(a)
     print("first", w)

@@ -97,8 +97,8 @@ def score2(x):
 
 def second(a):
     c = tuple(filter(None, map(complete,a)))
-    s = tuple(map(score2, c))
-    print(s)
+    s = sorted(map(score2, c))
+    print(s[len(s)//2])
     pass
 
 def test():

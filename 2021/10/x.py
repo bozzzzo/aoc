@@ -98,7 +98,7 @@ def test():
     _(check('(()<', 0, ''), (6, '>)'))
     pass
 
-
+ 
 test()
 
 def strint(x):

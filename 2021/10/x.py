@@ -73,6 +73,7 @@ def first(a):
 
 def complete(l):
     try:
+        print("=============================")
         _, c = check(l, 0, '')
         return c
     except Corrupted:

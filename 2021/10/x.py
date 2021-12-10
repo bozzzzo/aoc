@@ -44,7 +44,7 @@ def check(a, i, c):
         else:
             raise Corrupted(a[i])
     else:
-        return i, c+e
+        return i+1, c+e
 
 scores = {
     ')': 3,

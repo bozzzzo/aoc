@@ -24,9 +24,46 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+pairs = dict('() <> [] {}'.split())
 
+class Incomplete(Exception): pass
+class Corrupted(Exception):
+    def __init__(self, c, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.c = c
+
+def check(a, i):
+    o = a[i]
+    e = pairs[o]
+    i += 1
+    while i < len(a):
+        if a[i] == e:
+            return i+1
+        elif a[i] in pairs:
+            i = check(a, i)
+        else:
+            raise Corrupted(a[i])
+    else:
+        raise Incomplete()
+
+scores = {
+    ')': 3,
+    ']': 57,
+    '}': 1197,
+    '>': 25137,
+}
+
+def score(l):
+    try:
+        check(l, 0)
+    except Corrupted as c:
+        return scores[c.c]
+    except:
+        pass
+    return 0
 
 def first(a):
+    return sum(map(score, a))
     pass
 
 def second(a):

@@ -33,22 +33,22 @@ class Corrupted(Exception):
         self.c = c
 
 def check(a, i, c):
-    print(f"check {i} {a[i:]}      {c}")
+    print(f"check {i} {a[i:]}     | {c}")
     o = a[i]
     e = pairs[o]
     j = i+1
     while j < len(a):
         if a[j] == e:
-            print(f"parsed {i}:{j} {a[i:j+1]}      {c}")
+            print(f"parsed {i}:{j} {a[i:j+1]}     | {c}")
             return j+1, c
         elif a[j] in pairs:
             j, c = check(a, j, c)
-            print(f"todo {j} {a[j:]}      {c}")
+            print(f"todo {j} {a[j:]}     | {c}")
         else:
-            print(f"corrupted {j} {a[j]}!={e}      {c}")
+            print(f"corrupted {j} {a[j]}!={e}     | {c}")
             raise Corrupted(a[j])
     else:
-        print(f"incomplete {j} missing {e}      {c}")
+        print(f"incomplete {j} missing {e}     | {c}")
         return j+1, c+e
 
 scores = {

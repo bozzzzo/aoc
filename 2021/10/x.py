@@ -40,7 +40,7 @@ def check(a, i, c):
         if a[i] == e:
             return i+1, c
         elif a[i] in pairs:
-            i, c = check(a, i)
+            i, c = check(a, i, c)
         else:
             raise Corrupted(a[i])
     else:

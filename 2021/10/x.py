@@ -40,7 +40,7 @@ def check(a, i, c):
     while j < len(a):
         if a[j] == e:
             j += 1
-            print(f"parsed {i}:{j} {a[i:j]}     | {c}")
+            print(f"parsed {j} {a[:i]}-{a[i:j]}-{a[j:]}     | {c}")
             if j < len(a):
                 return check(a, j, c)
             else:

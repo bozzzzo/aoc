@@ -84,9 +84,21 @@ def complete(l):
     except Corrupted:
         return None
 
+
+scores2 = {
+    ')': 1,
+    ']': 2,
+    '}': 3,
+    '>': 4,
+}
+
+def score2(x):
+    return functools.reduce(lambda a, b: a*5 + scores2[b], x, 0)
+
 def second(a):
     c = tuple(filter(None, map(complete,a)))
-    print(c)
+    s = tuple(map(score2, c))
+    print(s)
     pass
 
 def test():

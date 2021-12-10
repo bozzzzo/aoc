@@ -33,26 +33,26 @@ class Corrupted(Exception):
         self.c = c
 
 def check(a, i, c):
-    print(f"check {i} {a[:i]}-{a[i:i+1]}-{a[i+1:]}     | {c}")
+    #print(f"check {i} {a[:i]}-{a[i:i+1]}-{a[i+1:]}     | {c}")
     o = a[i]
     e = pairs[o]
     j = i+1
     while j < len(a):
         if a[j] == e:
             j += 1
-            print(f"parsed {j} {a[:i]}-{a[i:j]}-{a[j:]}     | {c}")
+            #print(f"parsed {j} {a[:i]}-{a[i:j]}-{a[j:]}     | {c}")
             if j < len(a) and a[j] in pairs:
                 return check(a, j, c)
             else:
                 return j, c
         elif a[j] in pairs:
             j, c = check(a, j, c)
-            print(f"todo {j} {a[j:]}     | {c}")
+            #print(f"todo {j} {a[j:]}     | {c}")
         else:
-            print(f"corrupted {j} {a[j]}!={e}     | {c}")
+            #print(f"corrupted {j} {a[j]}!={e}     | {c}")
             raise Corrupted(a[j])
     else:
-        print(f"incomplete {j} missing {e}     | {c}")
+        #print(f"incomplete {j} missing {e}     | {c}")
         return j+1, c+e
 
 scores = {
@@ -64,7 +64,7 @@ scores = {
 
 def score(l):
     try:
-        print("---------")
+        #print("---------")
         check(l, 0, '')
     except Corrupted as c:
         return scores[c.c]
@@ -78,7 +78,7 @@ def first(a):
 
 def complete(l):
     try:
-        print("=============================")
+        #print("=============================")
         _, c = check(l, 0, '')
         return c
     except Corrupted:

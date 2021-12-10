@@ -90,6 +90,7 @@ def second(a):
 
 def test():
     def _(a,b):
+        print()
         assert a==b, f"{a}!={b}"
     _(check('()()', 0, ''), (4, ''))
     _(check('()', 0, ''), (2, ''))

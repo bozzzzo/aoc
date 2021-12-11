@@ -58,7 +58,7 @@ def step(a):
 
 def show(a):
     mx, my = max(a)
-    print("\n".join(" ".join(str(a[(x,y)]) for y in range(my+1)) for x in range(mx+1)))
+    print("\n".join("".join(str(a[(x,y)]) for y in range(my+1)) for x in range(mx+1)))
 
 def first(a):
     b, f = step(a)

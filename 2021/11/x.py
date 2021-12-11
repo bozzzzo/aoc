@@ -74,7 +74,11 @@ def first(a):
 
 
 def second(a):
-    pass
+    for step in range(1, 10000):
+        a, f = step(a)
+        if len(a) == len(f):
+            return step
+    return '?'
 
 def test():
     def _(a,b):

@@ -61,15 +61,13 @@ def show(a):
     print("\n".join("".join(str(a[(x,y)]) for y in range(my+1)) for x in range(mx+1)))
 
 def first(a):
-    b, f = step(a)
-    show(b)
-    print(len(f), f)
-    b, f = step(b)
-    show(b)
-    print(len(f), f)
-    b, f = step(b)
-    show(b)
-    print(len(f), f)
+    t = 0
+    for _ in range(100):
+        a, f = step(a)
+        # show(a)
+        t += len(f)
+        # print(len(f), f)
+    return t
     pass
 
 

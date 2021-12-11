@@ -24,8 +24,46 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+def inc(a, which):
+    flashes = []
+    b = a.copy()
+    for c in which:
+        b[c] += 1
+        if b[c] == 10:
+            flashes.append(c)
+    return b, flashes
+
+def neighbors(a, f):
+    for x,y in f:
+        for dx,dy in [(-1,-1),(0,-1),(1,-1),
+                      (-1, 0),       (1, 0),
+                      (-1, 1),(0, 1),(1, 1)]:
+            c = (x+dx, y+dy)
+            if c in a:
+                yield c
+
+def zero(a):
+    return {c:0 if z > 9 else z for c,z in a.items()}
+
+def step(a):
+    b, flashes = inc(a, a)
+    all = flashes[:]
+    while flashes:
+        b, flashes = inc(b, neighbors(a, flashes))
+        all.extend(flashes)
+    b = zero(b)
+
+    return b, all
+
+
+def show(a):
+    mx, my = max(a)
+    print("\n".join(" ".join(str(a[(x,y)]) for y in range(my+1)) for x in range(mx+1)))
 
 def first(a):
+    b, f = step(a)
+    show(b)
+    print(len(f), f)
     pass
 
 

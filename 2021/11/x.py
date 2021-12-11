@@ -64,6 +64,12 @@ def first(a):
     b, f = step(a)
     show(b)
     print(len(f), f)
+    b, f = step(a)
+    show(b)
+    print(len(f), f)
+    b, f = step(a)
+    show(b)
+    print(len(f), f)
     pass
 
 

@@ -74,10 +74,10 @@ def first(a):
 
 
 def second(a):
-    for step in range(1, 10000):
+    for i in range(1, 10000):
         a, f = step(a)
         if len(a) == len(f):
-            return step
+            return i
     return '?'
 
 def test():

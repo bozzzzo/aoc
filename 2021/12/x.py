@@ -71,7 +71,7 @@ def parse(f):
     rlinks = tuple((b,a) for a,b in flinks)
     links = sorted((a,b) for a,b in flinks+rlinks if b != 'start' and a != 'end')
     graph = {k:tuple(b for a,b in v) for k,v in itertools.groupby(links, key=fst)}
-    graph['_big_'] = set(c for c in graph if c.upper() == c)
+    graph['_big_'] = frozenset(c for c in graph if c.upper() == c)
     return graph
     pass
 

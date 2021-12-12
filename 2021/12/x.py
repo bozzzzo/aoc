@@ -24,6 +24,14 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+def big(a):
+    return set(c for c in a if c == c.upper())
+
+def step(a, paths, done_paths):
+    new_paths = paths.copy()
+    for path in paths:
+        cave = path[-1]
+        for next in a[cave]:
 
 def first(a):
     pass
@@ -63,7 +71,9 @@ def parse(f):
     flinks = tuple(map(parse_line, f))
     rlinks = tuple((b,a) for a,b in flinks)
     links = sorted((a,b) for a,b in flinks+rlinks if b != 'start' and a != 'end')
-    return {k:tuple(b for a,b in v) for k,v in itertools.groupby(links, key=fst)}
+    map = {k:tuple(b for a,b in v) for k,v in itertools.groupby(links, key=fst)}
+    map['_big_'] = tuple(c for c in map if c.upper() == c)
+    return map
     pass
 
 for name in [("test_input"),

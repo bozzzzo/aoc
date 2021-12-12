@@ -47,11 +47,15 @@ def walk(a):
     paths = set([('start',)])
     done = set()
     while paths:
-        paths, done = step(a, paths, done)
+        new_paths, new_done = step(a, paths)
+        print(paths, done)
+        print(new_paths, new_done)
+        done |= new_done
+    return done
+
 def first(a):
-    paths, done = step(a, set([('start',)]), set())
-    print(paths)
-    print(done)
+    paths = walk(a)
+    return len(paths)
     pass
 
 

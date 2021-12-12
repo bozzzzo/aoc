@@ -29,6 +29,7 @@ def step(a, paths, done_paths):
     new_done_paths = done_paths.copy()
     big = a['_big_']
     for path in paths:
+        print(path)
         cave = path[-1]
         for next in a[cave]:
             if next == 'end':

@@ -44,7 +44,7 @@ def step(a, paths, done_paths):
 
 
 def first(a):
-    paths, done = step(a, set(('start',)), set())
+    paths, done = step(a, set([('start',)]), set())
     print(paths)
     print(done)
     pass

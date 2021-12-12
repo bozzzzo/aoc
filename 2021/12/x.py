@@ -24,9 +24,9 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
-def step(a, paths, done_paths):
+def step(a, paths):
     new_paths = set()
-    new_done_paths = done_paths.copy()
+    new_done_paths = set()
     big = a['_big_']
     for path in paths:
         print(path)
@@ -43,6 +43,11 @@ def step(a, paths, done_paths):
     return new_paths, new_done_paths
 
 
+def walk(a):
+    paths = set([('start',)])
+    done = set()
+    while paths:
+        paths, done = step(a, paths, done)
 def first(a):
     paths, done = step(a, set([('start',)]), set())
     print(paths)

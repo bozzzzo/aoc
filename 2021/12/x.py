@@ -59,7 +59,7 @@ def parse_grid(f):
 
 def parse(f):
     def parse_line(l):
-        return l.strip()
+        return l.strip().split('-')
     return tuple(map(parse_line, f))
     pass
 

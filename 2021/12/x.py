@@ -30,9 +30,9 @@ def interesting1(a, big, path, next):
 
 def interesting2(a, big, path, next):
     c = collections.Counter(path + (next,))
-    x = [k,v for k,v in c.items() if k not in big and v > 1]
+    x = [v for k,v in c.items() if k not in big and v > 1]
     print(path, next, c, x)
-    return len(x) < 2
+    return sum(x) <= 2
 
 def step(a, paths, interesting):
     new_paths = set()

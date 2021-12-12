@@ -32,6 +32,7 @@ def step(a, paths, done_paths):
     for path in paths:
         cave = path[-1]
         for next in a[cave]:
+            pass
 
 def first(a):
     pass

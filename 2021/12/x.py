@@ -60,7 +60,10 @@ def parse_grid(f):
 def parse(f):
     def parse_line(l):
         return tuple(l.strip().split('-'))
-    return tuple(map(parse_line, f))
+    flinks = tuple(map(parse_line, f))
+    rlinks = tuple((b,a) for a,b in flinks)
+    links = sorted(flinks+rlinks)
+    return
     pass
 
 for name in [("test_input"),

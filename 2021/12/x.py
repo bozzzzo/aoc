@@ -63,7 +63,8 @@ def parse(f):
     return tuple(map(parse_line, f))
     pass
 
-for name in [("test_input"),("test_input2"),("test_input3"),
+for name in [("test_input"),
+             ("test_input2"),("test_input3"),
              ("input")][:1
                         ]:
     print("=======\n",name, flush=True)

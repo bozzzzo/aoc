@@ -72,9 +72,9 @@ def parse(f):
     flinks = tuple(map(parse_line, f))
     rlinks = tuple((b,a) for a,b in flinks)
     links = sorted((a,b) for a,b in flinks+rlinks if b != 'start' and a != 'end')
-    map = {k:tuple(b for a,b in v) for k,v in itertools.groupby(links, key=fst)}
-    map['_big_'] = tuple(c for c in map if c.upper() == c)
-    return map
+    graph = {k:tuple(b for a,b in v) for k,v in itertools.groupby(links, key=fst)}
+    graph['_big_'] = tuple(c for c in graph if c.upper() == c)
+    return graph
     pass
 
 for name in [("test_input"),

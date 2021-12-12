@@ -55,7 +55,7 @@ def walk(a):
     return done
 
 def first(a):
-    paths = walk(a)
+    paths = walk(a) 
     return len(paths)
     pass
 

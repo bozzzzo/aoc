@@ -28,6 +28,11 @@ def irange(a,b):
 def interesting1(a, big, path, next):
     return next in big or next not in path
 
+def interesting2(a, big, path, next):
+    c = collections.Counter(path + (next,))
+    x = [k for k,v in c.items() if c not in big and v > 1]
+    return len(x) < 2
+
 def step(a, paths, interesting):
     new_paths = set()
     new_done_paths = set()
@@ -59,14 +64,14 @@ def walk(a, interesting):
     return done
 
 def first(a):
-    paths = walk(a, interesting1) 
+    paths = walk(a, interesting1)
     return len(paths)
     pass
 
 
-
-
 def second(a):
+    paths = walk(a, interesting2)
+    return len(paths)
     pass
 
 def test():

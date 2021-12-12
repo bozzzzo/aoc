@@ -25,7 +25,7 @@ def irange(a,b):
     return range(a,b+d,d)
 
 def step(a, paths, done_paths):
-    new_paths = paths.copy()
+    new_paths = set()
     new_done_paths = done_paths.copy()
     big = a['_big_']
     for path in paths:

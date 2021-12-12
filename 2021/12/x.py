@@ -63,7 +63,7 @@ def parse(f):
     flinks = tuple(map(parse_line, f))
     rlinks = tuple((b,a) for a,b in flinks)
     links = sorted((a,b) for a,b in flinks+rlinks if b not in ('start', 'end'))
-    return {k:(b for a,b in v) for k,v in itertools.groupby(links, key=fst)}
+    return {k:tuple(b for a,b in v) for k,v in itertools.groupby(links, key=fst)}
     pass
 
 for name in [("test_input"),

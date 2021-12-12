@@ -63,7 +63,7 @@ def parse(f):
     flinks = tuple(map(parse_line, f))
     rlinks = tuple((b,a) for a,b in flinks)
     links = sorted(flinks+rlinks)
-    return
+    return links
     pass
 
 for name in [("test_input"),

@@ -51,6 +51,7 @@ def walk(a):
         print(paths, done)
         print(new_paths, new_done)
         done |= new_done
+        paths = new_paths
     return done
 
 def first(a):

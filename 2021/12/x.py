@@ -26,13 +26,26 @@ def irange(a,b):
 
 def step(a, paths, done_paths):
     new_paths = paths.copy()
+    new_done_paths = done_paths.copy()
     big = a['_big_']
     for path in paths:
         cave = path[-1]
         for next in a[cave]:
-            pass
+            if next == 'end':
+                new_done_paths.add(path)
+            elif next not in big and next in path:
+                pass
+            else:
+                new_path = path + (next,)
+                new_paths.add(new_path)
+
+    return new_paths, new_done_paths
+
 
 def first(a):
+    paths, done = step(a, set(('start',)), set())
+    print(paths)
+    print(done)
     pass
 
 

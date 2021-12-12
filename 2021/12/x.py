@@ -30,7 +30,7 @@ def interesting1(a, big, path, next):
 
 def interesting2(a, big, path, next):
     c = collections.Counter(path + (next,))
-    x = [k for k,v in c.items() if k not in big and v > 1]
+    x = [k,v for k,v in c.items() if k not in big and v > 1]
     print(path, next, c, x)
     return len(x) < 2
 

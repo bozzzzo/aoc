@@ -62,8 +62,8 @@ def parse(f):
         return tuple(l.strip().split('-'))
     flinks = tuple(map(parse_line, f))
     rlinks = tuple((b,a) for a,b in flinks)
-    links = sorted(flinks+rlinks)
-    return links
+    links = sorted((a,b) for a,b in flinks+rlinks if b not in ('start', 'end'))
+    return dict()
     pass
 
 for name in [("test_input"),

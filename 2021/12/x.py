@@ -24,7 +24,11 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
-def step(a, paths):
+
+def interesting1(a, big, path, next):
+    return next in big or next not in path
+
+def step(a, paths, interesting):
     new_paths = set()
     new_done_paths = set()
     big = a['_big_']
@@ -34,7 +38,7 @@ def step(a, paths):
         for next in a[cave]:
             if next == 'end':
                 new_done_paths.add(path)
-            elif next not in big and next in path:
+            elif not interesting(a, big, path, next):
                 pass
             else:
                 new_path = path + (next,)
@@ -43,11 +47,11 @@ def step(a, paths):
     return new_paths, new_done_paths
 
 
-def walk(a):
+def walk(a, interesting):
     paths = set([('start',)])
     done = set()
     while paths:
-        new_paths, new_done = step(a, paths)
+        new_paths, new_done = step(a, paths, interesting)
         #print(paths, done)
         #print(new_paths, new_done)
         done |= new_done
@@ -55,7 +59,7 @@ def walk(a):
     return done
 
 def first(a):
-    paths = walk(a) 
+    paths = walk(a, interesting1) 
     return len(paths)
     pass
 
@@ -106,7 +110,7 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = parse(f)
-    print(a)
+    #print(a)
 
     w = first(a)
     print("first", w)

@@ -29,7 +29,7 @@ def step(a, paths):
     new_done_paths = set()
     big = a['_big_']
     for path in paths:
-        print(path)
+        #print(path)
         cave = path[-1]
         for next in a[cave]:
             if next == 'end':
@@ -48,8 +48,8 @@ def walk(a):
     done = set()
     while paths:
         new_paths, new_done = step(a, paths)
-        print(paths, done)
-        print(new_paths, new_done)
+        #print(paths, done)
+        #print(new_paths, new_done)
         done |= new_done
         paths = new_paths
     return done

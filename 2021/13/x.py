@@ -29,6 +29,7 @@ def show(dots):
     mx, my = max(dots)
     for y in irange(0, my):
         print ("".join('#' if (x,y) in dots else '.' for x in irange(0,mx)))
+    print('---------------')
 
 def fold(dots, folds):
     for direction, loc in folds:

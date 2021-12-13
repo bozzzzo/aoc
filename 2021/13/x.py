@@ -41,7 +41,7 @@ def fold(dots, folds):
 
 def fold_y(dots, loc):
     mx, my = max(dots)
-    assert !any((x,loc) in dots for x in irange(0,mx)), str(loc)
+    assert not any((x,loc) in dots for x in irange(0,mx)), str(loc)
     return set((x, y if y < loc else my - y) for x, y in dots)
 
 

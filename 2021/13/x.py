@@ -46,7 +46,12 @@ def fold(dots, folds):
 def fold_y(dots, loc):
     mx, my = dim(dots)
     assert not any((x,loc) in dots for x in irange(0,mx)), str(loc)
-    return set((x, y if y < loc else my - y) for x, y in dots)
+    return set((x, (y if y < loc else my - y)) for x, y in dots)
+
+def fold_x(dots, loc):
+    mx, my = dim(dots)
+    assert not any((loc, y) in dots for y in irange(0,my)), str(loc)
+    return set(((x if x < loc else mx - x), y) for x, y in dots)
 
 
 def first(a):

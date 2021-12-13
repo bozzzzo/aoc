@@ -30,7 +30,7 @@ def show(dots):
     for y in irange(0, my):
         print ("".join('#' if (x,y) in dots else '.' for x in irange(0,mx)))
 
-def fold(dots. folds):
+def fold(dots, folds):
     for direction, loc in folds:
         if direction == 'x':
             dots = fold_x(dots, loc)

@@ -28,7 +28,7 @@ def irange(a,b):
 def show(dots, xsep=-1, ysep=-1):
     mx, my = max(dots)
     for y in irange(0, my):
-        print ("".join('#' if (x,y) in dots else '-' if y == ysep else '|' if x == xsep else '.' for x in irange(0,mx)))
+        print (f{y:2}, "".join('#' if (x,y) in dots else '-' if y == ysep else '|' if x == xsep else '.' for x in irange(0,mx)))
     print('---------------')
 
 def fold(dots, folds):

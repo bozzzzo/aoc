@@ -93,7 +93,7 @@ def parse_graph(f):
 
 def parse(f):
     dotss, foldss = f.read().split('\n\n')
-    dots = set((tuple(map(int, l.strip().split(',')))[::-1] for l in dotss.splitlines()))
+    dots = set((tuple(map(int, l.strip().split(',')))[:] for l in dotss.splitlines()))
     folds = [tuple(map(strint, l.split()[-1].split('='))) for l in foldss.splitlines()]
     return (dots, folds)
 

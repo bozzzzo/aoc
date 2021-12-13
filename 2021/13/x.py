@@ -67,6 +67,10 @@ def first(a):
 
 
 def second(a):
+    dots, folds = a
+    dots1 = fold(dots, folds) 
+    show(dots1)
+    return len(dots1)
     pass
 
 def test():

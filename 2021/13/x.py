@@ -58,8 +58,8 @@ def first(a):
     dots, folds = a
     #show(dots, ysep=7)
     dots1 = fold(dots, folds[:1]) 
-    dots1 = fold(dots, folds[:2]) 
-    show(dots1)
+    #dots1 = fold(dots, folds[:2]) 
+    # show(dots1)
     return len(dots1)
 
 
@@ -114,7 +114,7 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = parse(f)
-    print(a)
+    # print(a)
 
     w = first(a)
     print("first", w)

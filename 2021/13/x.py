@@ -38,6 +38,7 @@ def fold(dots, folds):
             dots = fold_y(dots, loc)
         else:
             assert False, direction
+    return dots
 
 def fold_y(dots, loc):
     mx, my = max(dots)

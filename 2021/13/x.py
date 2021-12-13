@@ -50,7 +50,7 @@ def first(a):
     dots, folds = a
     dots1 = fold(dots, folds[:1])
     show(dots1)
-    pass
+    return len(dots)
 
 
 def second(a):

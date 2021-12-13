@@ -54,7 +54,7 @@ def first(a):
     show(dots, ysep=7)
     dots1 = fold(dots, folds[:1])
     show(dots1)
-    return len(dots)
+    return len(dots1)
 
 
 def second(a):

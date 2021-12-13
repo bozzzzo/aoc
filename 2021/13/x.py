@@ -67,10 +67,12 @@ def parse_graph(f):
     return graph
     pass
 
-def parse_list(f):
-    def parse_line(l):
-        return l.strip()
-    return tuple(map(parse_line, f))
+def parse(f):
+    dotss, foldss = f.read().split('\n\n')
+    dots = {(tuple(map(int, l.strip().split(','))) for l in dotss.splitlines())}
+    folds = [tuple(l[-1].split('=')) for l in foldss.splitlines()]
+    return (dots, folds)
+
 
 for name in [("test_input"),
              #("test_input2"),("test_input3"),

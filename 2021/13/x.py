@@ -24,10 +24,11 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+def dim(dots):
+    return max(map(fst, dots)), max(map(snd, dots))
 
 def show(dots, xsep=-1, ysep=-1):
-    mx, my = max(list(dots))
-    print(mx, my, list(dots))
+    mx, my = dim(dots)
     for y in irange(0, my):
         print (f"{y:2}", "".join('#' if (x,y) in dots else '-' if y == ysep else '|' if x == xsep else '.' for x in irange(0,mx)))
     print('---------------')

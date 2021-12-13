@@ -51,9 +51,9 @@ def fold_y(dots, loc):
 
 def first(a):
     dots, folds = a
-    show(dots, ysep=7)
+    #show(dots, ysep=7)
     dots1 = fold(dots, folds[:1])
-    show(dots1)
+    #show(dots1)
     return len(dots1)
 
 

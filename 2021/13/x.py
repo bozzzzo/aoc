@@ -25,10 +25,10 @@ def irange(a,b):
     return range(a,b+d,d)
 
 
-def show(dots):
+def show(dots, xsep=-1, ysep=-1):
     mx, my = max(dots)
     for y in irange(0, my):
-        print ("".join('#' if (x,y) in dots else '.' for x in irange(0,mx)))
+        print ("".join('#' if (x,y) in dots else '-' if y == ysep else '|' if x == xsep else '.' for x in irange(0,mx)))
     print('---------------')
 
 def fold(dots, folds):
@@ -49,7 +49,7 @@ def fold_y(dots, loc):
 
 def first(a):
     dots, folds = a
-    show(dots)
+    show(dots, ysep=7)
     dots1 = fold(dots, folds[:1])
     show(dots1)
     return len(dots)

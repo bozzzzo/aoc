@@ -39,7 +39,8 @@ def grow(n, initial, rules):
 def first(a):
     print(grow(1, *a))
     print(grow(2, *a))
-    return len(grow(10, *a))
+    stats = collections.Counter(grow(10, *a))
+    return max(stats.values()) - min(stats.values())
     pass
 
 def second(a):

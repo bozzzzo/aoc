@@ -34,14 +34,14 @@ def grow(n, initial, rules):
     p = initial
     for _ in range(n):
         p = "".join(once(p))
-    return p
+    return p, collections.Counter(p)
 
 def first(a):
     print(grow(1, *a))
     print(grow(2, *a))
     print(grow(3, *a))
     print(grow(4, *a))
-    stats = collections.Counter(grow(10, *a))
+    _, stats = grow(10, *a)
     return max(stats.values()) - min(stats.values())
     pass
 

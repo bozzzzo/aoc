@@ -24,7 +24,22 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+
+def grow(n, initial, rules):
+    def once(x):
+        yield x[0]
+        for i in range(0,len(x)-1):
+            yield rules[x[i:i+2]]
+            yield x[i+1]
+    p = initial
+    for _ in range(n):
+        p = "".join(once(p))
+    return p
+
 def first(a):
+    print(grow(1, *a))
+    print(grow(2, *a))
+    return len(grow(10, *a))
     pass
 
 def second(a):

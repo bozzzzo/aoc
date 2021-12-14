@@ -79,7 +79,7 @@ def second(a):
     print(grow_first(3, *a))
     print(grow_second(3, *a))
     stats = grow_second(40, *a)[1]
-    return max(stats.values())/2 - min(stats.values())/2
+    return max(stats.values())//2 - min(stats.values())//2
 
     pass
 

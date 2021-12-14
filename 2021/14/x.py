@@ -66,7 +66,7 @@ def parse_graph(f):
 
 def parse(f):
     initial, ruless = f.read().split('\n\n')
-    rules = [tuple(l.split(' -> ')) for l in ruless.splitlines()]
+    rules = dict(tuple(l.split(' -> ')) for l in ruless.splitlines())
     return (initial, rules)
 
 

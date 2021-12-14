@@ -39,17 +39,19 @@ def grow_first(n, initial, rules):
 
 def grow_second(n, initial, rules):
 
-    def once(x):
+    def once(x, s, e):
         next = collections.Counter()
         for pair, count in x.items():
             middle = rules[pair]
             next[pair[0]+middle] += count
             next[middle+pair[1]] += count
-        return next
+        return next, s[0]+rules[s], rules[e]+e[1]
 
     p = collections.Counter(map("".join, zip(initial[:-1], initial[1:])))
+    s = initial[:2]
+    e = initial[-2:]
     for _ in range(n):
-        p = once(p)
+        p, s, e = once(p, s, e)
 
     stats = collections.Counter()
     for pair, v in p.items():
@@ -65,8 +67,12 @@ def first(a):
     pass
 
 def second(a):
+    print(1)
     print(grow_first(1, *a))
     print(grow_second(1, *a))
+    print(2)
+    print(grow_first(2, *a))
+    print(grow_second(2, *a))
     return 
     return max(stats.values()) - min(stats.values())
 

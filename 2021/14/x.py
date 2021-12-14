@@ -44,11 +44,14 @@ def first(a):
     pass
 
 def second(a):
+    last_diff = collections.Counter()
     last = collections.Counter()
     for n in range(10):
         _, stats = grow(n, *a)
-        print(n, stats, stats - last)
+        diff = stats - last
+        print(n, stats, diff, diff - last_diff)
         last = stats
+        last_diff = diff
     pass
 
 def test():

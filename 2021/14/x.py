@@ -52,9 +52,10 @@ def grow_second(n, initial, rules):
     e = initial[-2:]
     for _ in range(n):
         p, s, e = once(p, s, e)
+
+    stats = collections.Counter()
     stats[s[0]] += 1
     stats[e[1]] += 1
-    stats = collections.Counter()
     for pair, v in p.items():
         stats[pair[0]] += v
         stats[pair[1]] += v

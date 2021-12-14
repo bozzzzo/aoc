@@ -39,8 +39,6 @@ def grow(n, initial, rules):
 def first(a):
     print(grow(1, *a))
     print(grow(2, *a))
-    print(grow(3, *a))
-    print(grow(4, *a))
     _, stats = grow(10, *a)
     return max(stats.values()) - min(stats.values())
     pass
@@ -95,7 +93,7 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = parse(f)
-    print(a)
+    # print(a)
 
     w = first(a)
     print("first", w)

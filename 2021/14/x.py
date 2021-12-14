@@ -25,7 +25,19 @@ def irange(a,b):
     return range(a,b+d,d)
 
 
-def grow(n, initial, rules):
+def grow_first(n, initial, rules):
+    def once(x):
+        yield x[0]
+        for i in range(0,len(x)-1):
+            yield rules[x[i:i+2]]
+            yield x[i+1]
+    p = initial
+    for _ in range(n):
+        p = "".join(once(p))
+    return p, collections.Counter(sorted(p))
+
+
+def grow_second(n, initial, rules):
 
     def once(x):
         next = collections.Counter()
@@ -46,14 +58,15 @@ def grow(n, initial, rules):
     return stats
 
 def first(a):
-    print(grow(1, *a))
-    print(grow(2, *a))
-    stats = grow(10, *a)
+    print(grow_first(1, *a))
+    print(grow_first(2, *a))
+    _, stats = grow_first(10, *a)
     return max(stats.values()) - min(stats.values())
     pass
 
 def second(a):
-    stats = grow(40, *a)
+    print(grow_first(1, *a))
+    print(grow_second(1, *a))
     return max(stats.values()) - min(stats.values())
 
     pass

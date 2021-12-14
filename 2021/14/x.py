@@ -51,7 +51,7 @@ def second(a):
         diff = stats - last
         print(n, stats, diff, diff - last_diff)
         last = stats
-        last_diff = collections.Counter(sorted(diff.items()))
+        last_diff = collections.Counter(dict(sorted(diff.items())))
     pass
 
 def test():

@@ -26,7 +26,6 @@ def irange(a,b):
 
 
 def grow(n, initial, rules):
-    initial = collections.Counter(map("".join, zip(initial[:-1], initial[1:])))
 
     def once(x):
         next = collections.Counter()
@@ -35,9 +34,10 @@ def grow(n, initial, rules):
             next[pair[0]+middle] += count
             next[middle+pair[1]] += count
         return next
-    p = initial
+    
+    p = collections.Counter(map("".join, zip(initial[:-1], initial[1:])))
     for _ in range(n):
-        p = (once(p)
+        p = once(p)
     return p
 
 def first(a):

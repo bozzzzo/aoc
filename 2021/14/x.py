@@ -57,7 +57,7 @@ def grow_second(n, initial, rules):
     for pair, v in p.items():
         stats[pair[0]] += v
         stats[pair[1]] += v
-    return p, stats
+    return p, stats, s, e
 
 def first(a):
     print(grow_first(1, *a))

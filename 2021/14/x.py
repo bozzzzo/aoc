@@ -26,32 +26,31 @@ def irange(a,b):
 
 
 def grow(n, initial, rules):
+    initial = collections.Counter(map("".join, zip(initial[:-1], initial[1:])))
+
     def once(x):
-        yield x[0]
-        for i in range(0,len(x)-1):
-            yield rules[x[i:i+2]]
-            yield x[i+1]
+        next = collections.Counter()
+        for pair, count in x.items():
+            middle = rules[pair]
+            next[pair[0]+middle] += count
+            next[middle+pair[1]] += count
+        return next
     p = initial
     for _ in range(n):
-        p = "".join(once(p))
-    return p, collections.Counter(sorted(p))
+        p = (once(p)
+    return p
 
 def first(a):
     print(grow(1, *a))
     print(grow(2, *a))
-    _, stats = grow(10, *a)
+    stats = grow(10, *a)
     return max(stats.values()) - min(stats.values())
     pass
 
 def second(a):
-    last_diff = collections.Counter()
-    last = collections.Counter()
-    for n in range(10):
-        _, stats = grow(n, *a)
-        diff = stats - last
-        print(n, stats, diff, diff - last_diff)
-        last = stats
-        last_diff = collections.Counter(dict(sorted(diff.items())))
+    stats = grow(40, *a)
+    return max(stats.values()) - min(stats.values())
+
     pass
 
 def test():

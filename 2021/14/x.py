@@ -67,6 +67,7 @@ def first(a):
 def second(a):
     print(grow_first(1, *a))
     print(grow_second(1, *a))
+    return
     return max(stats.values()) - min(stats.values())
 
     pass

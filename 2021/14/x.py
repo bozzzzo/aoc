@@ -34,7 +34,7 @@ def grow(n, initial, rules):
     p = initial
     for _ in range(n):
         p = "".join(once(p))
-    return p, collections.Counter(p)
+    return p, collections.Counter(sorted(p))
 
 def first(a):
     print(grow(1, *a))

@@ -41,8 +41,8 @@ def grow(n, initial, rules):
 
     stats = collections.Counter()
     for pair, v in p.items():
-        stats[p[0]] += v
-        stats[p[1]] += v
+        stats[pair[0]] += v
+        stats[pair[1]] += v
     return stats
 
 def first(a):

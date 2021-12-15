@@ -43,7 +43,7 @@ def find_path(a):
                     costs[coord] = (new_risk, current_path + (coord, ))
                     active.append(coord)
 
-    return costs(max(costs))
+    return costs[max(costs)]
 
 
 def first(a):

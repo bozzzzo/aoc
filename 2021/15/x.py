@@ -38,12 +38,12 @@ def find_path(a):
                 if coord not in a:
                     continue
                 new_risk = base_risk + a[coord]
-                current_risk, current_path = costs.get(coord, infinite)
+                current_risk, _ = costs.get(coord, infinite)
                 if new_risk < current_risk:
                     costs[coord] = (new_risk, base_path + (coord, ))
                     active.append(coord)
 
-    return costs[max(costs)]
+    return costs[max(a)]
 
 
 def first(a):
@@ -69,7 +69,9 @@ def show(a):
 show(tile({(0,0): 8}))
 
 def second(a):
-    return find_path(tile(a))
+    t = tile(a)
+    show(t)
+    return find_path(t)
     pass
 
 def test():
@@ -114,7 +116,7 @@ def parse(f):
 
 for name in [("test_input"),
              #("test_input2"),("test_input3"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

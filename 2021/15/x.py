@@ -51,8 +51,9 @@ def first(a):
     pass
 
 def tile(a):
+    mx, my = max(a)
     return {
-        (x * (dx + 1), y * (dy + 1)) : (v - 1 + dx + dy) % 9 + 1
+        (x + (mx + 1) * dx, y + (my + 1) * dy) : (v - 1 + dx + dy) % 9 + 1
         for (x,y),v in a.items()
         for dx in range(5)
         for dy in range(5)

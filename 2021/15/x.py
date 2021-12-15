@@ -26,7 +26,7 @@ def irange(a,b):
 
 
 def find_path(a):
-    costs = {(0,0): (0,((0,0),)} # coord : (cost, path)
+    costs = {(0,0): (0, ((0,0),))} # coord : (cost, path)
     infinite = (99999999999999, ())
     active = [(0,0)]
     while active:

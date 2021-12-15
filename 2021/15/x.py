@@ -40,7 +40,7 @@ def find_path(a):
                 new_risk = base_risk + a[coord]
                 current_risk, current_path = costs.get(coord, infinite)
                 if new_risk < current_risk:
-                    costs[coord] = (new_risk, current_path + (coord, ))
+                    costs[coord] = (new_risk, base_path + (coord, ))
                     active.append(coord)
 
     return costs[max(costs)]

@@ -58,6 +58,15 @@ def tile(a):
         for dy in range(5)
     }
 
+
+def show(a):
+    mx, my = max(a)
+    print("\n".join("".join(str(a[(x,y)])
+                            for x in range(mx+1))
+                    for y in range(my+1)))
+
+show(tile({(0,0): 8}))
+
 def second(a):
     return find_path(tile(a))
     pass

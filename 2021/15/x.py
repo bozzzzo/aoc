@@ -34,7 +34,7 @@ def find_path(a):
         for current in current_active:
             base_risk, base_path = costs[current]
             for dx, dy in ((-1, 0), (0, -1), (1, 0), (0, 1)):
-                coord = (path[-1][0] + dx, path[-1][1] + dy)
+                coord = (base_path[-1][0] + dx, base_path[-1][1] + dy)
                 if coord not in a:
                     continue
                 new_risk = base_risk + a[coord]

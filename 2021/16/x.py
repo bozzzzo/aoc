@@ -39,15 +39,19 @@ class Op(Insn):
 
 def bits(s, n):
     data, off = s
-    return int(data[:n], 2), (data[n:], off + n)
+    part, rest = data[:n]
+    print(off, part, rest)
+    return int(part, 2), (rest, off + n)
 
 def parse_packet(s):
     ver, s = bits(s, 3)
     typ, s = bits(s, 3)
     if typ == 4:
-        return parse_lit(s, ver, typ)
+        ret = parse_lit(s, ver, typ)
     else:
-        return parse_op(s, ver, typ)
+        ret = parse_op(s, ver, typ)
+    print(ret)
+    return ret
 
 def parse_lit(s, ver, typ):
     flag, s = bits(s, 1)

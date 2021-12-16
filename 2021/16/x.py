@@ -36,7 +36,7 @@ class Lit(Insn):
 @dataclass
 class Op(Insn):
     arg: List[Insn]
-
+ 
 def bits(s, n):
     data, off, ind = s
     part, rest = data[:n], data[n:]

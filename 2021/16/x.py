@@ -41,7 +41,7 @@ def bits(s, n):
     data, off, ind = s
     part, rest = data[:n], data[n:]
     val = int(part, 2)
-    print(f"{ind} [{off}]   ", val, part, rest)
+    # print(f"{ind} [{off}]   ", val, part, rest)
     return val, (rest, off + n, ind)
 
 def indent(s):

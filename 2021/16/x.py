@@ -144,6 +144,7 @@ def evalp(p):
             assert False, str(p.typ)
 
 def second(a):
+    return [eval(p) for p, _ in map(decode, a)]
     pass
 
 def test():

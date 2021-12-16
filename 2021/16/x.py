@@ -123,8 +123,8 @@ def first(a):
 
 def evalp(p):
     if isinstance(p, Lit):
-        return lit.val
-    if isinstance(p, Op):
+        return p.val
+    elif isinstance(p, Op):
         vals = tuple(map(evalp, p.arg))
         if p.typ == 0:
             return sum(vals)
@@ -142,6 +142,8 @@ def evalp(p):
             return operator.eq(*vals)
         else:
             assert False, str(p.typ)
+    else:
+        assert False, str(p)
 
 def second(a):
     return [evalp(p) for p, _ in map(decode, a)]

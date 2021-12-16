@@ -47,17 +47,21 @@ def indent(s):
     data, off, ind = s
     return (data, off, ind + "  ")
 
-def parse_packet(s):
+def decode(s):
+    print("==== ",s)
+    return decode_packet((bin(int(s, 16))[2:], 0, "  "))
+
+def decode_packet(s):
     ver, s = bits(s, 3)
     typ, s = bits(s, 3)
     if typ == 4:
-        ret = parse_lit(s, ver, typ)
+        ret = decode_lit(s, ver, typ)
     else:
-        ret = parse_op(s, ver, typ)
+        ret = decode_op(s, ver, typ)
     print(ret)
     return ret
 
-def parse_lit(s, ver, typ):
+def decode_lit(s, ver, typ):
     flag, s = bits(s, 1)
     result, s = bits(s, 4)
     while flag:
@@ -66,7 +70,7 @@ def parse_lit(s, ver, typ):
         result = result * 16 + part
     return Lit(ver, typ, result), s
 
-def parse_op(s, ver, typ):
+def decode_op(s, ver, typ):
     tid, s = bits(s, 1)
     arg = []
     if tid == 0:
@@ -81,7 +85,7 @@ def parse_op(s, ver, typ):
             print("cnt", len(arg), np)
             len(arg) == np
     while not stop(s, arg):
-        op, s = parse_packet(indent(s))
+        op, s = decode_packet(indent(s))
         arg.append(op)
     return Op(ver, typ, arg)
 
@@ -96,7 +100,7 @@ def versum(p):
 def first(a):
     vers = []
     for l in a:
-        p, s = parse_packet((l,0,""))
+        p, s = decode(l)
         v = versum(p)
         vers.append(v)
         print("=====", v, p, s)
@@ -147,7 +151,7 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    return tuple(bin(int(l.strip(), 16))[2:] for l in f)
+    return tuple(l.strip() for l in f)
 
 
 for name in [("test_input"),

@@ -38,7 +38,8 @@ class Op(Insn):
     arg: List[Insn]
 
 def bits(s, n):
-    return int(s[0][:n], 2), (s[0][n:], s[1] + n)
+    data, off = s
+    return int(data[:n], 2), (data[n:], off + n)
 
 def parse_packet(s):
     ver, s = bits(s, 3)
@@ -83,7 +84,7 @@ def versum(p):
     assert(False)
 
 def first(a):
-    return [(versum(p), p) for p in map(parse_packet, a)]
+    return [(versum(p), p) for p in (parse_packet((p,0)) for p in a)]
     pass
 
 

@@ -54,7 +54,7 @@ def dedent(s, ind):
     return (data, off, ind)
 
 def decode(s):
-    print("==== ",s)
+    # print("==== ",s)
     bits = "0000" + bin(int(s, 16))[2:]
     bits = bits[-4*len(s):]
     assert len(bits) == 4*len(s)
@@ -113,7 +113,7 @@ def first(a):
     print(a)
     vers = []
     for l in a:
-        print("===== l", l)
+        # print("===== l", l)
         p, s = decode(l)
         v = versum(p)
         vers.append(v)

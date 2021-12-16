@@ -39,7 +39,7 @@ class Op(Insn):
 
 def bits(s, n):
     data, off = s
-    part, rest = data[:n]
+    part, rest = data[:n], data[n:]
     print(off, part, rest)
     return int(part, 2), (rest, off + n)
 

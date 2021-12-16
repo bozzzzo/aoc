@@ -84,7 +84,7 @@ def versum(p):
     assert(False)
 
 def first(a):
-    return [(versum(p), p) for p in (parse_packet((p,0)) for p in a)]
+    return [(versum(p), p, s) for p, s in (parse_packet((p,0)) for p in a)]
     pass
 
 

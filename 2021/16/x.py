@@ -121,6 +121,28 @@ def first(a):
     return vers
 
 
+def evalp(p):
+    if isinstance(p, Lit):
+        return lit.val
+    if isinstance(p, Op):
+        vals = tuple(map(evalp, p.arg))
+        if p.typ == 0:
+            return sum(vals)
+        elif p.typ == 1:
+            return functools.reduce(operator.mul, vals)
+        elif p.typ == 2:
+            return min(vals)
+        elif p.typ == 3:
+            return max(vals)
+        elif p.typ == 5:
+            return operator.gt(*vals)
+        elif p.typ == 6:
+            return operator.lt(*vals)
+        elif p.typ == 7:
+            return operator.eq(*vals)
+        else:
+            assert False, str(p.typ)
+
 def second(a):
     pass
 

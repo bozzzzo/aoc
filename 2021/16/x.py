@@ -90,7 +90,7 @@ def versum(p):
 def first(a):
     vers = []
     for l in a:
-        p, s = parse_packet((p,0))
+        p, s = parse_packet((l,0))
         v = versum(p)
         vers.append(v)
         print("=====", v, p, s)

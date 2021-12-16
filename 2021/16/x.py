@@ -99,7 +99,7 @@ def decode_op(s, ver, typ):
         op, s = decode_packet(s)
         arg.append(op)
     s = dedent(s, ind)
-    return Op(ver, typ, arg)
+    return Op(ver, typ, arg), s
 
 
 def versum(p):

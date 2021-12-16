@@ -110,8 +110,10 @@ def versum(p):
     assert(False)
 
 def first(a):
+    print(a)
     vers = []
     for l in a:
+        print("===== l")
         p, s = decode(l)
         v = versum(p)
         vers.append(v)

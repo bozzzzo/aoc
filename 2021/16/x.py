@@ -46,6 +46,9 @@ def bits(s, n):
 def indent(s):
     data, off, ind = s
     return (data, off, ind + "  ")
+def dedent(s, ind):
+    data, off, _ = s
+    return (data, off, ind)
 
 def decode(s):
     print("==== ",s)
@@ -84,9 +87,11 @@ def decode_op(s, ver, typ):
         def stop(s, arg):
             print("cnt", len(arg), np)
             len(arg) == np
+    ind = s[2]
     while not stop(s, arg):
         op, s = decode_packet(indent(s))
         arg.append(op)
+    s = dedent(s, ind)
     return Op(ver, typ, arg)
 
 

@@ -58,7 +58,7 @@ def decode_packet(s):
         ret = decode_lit(s, ver, typ)
     else:
         ret = decode_op(s, ver, typ)
-    print(ret)
+    print(s[2], ret)
     return ret
 
 def decode_lit(s, ver, typ):

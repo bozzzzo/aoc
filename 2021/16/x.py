@@ -78,18 +78,18 @@ def decode_lit(s, ver, typ):
 def decode_op(s, ver, typ):
     tid, s = bits(s, 1)
     arg = []
+    ind = s[2]
     if tid == 0:
         tlib, s = bits(s, 15)
         pos = s
         def stop(s, arg):
-            print("len", s[1], tlib + pos[1], tlib, pos[1])
+            print(ind, "len", s[1], tlib + pos[1], tlib, pos[1])
             s[1] >= tlib + pos[1]
     elif tid == 1:
         np, s = bits(s, 11)
         def stop(s, arg):
-            print("cnt", len(arg), np)
+            print(ind, "cnt", len(arg), np)
             len(arg) == np
-    ind = s[2]
     while not stop(s, arg):
         op, s = decode_packet(indent(s))
         arg.append(op)

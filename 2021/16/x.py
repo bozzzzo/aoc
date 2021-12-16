@@ -38,10 +38,14 @@ class Op(Insn):
     arg: List[Insn]
 
 def bits(s, n):
-    data, off = s
+    data, off, ind = s
     part, rest = data[:n], data[n:]
-    print(off, part, rest)
-    return int(part, 2), (rest, off + n)
+    print(ind, off, part, rest)
+    return int(part, 2), (rest, off + n, ind)
+
+def indent(s):
+    data, off, ind = s
+    return (data, off, ind + "  ")
 
 def parse_packet(s):
     ver, s = bits(s, 3)
@@ -77,7 +81,7 @@ def parse_op(s, ver, typ):
             print("cnt", len(arg), np)
             len(arg) == np
     while not stop(s, arg):
-        op, s = parse_packet(s)
+        op, s = parse_packet(indent(s))
         arg.append(op)
     return Op(ver, typ, arg)
 
@@ -92,7 +96,7 @@ def versum(p):
 def first(a):
     vers = []
     for l in a:
-        p, s = parse_packet((l,0))
+        p, s = parse_packet((l,0,""))
         v = versum(p)
         vers.append(v)
         print("=====", v, p, s)

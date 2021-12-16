@@ -55,11 +55,11 @@ def parse_packet(s):
 
 def parse_lit(s, ver, typ):
     flag, s = bits(s, 1)
-    result, s = bits(s, 3)
+    result, s = bits(s, 4)
     while flag:
         flag, s = bits(s, 1)
-        part, s = bits(s, 3)
-        result = result * 8 + part
+        part, s = bits(s, 4)
+        result = result * 16 + part
     return Lit(ver, typ, result), s
 
 def parse_op(s, ver, typ):

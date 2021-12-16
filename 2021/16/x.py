@@ -54,7 +54,9 @@ def dedent(s, ind):
 
 def decode(s):
     print("==== ",s)
-    return decode_packet((bin(int(s, 16))[2:], 0, "  "))
+    bits = bin(int(s, 16))[2:]
+    assert(len(bits) == 4*len(s))
+    return decode_packet((bits, 0, "  "))
 
 def decode_packet(s):
     ver, s = bits(s, 3)

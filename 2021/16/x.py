@@ -74,9 +74,7 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    initial, ruless = f.read().split('\n\n')
-    rules = dict(tuple(l.split(' -> ')) for l in ruless.splitlines())
-    return (initial, rules)
+    return tuple(l.strip() for l in f)
 
 
 for name in [("test_input"),
@@ -85,7 +83,7 @@ for name in [("test_input"),
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
-        a = parse_grid(f)
+        a = parse(f)
     print(a)
 
     w = first(a)

@@ -69,10 +69,12 @@ def parse_op(s, ver, typ):
         tlib, s = bits(s, 15)
         pos = s
         def stop(s, arg):
+            print("len", s[1], tlib + pos[1], tlib, pos[1])
             s[1] >= tlib + pos[1]
     elif tid == 1:
         np, s = bits(s, 11)
         def stop(s, arg):
+            print("cnt", len(arg), np)
             len(arg) == np
     while not stop(s, arg):
         op, s = parse_packet(s)

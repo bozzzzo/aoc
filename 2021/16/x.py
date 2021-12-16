@@ -135,11 +135,11 @@ def evalp(p):
         elif p.typ == 3:
             return max(vals)
         elif p.typ == 5:
-            return operator.gt(*vals)
+            return int(operator.gt(*vals))
         elif p.typ == 6:
-            return operator.lt(*vals)
+            return int(operator.lt(*vals))
         elif p.typ == 7:
-            return operator.eq(*vals)
+            return int(operator.eq(*vals))
         else:
             assert False, str(p.typ)
     else:

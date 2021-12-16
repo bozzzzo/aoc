@@ -24,9 +24,66 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+@dataclass
+class Insn:
+    ver: int
+    typ: int
 
+@dataclass
+class Lit(Insn):
+    val: int
+
+@dataclass
+class Op(Insn):
+    arg: List[Insn]
+
+def bits(s, n):
+    return int(s[0][:n], 2), (s[0][n:], s[1] + n)
+
+def parse_packet(s):
+    ver, s = bits(s, 3)
+    typ, s = bits(s, 3)
+    if typ == 4:
+        return parse_lit(s, ver, typ)
+    else:
+        return parse_op(s, ver, typ)
+
+def parse_lit(s, ver, typ):
+    flag, s = bits(s, 1)
+    result, s = bits(s, 3)
+    while flag:
+        flag, s = bits(s, 1)
+        part, s = bits(s, 3)
+        result = result * 8 + part
+    return Lit(ver, typ, result), s
+
+def parse_op(s, ver, typ):
+    tid, s = bits(s, 1)
+    arg = []
+    if tid == 0:
+        tlib, s = bits(s, 15)
+        pos = s
+        def stop(s, arg):
+            s[1] >= tlib + pos[1]
+    elif tid == 1:
+        np, s = bits(s, 11)
+        def stop(s, arg):
+            len(arg) == np
+    while not stop(s, arg):
+        op, s = parse_packet(s)
+        arg.append(op)
+    return Op(ver, typ, arg)
+
+
+def versum(p):
+    if isinstance(p, Lit):
+        return p.ver
+    if isinstance(p, Op):
+        return p.ver + sum(map(versum, p.arg))
+    assert(False)
 
 def first(a):
+    return [(versum(p), p) for p in map(parse_packet, a)]
     pass
 
 

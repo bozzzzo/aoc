@@ -89,7 +89,7 @@ def decode_op(s, ver, typ):
         np, s = bits(s, 11)
         def stop(s, arg):
             print(ind, "cnt", len(arg), np)
-            len(arg) == np
+            len(arg) >= np
     while not stop(s, arg):
         op, s = decode_packet(indent(s))
         arg.append(op)

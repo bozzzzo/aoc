@@ -40,8 +40,9 @@ class Op(Insn):
 def bits(s, n):
     data, off, ind = s
     part, rest = data[:n], data[n:]
-    print(ind, off, part, rest)
-    return int(part, 2), (rest, off + n, ind)
+    val = int(part, 2)
+    print(f"{ind} [{off}]   ", val, part, rest)
+    return val, (rest, off + n, ind)
 
 def indent(s):
     data, off, ind = s

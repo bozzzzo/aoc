@@ -47,6 +47,7 @@ def indent(s):
     data, off, ind = s
     return (data, off, ind + "  ")
 
+
 def dedent(s, ind):
     data, off, _ = s
     return (data, off, ind)

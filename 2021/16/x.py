@@ -74,7 +74,7 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    return tuple(l.strip() for l in f)
+    return tuple(bin(int(l.strip(), 16))[2:] for l in f)
 
 
 for name in [("test_input"),

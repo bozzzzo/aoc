@@ -88,8 +88,13 @@ def versum(p):
     assert(False)
 
 def first(a):
-    return [(versum(p), p, s) for p, s in (parse_packet((p,0)) for p in a)]
-    pass
+    vers = []
+    for l in a:
+        p, s = parse_packet((p,0))
+        v = versum(p)
+        vers.append(v)
+        print("=====", v, p, s)
+    return vers
 
 
 def second(a):

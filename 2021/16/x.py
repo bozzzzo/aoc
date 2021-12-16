@@ -117,7 +117,7 @@ def first(a):
         p, s = decode(l)
         v = versum(p)
         vers.append(v)
-        print("=====", v, p, s)
+        # print("=====", v, p, s)
     return vers
 
 

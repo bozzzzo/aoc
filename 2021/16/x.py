@@ -88,12 +88,12 @@ def decode_op(s, ver, typ):
         pos = s
         def stop(s, arg):
             print(ind, "len", s[1], tlib + pos[1], tlib, pos[1])
-            s[1] >= tlib + pos[1]
+            return s[1] >= tlib + pos[1]
     elif tid == 1:
         np, s = bits(s, 11)
         def stop(s, arg):
             print(ind, "cnt", len(arg), np)
-            len(arg) >= np
+            return len(arg) >= np
     s, ind = indent(s)
     while not stop(s, arg):
         op, s = decode_packet(s)

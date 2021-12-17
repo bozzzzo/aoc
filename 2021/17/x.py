@@ -79,7 +79,7 @@ def first(a):
 
     d = max(map(snd, g))
 
-    if d < 100:
+    if d < 1:
         show_grid(g)
 
     return d

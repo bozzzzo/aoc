@@ -58,10 +58,10 @@ def calc_launch(a):
     while tmin * (tmin + 1) < minx:
         tmin += 1
     tmax = int(math.sqrt(2 * maxx))
-    while tmax * (tmax + 1) <= maxx:
-        tmax += 1
     while tmax * (tmax + 1) > maxx:
         tmax -= 1
+    while tmax * (tmax + 1) <= maxx:
+        tmax += 1
     print(tmin, tmax)
 
     return(tmax,-miny-1)

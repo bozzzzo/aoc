@@ -79,7 +79,7 @@ def show_grid(a):
     My = max(map(snd, a))
     print("\n".join("".join(str(a.get((x,y), ' '))
                             for x in irange(mx,Mx))
-                    for y in irange(my,My)))
+                    for y in irange(My,my)))
 
 def parse_grid(f):
     def parse_line(l):

@@ -113,13 +113,8 @@ def second(a):
 
     T = show_target(a)
     avs=tuple((x,y) for x in range(1, maxx+1) for y in irange(-miny+2,miny-2))
-    print("avslen = ", len(avs))
     vs=tuple(c for c in avs if in_target(T, c))
-    
-    print("vs     ", sorted(vs))
-    
-    print("missing", sorted(set(exp) - set(vs)))
-    print("extra  ", sorted(set(vs) - set(exp)))
+
 
     return len(vs)
     pass

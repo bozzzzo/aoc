@@ -64,7 +64,7 @@ def calc_launch(a):
         tmax -= 1
     print(tmin, tmax)
 
-    return(tmin,-miny-1)
+    return(tmax,-miny-1)
     
 
 

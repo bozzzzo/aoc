@@ -42,8 +42,7 @@ def show_launch(a, v):
     t = tuple(launch(a, v))
     
     g.update((c,'#') for c in t)
-    print(g)
-    print(a, vx, vy)
+    print(a, v)
     show_grid(g)
     return t
 

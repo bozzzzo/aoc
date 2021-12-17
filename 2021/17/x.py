@@ -44,7 +44,7 @@ def show_launch(a, vx, vy):
     return t
 
 def first(a):
-    show_launch(5,5)
+    show_launch(a, 5,5)
     pass
 
 

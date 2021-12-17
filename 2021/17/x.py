@@ -111,7 +111,9 @@ def second(a):
 27,-10  7,2     30,-9   21,-8   22,-7   24,-9   20,-6   6,9     29,-5
 8,-2    27,-8   30,-5   24,-7""".split())
     print(exp)
-    print(sorted(vs+vds))
+    print()
+    print(sorted(vs))
+    print(sorted(vds))
     return len(vs) + len(vds)
     pass
 
@@ -164,7 +166,7 @@ def parse(f):
 
 for name in [("test_input"),
              #("test_input2"),("test_input3"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

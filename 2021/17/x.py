@@ -25,8 +25,9 @@ def irange(a,b):
     return range(a,b+d,d)
 
 
-def launch(a, vx, vy):
-    x,y = 0,0
+def launch(a, v):
+    x, y = 0,0
+    vx, vy = v
     (minx, maxx), (miny, maxy) = a
     while x <= maxx and y > miny:
         yield x,y
@@ -36,9 +37,9 @@ def launch(a, vx, vy):
         vy += -1
 
 
-def show_launch(a, vx, vy):
+def show_launch(a, v):
     g = {(x,y):'T' for x in irange(*a[0]) for y in irange(*a[1])}
-    t = tuple(launch(a, vx, vy))
+    t = tuple(launch(a, v))
     
     g.update((c,'#') for c in t)
     print(g)
@@ -46,8 +47,12 @@ def show_launch(a, vx, vy):
     show_grid(g)
     return t
 
+def calc_launch(a):
+    return(6,5)
+
+
 def first(a):
-    show_launch(a, 5,5)
+    show_launch(a, calc_launch(a))
     pass
 
 

@@ -73,7 +73,7 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    l = [x.split('=')[1].split('..') for x in f.readline().split(',')]
+    l = tuple(tuple(map(int, x.split('=')[1].split('..'))) for x in f.readline().split(','))
     return l 
 
 for name in [("test_input"),

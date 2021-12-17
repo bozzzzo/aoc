@@ -40,7 +40,7 @@ def launch(a, v):
 
 def in_target(T, v):
     for c in launch(a,v):
-        if c in T
+        if c in T:
             return True
     return False
 

@@ -113,7 +113,7 @@ def second(a):
     (minx, maxx), (miny, maxy) = a
 
     vs=tuple((x,y) for x in range(maxx+1) for y in range(-miny+1,miny+2)
-            if in_range(a, (x,y)))
+            if in_target(a, (x,y)))
 
     print(sorted(vs))
 

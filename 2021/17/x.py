@@ -54,7 +54,7 @@ def calc_launch(a):
     while tmin * (tmin + 1) >= minx:
         tmin -= 1
     tmax = int(math.sqrt(2 * maxx))
-    while tmin * (tmin + 1) <= minx:
+    while tmax * (tmax + 1) <= minx:
         tmax += 1
     print(tmin, tmax)
 

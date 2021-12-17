@@ -39,7 +39,7 @@ def launch(a, vx, vy):
 def show_launch(a, vx, vy):
     g = {(x,y):'T' for x in irange(*a[0]) for y in irange(*a[1])}
     t = tuple(trace(a, vx, vy))
-    g.update((c:'#') for c in t)
+    g.update((c,'#') for c in t)
     show_grid(g)
     return t
 

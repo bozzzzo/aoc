@@ -40,6 +40,8 @@ def launch(a, v):
 
 def in_target(a, v):
     (minx, maxx), (miny, maxy) = a
+    assert minx < maxx
+    assert miny < maxy
     for x,y in launch(a,v):
         if minx <= x <= maxx and miny <= y <= maxy:
             return True
@@ -112,7 +114,7 @@ def second(a):
 
     (minx, maxx), (miny, maxy) = a
 
-    vs=tuple((x,y) for x in range(maxx+1) for y in range(-miny+1,miny+2)
+    vs=tuple((x,y) for x in range(1, maxx+1) for y in range(-miny+1,miny+2)
             if in_target(a, (x,y)))
     
     print("vs     ", sorted(vs))

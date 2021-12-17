@@ -24,7 +24,27 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+
+def launch(a, vx, vy):
+    x,y = 0,0
+    (minx, maxx), (miny, maxy) = a
+    while x <= maxx and y > ymin:
+        yield x,y
+        x += vx
+        y += vy
+        vx += -1 if vx > 0 else 1 if vx < 0 else 0
+        vy += -1
+
+
+def show_launch(a, vx, vy):
+    g = {(x,y):'T' for x in irange(*a[0]) for y in irange(*a[1])}
+    t = tuple(trace(a, vx, vy))
+    g.update((c:'#') for c in t)
+    show_grid(g)
+    return t
+
 def first(a):
+    show_launch(5,5)
     pass
 
 
@@ -51,7 +71,7 @@ def strint(x):
 
 def show_grid(a):
     mx, my = max(a)
-    print("\n".join("".join(str(a[(x,y)])
+    print("\n".join("".join(str(a.get((x,y), ' '))
                             for x in range(mx+1))
                     for y in range(my+1)))
 

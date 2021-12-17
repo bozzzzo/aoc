@@ -108,17 +108,17 @@ def second(a):
 23,-5   24,-8   27,-9   30,-7   28,-5   21,-10  7,9     6,6     21,-5
 27,-10  7,2     30,-9   21,-8   22,-7   24,-9   20,-6   6,9     29,-5
 8,-2    27,-8   30,-5   24,-7""".split())
-    print(exp)
+    print("exp    ", exp)
 
     (minx, maxx), (miny, maxy) = a
 
     vs=tuple((x,y) for x in range(maxx+1) for y in range(-miny+1,miny+2)
             if in_target(a, (x,y)))
-
-    print(sorted(vs))
-
+    
+    print("vs     ", sorted(vs))
+    
     print("missing", sorted(set(exp) - set(vs)))
-    print("extra", sorted(set(exp) - set(vs)))
+    print("extra  ", sorted(set(vs) - set(exp)))
 
     return len(vs)
     pass

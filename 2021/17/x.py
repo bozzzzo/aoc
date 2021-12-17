@@ -112,8 +112,9 @@ def second(a):
     (minx, maxx), (miny, maxy) = a
 
     T = show_target(a)
-    vs=tuple((x,y) for x in range(1, maxx+1) for y in range(-miny+1,miny+2)
-            if in_target(T, (x,y)))
+    avs=tuple((x,y) for x in range(1, maxx+1) for y in irange(-miny+2,miny-2))
+    vs=tuple(c for c in avs
+            if in_target(T, c)
     
     print("vs     ", sorted(vs))
     

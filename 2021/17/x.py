@@ -30,7 +30,7 @@ def launch(a, v):
     x, y = 0,0
     vx, vy = v
     (minx, maxx), (miny, maxy) = a
-    while x <= maxx and y > miny:
+    while x <= maxx and y >= miny:
         yield x,y
         x += vx
         y += vy

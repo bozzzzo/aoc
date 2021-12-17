@@ -43,7 +43,7 @@ def show_launch(a, v):
     t = tuple(launch(a, v))
     g.update((c,'#') for c in t)
     print(a, v)
-    y = map(snd, t)
+    y = tuple(map(snd, t))
     if max(y) - min(y) < 100:
         print(t)
         show_grid(g)

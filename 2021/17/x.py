@@ -62,7 +62,11 @@ def calc_launch(a):
     print(tmin, tmax)
 
     return((tmin, tmax),(-miny-1, -maxy-1))
-    
+
+def calc_launch2(a):
+    (minx, maxx), (miny, maxy) = a
+    (tmin, tmax), _ = calc_launch(a)
+
 
 
 def first(a):
@@ -169,7 +173,7 @@ def parse(f):
 
 for name in [("test_input"),
              #("test_input2"),("test_input3"),
-             ("input")][:1
+             ("input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

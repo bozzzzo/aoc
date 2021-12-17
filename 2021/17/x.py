@@ -34,7 +34,7 @@ def launch(a, v):
         yield x,y
         x += vx
         y += vy
-        vx += -1 if vx > 0 else 0
+        vx += -1 if vx > 0 else 1 if vx < 0 else 0
         vy += -1
 
 

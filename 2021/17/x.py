@@ -69,7 +69,7 @@ def calc_launch(a):
 
 
 def first(a):
-    show_launch(a, calc_launch(a))
+    return show_launch(a, calc_launch(a))
     pass
 
 

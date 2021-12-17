@@ -114,6 +114,9 @@ def second(a):
     print()
     print(sorted(vs))
     print(sorted(vds))
+    print()
+    print(sorted(set(exp) - set(vs) - set(vds)))
+
     return len(vs) + len(vds)
     pass
 

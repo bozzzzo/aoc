@@ -58,7 +58,7 @@ def calc_launch(a):
         tmax += 1
     print(tmin, tmax)
 
-    return(1,1)
+    return(tmin,1)
     
 
 

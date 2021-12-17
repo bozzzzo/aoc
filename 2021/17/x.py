@@ -5,6 +5,7 @@ import collections
 import pprint
 import operator
 import time
+import math
 from dataclasses import dataclass, replace, field
 import numpy as np
 from typing import *
@@ -33,7 +34,7 @@ def launch(a, v):
         yield x,y
         x += vx
         y += vy
-        vx += -1 if vx > 0 else 1 if vx < 0 else 0
+        vx += -1 if vx > 0 else 0
         vy += -1
 
 
@@ -47,7 +48,18 @@ def show_launch(a, v):
     return t
 
 def calc_launch(a):
-    return(6,5)
+    (minx, maxx), (miny, maxy) = a
+    # 1 + 2 + 3 + 4 + .. + t = (t+1) * t / 2
+    tmin = int(math.sqrt(2 * minx))
+    while tmin * (tmin + 1) >= minx:
+        tmin -= 1
+    tmax = int(math.sqrt(2 * maxx))
+    while tmin * (tmin + 1) <= minx:
+        tmax += 1
+    print(tmin, tmax)
+
+    return(1,1)
+    
 
 
 def first(a):

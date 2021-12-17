@@ -71,10 +71,11 @@ def strint(x):
 
 
 def show_grid(a):
-    mx, my = max(a)
+    Mx, My = max(a)
+    mx, my = min(a)
     print("\n".join("".join(str(a.get((x,y), ' '))
-                            for x in range(mx+1))
-                    for y in range(my+1)))
+                            for x in irange(mx,Mx))
+                    for y in irange(my,My)))
 
 def parse_grid(f):
     def parse_line(l):

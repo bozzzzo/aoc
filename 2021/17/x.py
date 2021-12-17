@@ -48,7 +48,8 @@ def show_launch(a, v):
         print(t)
         show_grid(g)
     else:
-        print(t)
+        pass
+    #print(t)
     return max(y)
 
 def calc_launch(a):

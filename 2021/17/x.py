@@ -67,10 +67,22 @@ def calc_launch(a):
 
 def first(a):
     l = calc_launch(a)
-    for vx in irange(l[0]):
-        for vy in irange(l[1])
+    g = show_target(a)
+    vs = tuple((vx, vy)
+              for vx in irange(l[0])
+              for vy in irange(l[1]))
+    def label(i):
+        l = 'abcdefghijklmnopqrstuvz1234567890'
+        return l[i] if i < len(l) else '#'
+    for i, v in enumerate(vs):
+        g, t = show_launch(a, v, label(i), g)
 
-    return show_launch(a, calc_launch(a))
+    d = max(map(snd, g))
+
+    if d < 100:
+        show_grid(g)
+
+    return d
     pass
 
 

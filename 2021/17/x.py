@@ -28,7 +28,7 @@ def irange(a,b):
 def launch(a, vx, vy):
     x,y = 0,0
     (minx, maxx), (miny, maxy) = a
-    while x <= maxx and y > ymin:
+    while x <= maxx and y > miny:
         yield x,y
         x += vx
         y += vy

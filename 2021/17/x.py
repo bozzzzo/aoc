@@ -41,11 +41,15 @@ def launch(a, v):
 def show_launch(a, v):
     g = {(x,y):'T' for x in irange(*a[0]) for y in irange(*a[1])}
     t = tuple(launch(a, v))
-    
     g.update((c,'#') for c in t)
     print(a, v)
-    show_grid(g)
-    return t
+    y = map(snd, t)
+    if max(y) - min(y) < 100:
+        print(t)
+        show_grid(g)
+    else:
+        print(t)
+    return max(y)
 
 def calc_launch(a):
     (minx, maxx), (miny, maxy) = a

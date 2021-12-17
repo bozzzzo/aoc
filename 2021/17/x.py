@@ -38,6 +38,13 @@ def launch(a, v):
         vy += -1
 
 
+def in_target(a, v):
+    (minx, maxx), (miny, maxy) = a
+    for x,y in launch(a,v):
+        if minx <= x <= maxx and miny <= y <= maxy:
+            return True
+    return False
+
 def show_target(a):
     return {(x,y):'T' for x in irange(*a[0]) for y in irange(*a[1])}
 
@@ -63,11 +70,6 @@ def calc_launch(a):
 
     return((tmin, tmax),(-miny-1, -maxy-1))
 
-def calc_launch2(a):
-    (minx, maxx), (miny, maxy) = a
-    (tmin, tmax), _ = calc_launch(a)
-
-
 
 def first(a):
     l = calc_launch(a)
@@ -92,14 +94,6 @@ def first(a):
 
 
 def second(a):
-    l = calc_launch(a)
-    g = show_target(a)
-    vs = tuple((vx, vy)
-              for vx in irange(*l[0])
-              for vy in irange(*l[1]))
-    vds = tuple((vx, vy)
-                for vx in irange(*a[0])
-                for vy in irange(*a[1]))
     exp = sorted(tuple(map(int, v.split(','))) for v in
                  """23,-10  25,-9   27,-5   29,-6   22,-6   21,-7   9,0     27,-7   24,-5
 25,-7   26,-6   25,-5   6,8     11,-2   20,-5   29,-10  6,3     28,-7
@@ -115,13 +109,18 @@ def second(a):
 27,-10  7,2     30,-9   21,-8   22,-7   24,-9   20,-6   6,9     29,-5
 8,-2    27,-8   30,-5   24,-7""".split())
     print(exp)
-    print()
-    print(sorted(vs))
-    print(sorted(vds))
-    print()
-    print(sorted(set(exp) - set(vs) - set(vds)))
 
-    return len(vs) + len(vds)
+    (minx, maxx), (miny, maxy) = a
+
+    vs=tuple((x,y) for x in range(maxx+1) for y in range(-miny+1,miny+2)
+            if in_range(a, (x,y)))
+
+    print(sorted(vs))
+
+    print("missing", sorted(set(exp) - set(vs)))
+    print("extra", sorted(set(exp) - set(vs)))
+
+    return len(vs)
     pass
 
 def test():

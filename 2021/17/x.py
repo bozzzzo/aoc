@@ -73,8 +73,10 @@ def strint(x):
 
 
 def show_grid(a):
-    Mx, My = max(a)
-    mx, my = min(a)
+    mx = min(map(fst, a))
+    my = min(map(snd, a))
+    Mx = max(map(fst, a))
+    My = max(map(snd, a))
     print("\n".join("".join(str(a.get((x,y), ' '))
                             for x in irange(mx,Mx))
                     for y in irange(my,My)))

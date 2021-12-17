@@ -69,8 +69,8 @@ def first(a):
     l = calc_launch(a)
     g = show_target(a)
     vs = tuple((vx, vy)
-              for vx in irange(l[0])
-              for vy in irange(l[1]))
+              for vx in irange(*l[0])
+              for vy in irange(*l[1]))
     def label(i):
         l = 'abcdefghijklmnopqrstuvz1234567890'
         return l[i] if i < len(l) else '#'

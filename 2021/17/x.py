@@ -51,11 +51,13 @@ def calc_launch(a):
     (minx, maxx), (miny, maxy) = a
     # 1 + 2 + 3 + 4 + .. + t = (t+1) * t / 2
     tmin = int(math.sqrt(2 * minx))
-    while tmin * (tmin + 1) >= minx:
-        tmin -= 1
+    while tmin * (tmin + 1) < minx:
+        tmin += 1
     tmax = int(math.sqrt(2 * maxx))
-    while tmax * (tmax + 1) <= minx:
+    while tmax * (tmax + 1) <= maxx:
         tmax += 1
+    while tmax * (tmax + 1) > maxx:
+        tmax -= 1
     print(tmin, tmax)
 
     return(tmin+1,1)

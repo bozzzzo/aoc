@@ -113,8 +113,7 @@ def second(a):
 
     T = show_target(a)
     avs=tuple((x,y) for x in range(1, maxx+1) for y in irange(-miny+2,miny-2))
-    vs=tuple(c for c in avs
-            if in_target(T, c)
+    vs=tuple(c for c in avs if in_target(T, c))
     
     print("vs     ", sorted(vs))
     

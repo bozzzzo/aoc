@@ -30,7 +30,7 @@ def launch(a, v):
     x, y = 0,0
     vx, vy = v
     (minx, maxx), (miny, maxy) = a
-    while x <= maxx and y >= miny:
+    while x <= maxx+5 and y >= miny-5:
         yield x,y
         x += vx
         y += vy
@@ -38,19 +38,15 @@ def launch(a, v):
         vy += -1
 
 
-def show_launch(a, v):
-    g = {(x,y):'T' for x in irange(*a[0]) for y in irange(*a[1])}
+def show_target(a):
+    return {(x,y):'T' for x in irange(*a[0]) for y in irange(*a[1])}
+
+def show_launch(a, v, m, g=None):
+    if g is None:
+        g = show_target(a)
     t = tuple(launch(a, v))
-    g.update((c,'#') for c in t)
-    print(a, v)
-    y = tuple(map(snd, t))
-    if max(y) - min(y) < 100:
-        print(t)
-        show_grid(g)
-    else:
-        pass
-    #print(t)
-    return max(y)
+    g.update((c,m) for c in t)
+    return g, t
 
 def calc_launch(a):
     (minx, maxx), (miny, maxy) = a
@@ -65,11 +61,15 @@ def calc_launch(a):
         tmax -= 1
     print(tmin, tmax)
 
-    return(tmin,-miny-1)
+    return((tmin, tmax),(-miny-1, -maxy-1))
     
 
 
 def first(a):
+    l = calc_launch(a)
+    for vx in irange(l[0]):
+        for vy in irange(l[1])
+
     return show_launch(a, calc_launch(a))
     pass
 

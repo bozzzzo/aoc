@@ -88,6 +88,15 @@ def first(a):
 
 
 def second(a):
+    l = calc_launch(a)
+    g = show_target(a)
+    vs = tuple((vx, vy)
+              for vx in irange(*l[0])
+              for vy in irange(*l[1]))
+    vds = tuple((vx, vy)
+                for vx in irange(*a[0])
+                for vy in irange(*a[1]))
+    return len(vs) + len(vds)
     pass
 
 def test():

@@ -187,6 +187,7 @@ def first(a):
 
 
 def second(a):
+    return max((a+b).magnitude for a,b in itertools.permutations(a, 2))
     pass
 
 def test():

@@ -52,7 +52,7 @@ class Num:
         return str(self.n)
 
     def __eq__(self, other):
-        return type(self) is type(other) and self.n == other.n
+        return isinstance(other, type(self)) and self.n == other.n
 
 class Pair:
     def __init__(self, l, r):
@@ -176,7 +176,7 @@ class Pair:
         return str(self)
 
     def __eq__(self, other):
-        return type(self) is type(other) and self.l == other.l and self.r == other.r
+        return isinstance(other, type(self)) and self.l == other.l and self.r == other.r
 
 def first(a):
     s = functools.reduce(operator.add, a)

@@ -199,7 +199,7 @@ def test():
     p = Pair.make([1,1])
     _(p, p.copy())
     _(p+p, Pair.make([[1,1],[1,1]]))
-    _(Pair.make([9,0]) + p, Pair.make([[5,5],0]))
+    _(Pair.make([9,0]) + p, Pair.make([[9,0],[1,1]]))
     pass
 
 

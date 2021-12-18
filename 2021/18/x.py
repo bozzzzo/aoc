@@ -97,7 +97,7 @@ class Pair:
             if p.max >= 10:
                 p = p.split()
                 continue
-            print()
+            # print()
             return p
 
     def prevnumber(self):
@@ -145,7 +145,7 @@ class Pair:
         else:
             assert False
         z._link(pp)
-        print("explode", p, pn, z.p, nn)
+        # print("explode", p, pn, z.p, nn)
         return self
 
     def split(self):
@@ -162,7 +162,7 @@ class Pair:
         else:
             assert False
         np._link(pp)
-        print("split", p, np)
+        # print("split", p, np)
         return self
 
     @property
@@ -246,8 +246,9 @@ def parse(f):
 
 
 for name in [("test_input"),
-             #("test_input2"),("test_input3"),
-             ("input")][:1
+             ("test_input2"),
+             # ("test_input3"),
+             ("input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

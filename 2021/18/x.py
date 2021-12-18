@@ -51,6 +51,9 @@ class Num:
     def __str__(self):
         return str(self.n)
 
+    def __eq__(self, other):
+        return type(self) is type(other) and self.n == other.n
+
 class Pair:
     def __init__(self, l, r):
         self.l = l
@@ -172,6 +175,9 @@ class Pair:
     def __repr__(self):
         return str(self)
 
+    def __eq__(self, other):
+        return type(self) is type(other) and self.l == other.l and self.r == other.r
+
 def first(a):
     s = functools.reduce(operator.add, a)
     print(s)
@@ -187,6 +193,13 @@ def test():
     def _(a,b):
         print()
         assert a==b, f"{a}!={b}"
+
+    _(Num(1), Num(1))
+    _(Pair.make([1,1]), Pair.make([1,1]))
+    p = Pair.make([1,1])
+    _(p, p.copy())
+    _(p+p, Pair.make([2,2]))
+    _(Pair.make([9,0]) + p, Pair.make([[5,5],0]))
     pass
 
 
@@ -232,7 +245,7 @@ def parse(f):
 
 for name in [("test_input"),
              #("test_input2"),("test_input3"),
-             ("input")][:1
+             ("input")][:0
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

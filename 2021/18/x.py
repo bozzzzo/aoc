@@ -166,7 +166,7 @@ class Pair:
         return 3*self.l.magnitude + 2*self.r.magnitude
 
     def __str__(self):
-        return f"<{p.l}, {p.r}>"
+        return f"<{self.l}, {self.r}>"
 
 def first(a):
     s = functools.reduce(operator.add, a)

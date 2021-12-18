@@ -168,6 +168,9 @@ class Pair:
     def __str__(self):
         return f"<{self.l}, {self.r}>"
 
+    def __repr__(self):
+        return str(self)
+
 def first(a):
     s = functools.reduce(operator.add, a)
     print(s)

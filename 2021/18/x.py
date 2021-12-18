@@ -166,7 +166,7 @@ class Pair:
         return 3*self.l.magnitude + 2*self.r.magnitude
 
     def __str__(self):
-        return f"[{p.l}, {p.r}]"
+        return f"<{p.l}, {p.r}>"
 
 def first(a):
     s = functools.reduce(operator.add, a)
@@ -223,7 +223,7 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    return [json.loads(l) for l in f]
+    return [Pair.make(json.loads(l)) for l in f]
 
 
 for name in [("test_input"),

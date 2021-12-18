@@ -170,6 +170,8 @@ class Pair:
 
 def first(a):
     s = functools.reduce(operator.add, a)
+    print(s)
+    return s.magnitude
     pass
 
 

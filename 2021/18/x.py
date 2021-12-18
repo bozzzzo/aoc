@@ -248,7 +248,7 @@ def parse(f):
 for name in [("test_input"),
              ("test_input2"),
              # ("test_input3"),
-             ("input")][:2
+             ("input")][:3
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

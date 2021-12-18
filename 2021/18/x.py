@@ -52,7 +52,7 @@ class Num:
         return str(self.n)
 
 class Pair:
-    def __init__(self, l, r, *):
+    def __init__(self, l, r):
         self.l = l
         self.r = r
         self.p = None

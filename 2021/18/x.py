@@ -141,7 +141,7 @@ class Pair:
         else:
             assert False
         z._link(pp)
-        print("explode", p, pn.p, z.p, nn.p)
+        print("explode", p, pn, z.p, nn)
         return self
 
     def split(self):

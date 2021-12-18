@@ -80,7 +80,7 @@ def parse_graph(f):
 
 def parse(f):
     return [json.loads(l) for l in f]
-    return l 
+
 
 for name in [("test_input"),
              #("test_input2"),("test_input3"),

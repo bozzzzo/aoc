@@ -86,6 +86,7 @@ class Pair:
         return self._make(self.copy(), other.copy()).reduce()
 
     def reduce(self):
+        print()
         p = self
         while True:
             if p.d >= 4:

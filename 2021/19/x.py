@@ -56,7 +56,7 @@ def gen_trans(a,b):
             bp = (b[0], tuple(map(translate, b[1])))
             have = set(bp[1])
             common = need.intersection(have)
-            if len(common) >= 12:
+            if len(common) >= match_limit:
                 key = tuple(sorted(common))
                 if key not in seen:
                     yield bp, key, translate((0,0,0))
@@ -151,10 +151,10 @@ def parse(f):
     return [parse_scanner(x.splitlines()) for x in f.read().split('\n\n')]
 
 
-for name in [("test_input"),
-             ("test_input2"),
+for match_limit, name in [(2, "test_input"),
+             (12, "test_input2"),
              # ("test_input3"),  
-             ("input")][:2
+             (12, "input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

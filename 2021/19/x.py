@@ -56,7 +56,7 @@ def gen_trans(a,b):
             bp = (b[0], tuple(map(translate, b[1])))
             have = set(bp[1])
             common = need.intersection(have)
-            if len(common) > 2:
+            if len(common) > 12:
                 key = tuple(sorted(common))
                 if key not in seen:
                     yield bp, common, translate((0,0,0))

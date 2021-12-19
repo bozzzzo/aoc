@@ -54,8 +54,9 @@ def gen_trans(a,b):
                 return tuple(x-l+o for x,l,o in zip(p,j,i))
             bp = (b[0], tuple(map(translate, b[1])))
             have = set(bp[1])
-            
-            yield bp, need.intersection(have)
+            common = need.intersection(have)
+            if len(common) > 1:
+                yield bp, common
 
 
 

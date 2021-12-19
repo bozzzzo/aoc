@@ -84,7 +84,7 @@ def parse(f):
         scannerid = l[0].strip().strip('-').strip()
         beacons = [(list(map(int, b.strip().split(','))) + [0])[3:] for b in l[1:]]
         return scannerid, beacons
-    return [parse_scanner(x.splitlines()) for x in f.read().split()]
+    return [parse_scanner(x.splitlines()) for x in f.read().split('\n\n')]
 
 
 for name in [("test_input"),

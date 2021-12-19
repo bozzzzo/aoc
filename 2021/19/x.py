@@ -28,10 +28,12 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+def rot90(beacon, i, axes):
+    return beacon
 
 def gen_rot(b):
     scanner_id, beacons = b
-    return [(scanner_id, [np.rot90(beacon, i, (0, 1)) for beacon in beacons]) for i in range(4)]
+    return [(scanner_id, [rot90(beacon, i, (0, 1)) for beacon in beacons]) for i in range(4)]
 
 
 def first(a):
@@ -90,7 +92,7 @@ def parse_graph(f):
 def parse(f):
     def parse_scanner(l):
         scannerid = l[0].strip().strip('-').strip()
-        beacons = [np.array((list(map(int, b.strip().split(','))) + [0])[:3]) for b in l[1:]]
+        beacons = [(list(map(int, b.strip().split(','))) + [0])[:3] for b in l[1:]]
         return scannerid, beacons
     return [parse_scanner(x.splitlines()) for x in f.read().split('\n\n')]
 

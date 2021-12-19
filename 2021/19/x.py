@@ -101,7 +101,7 @@ def first(a):
 
 def second(a):
     aligned = align(a)
-    scanners = tuple((x[2] for x in aligned))
+    scanners = tuple(itertools.combinations(((x[2] for x in aligned)), 2))
     pprint(scanners)
     pass
 

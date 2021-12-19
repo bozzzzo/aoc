@@ -57,7 +57,7 @@ def gen_trans(a,b):
 
 
 def first(a):
-    pprint(list(gen_trans(("origin", [(1,0,0),(0,1,0),(0,0,1)]), ("test", [(42,42,42),(44,44,44)]))))
+    pprint(list(gen_trans(("origin", [(0,0,0),(1,0,0),(0,1,0),(0,0,1)]), ("test", [(42,42,42),(44,44,44)]))))
     pass
 
 

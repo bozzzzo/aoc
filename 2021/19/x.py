@@ -37,7 +37,7 @@ def rot90(beacon, i, ax):
 
 def gen_rot(b):
     scanner_id, beacons = b
-    return sorted([(scanner_id, [rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0) for beacon in beacons], (i, j, k)) for i in range(4) for j in range(4) for k in range(4)])
+    return sorted([(scanner_id, tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0) for beacon in beacons), (i, j, k)) for i in range(4) for j in range(4) for k in range(4)])
 
 
 def first(a):

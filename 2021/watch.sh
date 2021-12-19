@@ -5,6 +5,7 @@ do
 		sleep 1
 		continue
 	fi
+        clear
 	git add -u
 	git commit -m "$(date)"
 	python x.py

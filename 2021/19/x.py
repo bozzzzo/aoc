@@ -68,7 +68,7 @@ def align_pair(a,b):
             return trans
 
 def align(a):
-    known = (a[0], (), (0,0,0))
+    known = [(a[0], (), (0,0,0))]
     pending = a[1:]
     while pending:
         for i in range(len(pending)):

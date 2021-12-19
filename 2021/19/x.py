@@ -37,14 +37,14 @@ def rot90(beacon, i, ax):
 
 def gen_rot(b):
     scanner_id, beacons = b
-    return tuple((scanner_id, tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0)
-                                    for beacon in beacons))
-                 for i, j, k in [(0, 0, 0), (0, 0, 1), (0, 0, 2), (0, 0, 3),
-                                 (0, 1, 0), (0, 2, 0), (0, 2, 1), (0, 3, 0),
-                                 (0, 3, 1), (1, 0, 0), (1, 0, 1), (1, 0, 2),
-                                 (1, 0, 3), (1, 1, 0), (1, 2, 0), (1, 2, 1),
-                                 (1, 3, 0), (2, 0, 0), (2, 0, 1), (2, 1, 0),
-                                 (2, 3, 0), (3, 0, 0), (3, 0, 1), (3, 1, 0)])
+    return ((scanner_id, tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0)
+                               for beacon in beacons))
+            for i, j, k in [(0, 0, 0), (0, 0, 1), (0, 0, 2), (0, 0, 3),
+                            (0, 1, 0), (0, 2, 0), (0, 2, 1), (0, 3, 0),
+                            (0, 3, 1), (1, 0, 0), (1, 0, 1), (1, 0, 2),
+                            (1, 0, 3), (1, 1, 0), (1, 2, 0), (1, 2, 1),
+                            (1, 3, 0), (2, 0, 0), (2, 0, 1), (2, 1, 0),
+                            (2, 3, 0), (3, 0, 0), (3, 0, 1), (3, 1, 0)])
 
 def gen_trans(a,b):
     need = set(a[1])
@@ -62,6 +62,11 @@ def gen_trans(a,b):
                     yield bp, common, translate((0,0,0))
                     seen.add(key)
 
+def align(a,b):
+    for rot in gen_rot(b):
+        for trans in gen_trans(a,rot):
+            yield trans
+            break
 
 
 def first(a):

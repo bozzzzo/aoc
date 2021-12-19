@@ -59,18 +59,35 @@ def gen_trans(a,b):
             if len(common) >= 12:
                 key = tuple(sorted(common))
                 if key not in seen:
-                    yield bp, common, translate((0,0,0))
+                    yield bp, key, translate((0,0,0))
                     seen.add(key)
 
-def align(a,b):
+def align_pair(a,b):
     for rot in gen_rot(b):
         for trans in gen_trans(a,rot):
-            yield trans
+            return trans
+
+def align(a):
+    known = (a[0], (), (0,0,0))
+    pending = a[1:]
+    while pending:
+        for i in len(pending):
+            candidate = pending[i]
+            for origin, _, _ in known:
+                match = align_pair(origin, candidate)
+                if match:
+                   break
+               pass
+            else:
+                continue
+            known.append(match)
+            del pending[i]
             break
-
-
+        else:
+            assert False
+    return known
 def first(a):
-    pprint(list(align(a[0],a[1])))
+    pprint(align(a[0]),a[1])))
     pass
 
 

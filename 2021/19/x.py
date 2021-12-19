@@ -98,7 +98,7 @@ def first(a):
     pass
 
 
-def manhattan(x):
+def manhattan(*x):
     return sum(map(abs, map(operator.sub, zip(*x))))
 
 def second(a):

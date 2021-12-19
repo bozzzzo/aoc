@@ -37,7 +37,30 @@ def rot90(beacon, i, ax):
 
 def gen_rot(b):
     scanner_id, beacons = b
-    return scanner_id, sorted(dict(sorted([(tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0) for beacon in beacons), (i, j, k)) for i in range(4) for j in range(4) for k in range(4)], key=lambda x:-sum(x[1]))).values())
+    return scanner_id, tuple(tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0) for beacon in beacons) for i, j, k in [(0, 0, 0),
+  (0, 0, 1),
+  (0, 0, 2),
+  (0, 0, 3),
+  (0, 1, 0),
+  (0, 2, 0),
+  (0, 2, 1),
+  (0, 3, 0),
+  (0, 3, 1),
+  (1, 0, 0),
+  (1, 0, 1),
+  (1, 0, 2),
+  (1, 0, 3),
+  (1, 1, 0),
+  (1, 2, 0),
+  (1, 2, 1),
+  (1, 3, 0),
+  (2, 0, 0),
+  (2, 0, 1),
+  (2, 1, 0),
+  (2, 3, 0),
+  (3, 0, 0),
+  (3, 0, 1),
+  (3, 1, 0)]
 
 
 def first(a):

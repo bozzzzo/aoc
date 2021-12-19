@@ -35,8 +35,8 @@ def rot90(beacon, i, ax):
         beacon[ax:ax] = [c]
     return tuple(beacon)
 
-#@functools.lru_cache(maxsize=None)
-def gen_rot(b):
+@functools.lru_cache(maxsize=None)
+def gen_rot(n, b):
     scanner_id, beacons = b
     return ((scanner_id, tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0)
                                for beacon in beacons))
@@ -48,6 +48,7 @@ def gen_rot(b):
                             (2, 3, 0), (3, 0, 0), (3, 0, 1), (3, 1, 0)])
 
 match_limit = 12
+name = None
 
 def gen_trans(a,b):
     need = set(a[1])
@@ -66,7 +67,7 @@ def gen_trans(a,b):
                     seen.add(key)
 
 def align_pair(a,b):
-    for rot in gen_rot(b):
+    for rot in gen_rot(name, b):
         for trans in gen_trans(a,rot):
             return trans
 

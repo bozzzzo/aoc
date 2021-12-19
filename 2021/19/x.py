@@ -46,13 +46,16 @@ def gen_rot(b):
                                  (1, 3, 0), (2, 0, 0), (2, 0, 1), (2, 1, 0),
                                  (2, 3, 0), (3, 0, 0), (3, 0, 1), (3, 1, 0)])
 
-def gen_trans(a,b):
+def gen_tranes(a,b):
+    need = set(a[1])
     for i in a[1]:
         for j in b[1]:
             def translate(p):
                 return tuple(x-l+o for x,l,o in zip(p,j,i))
             bp = (b[0], tuple(map(translate, b[1])))
-            yield bp
+            have = set(bp[1])
+            
+            yield bp, need.intersection(have)
 
 
 

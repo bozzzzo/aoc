@@ -37,7 +37,7 @@ def rot90(beacon, i, ax):
 
 def gen_rot(b):
     scanner_id, beacons = b
-    return scanner_id, tuple(tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0) for beacon in beacons) for i, j, k in [(0, 0, 0),
+    return tuple((scanner_id, tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0) for beacon in beacons)) for i, j, k in [(0, 0, 0),
   (0, 0, 1),
   (0, 0, 2),
   (0, 0, 3),

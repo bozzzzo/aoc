@@ -87,8 +87,11 @@ def align(a):
         else:
             assert False
     return known
+
 def first(a):
-    pprint(align(a))
+    aligned = align(a)
+    beacons = set(p for x in aligned for p in x[0][1])
+    return len(beacons)
     pass
 
 

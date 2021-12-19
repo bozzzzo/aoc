@@ -91,6 +91,7 @@ def align(a):
     return known
 
 def first(a):
+    return "skip"
     aligned = align(a)
     beacons = set(p for x in aligned for p in x[0][1])
     return len(beacons)

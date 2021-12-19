@@ -29,8 +29,13 @@ def irange(a,b):
     return range(a,b+d,d)
 
 
+def gen_rot(b):
+    scanner_id, beacons = b
+    return [(scanner_id, np.rot90(beacons, i, (0, 1)) for i in range(4))]
+
 
 def first(a):
+    pprint(gen_rot(a[0]))
     pass
 
 

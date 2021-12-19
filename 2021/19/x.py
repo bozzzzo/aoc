@@ -35,7 +35,7 @@ def rot90(beacon, i, ax):
         beacon[ax:ax] = [c]
     return tuple(beacon)
 
-@functools.cache
+@functools.lru_cache(size=None)
 def gen_rot(b):
     scanner_id, beacons = b
     return ((scanner_id, tuple(rot90(rot90(rot90(beacon, i, 2), j, 1), k, 0)

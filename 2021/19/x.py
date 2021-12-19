@@ -80,7 +80,11 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    return [Pair.make(json.loads(l)) for l in f]
+    def parse_scanner(l):
+        scannerid = l[0].strip().strip('-').strip()
+        beacons = [(list(map(int, b.strip().split(','))) + [,0])[3:] for b in l[1:]]
+        return scannerid, beacons
+    return [parse_scanner(x.splitlines()) for x in f.read().split()]
 
 
 for name in [("test_input"),

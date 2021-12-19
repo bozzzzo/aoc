@@ -12,6 +12,8 @@ import numpy as np
 from typing import *
 from pprint import pprint
 
+import numpy as np
+
 def fst(x):
     return x[0]
 
@@ -25,6 +27,7 @@ def dbg(*x, **y):
 def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
+
 
 
 def first(a):
@@ -82,7 +85,7 @@ def parse_graph(f):
 def parse(f):
     def parse_scanner(l):
         scannerid = l[0].strip().strip('-').strip()
-        beacons = [(list(map(int, b.strip().split(','))) + [0])[:3] for b in l[1:]]
+        beacons = np.array([(list(map(int, b.strip().split(','))) + [0])[:3] for b in l[1:]])
         return scannerid, beacons
     return [parse_scanner(x.splitlines()) for x in f.read().split('\n\n')]
 

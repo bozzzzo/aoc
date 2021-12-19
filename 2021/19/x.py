@@ -123,7 +123,7 @@ def parse_graph(f):
 def parse(f):
     def parse_scanner(l):
         scannerid = l[0].strip().strip('-').strip()
-        beacons = [(tuple(map(int, b.strip().split(','))) + [0])[:3] for b in l[1:]]
+        beacons = [(tuple(map(int, b.strip().split(','))) + (0,))[:3] for b in l[1:]]
         return scannerid, beacons
     return [parse_scanner(x.splitlines()) for x in f.read().split('\n\n')]
 

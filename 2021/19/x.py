@@ -88,7 +88,7 @@ def align(a):
             assert False
     return known
 def first(a):
-    pprint(align(a[0]),a[1])
+    pprint(align(a))
     pass
 
 

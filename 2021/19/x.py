@@ -63,6 +63,8 @@ def gen_trans(a,b):
                     seen.add(key)
 
 def align_pair(a,b):
+    print(a)
+    print(b)
     for rot in gen_rot(b):
         for trans in gen_trans(a,rot):
             return trans

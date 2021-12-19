@@ -41,7 +41,7 @@ def gen_rot(b):
 
 
 def first(a):
-    pprint(gen_rot(('test',[[1,0,0],[0,1,0],[0,0,1])))
+    pprint(gen_rot(('test',[[1,0,0],[0,1,0],[0,0,1]])))
     pass
 
 

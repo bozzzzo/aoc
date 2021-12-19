@@ -77,7 +77,6 @@ def align(a):
                 match = align_pair(origin, candidate)
                 if match:
                    break
-               pass
             else:
                 continue
             known.append(match)

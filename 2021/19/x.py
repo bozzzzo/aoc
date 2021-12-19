@@ -99,7 +99,7 @@ def first(a):
 
 
 def manhattan(*x):
-    return sum(map(abs, (a-b) for a,b in zip(*x)))
+    return sum(map(abs, ((a-b) for a,b in zip(*x))))
 
 def second(a):
     aligned = align(a)

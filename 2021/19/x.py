@@ -48,6 +48,7 @@ def gen_rot(b):
 
 def gen_trans(a,b):
     need = set(a[1])
+    seen = set()
     for i in a[1]:
         for j in b[1]:
             def translate(p):
@@ -56,7 +57,10 @@ def gen_trans(a,b):
             have = set(bp[1])
             common = need.intersection(have)
             if len(common) > 1:
-                yield bp, common
+                key = tuple(sorted(common))
+                if key not in seen:
+                    yield bp, common
+                    seen.add(key)
 
 
 

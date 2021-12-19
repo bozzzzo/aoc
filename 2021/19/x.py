@@ -98,10 +98,12 @@ def first(a):
     pass
 
 
+def manhattan(x):
+    return sum(map(abs, map(operator.sub, zip(*x))))
 
 def second(a):
     aligned = align(a)
-    scanners = tuple(itertools.combinations(((x[2] for x in aligned)), 2))
+    scanners = max(map(manhattan, itertools.combinations(((x[2] for x in aligned)), 2)))
     pprint(scanners)
     pass
 

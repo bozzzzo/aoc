@@ -98,7 +98,8 @@ def first(a):
     pass
 
 
-def manhattan(i,j):
+def manhattan(i):
+    print(i)
     return sum(map(abs, ((a-b) for a,b in zip(i,j))))
 
 def second(a):

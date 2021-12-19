@@ -33,7 +33,7 @@ def rot90(beacon, i, ax):
         c, (x, y) = beacon[ax], beacon[:ax]+beacon[ax+1:]
         beacon = [y, -x]
         beacon[ax:ax] = [c]
-    return beacon
+    return tuple(beacon)
 
 def gen_rot(b):
     scanner_id, beacons = b

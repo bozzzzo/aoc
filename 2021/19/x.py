@@ -100,7 +100,7 @@ def first(a):
 
 def second(a):
     aligned = align(a)
-    scanners = tuple((x[3] for x in aligned))
+    scanners = tuple((x[2] for x in aligned))
     pprint(scanners)
     pass
 

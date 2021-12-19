@@ -98,8 +98,8 @@ def first(a):
     pass
 
 
-def manhattan(*x):
-    return sum(map(abs, ((a-b) for a,b in zip(*x))))
+def manhattan(i,j):
+    return sum(map(abs, ((a-b) for a,b in zip(i,j))))
 
 def second(a):
     aligned = align(a)

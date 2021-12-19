@@ -30,7 +30,7 @@ def irange(a,b):
 
 def rot90(beacon, i, ax):
     for _ in range(i):
-        c, (x, y) = beacon[ax], beacon[:ax]+[ax+1:]
+        c, (x, y) = beacon[ax], beacon[:ax]+beacon[ax+1:]
         beacon = [y, -x]
         beacon[ax:ax] = [c]
     return beacon

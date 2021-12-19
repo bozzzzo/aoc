@@ -59,7 +59,7 @@ def gen_trans(a,b):
             if len(common) > 2:
                 key = tuple(sorted(common))
                 if key not in seen:
-                    yield bp, common
+                    yield bp, common, translate((0,0,0))
                     seen.add(key)
 
 

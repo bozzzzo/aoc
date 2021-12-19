@@ -84,8 +84,8 @@ def align(a):
                 continue
             known.append(match)
             del pending[i]
-            break
             print(len(known))
+            break
         else:
             assert False
     return known

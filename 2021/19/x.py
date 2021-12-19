@@ -28,12 +28,16 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
-def rot90(beacon, i, axes):
+def rot90(beacon, i, ax):
+    for _ in range(i):
+        c, (x, y) = beacon[ax], beacon[:ax]+[ax+1:]
+        beacon = [y, -x]
+        beacon[ax:ax] = [c]
     return beacon
 
 def gen_rot(b):
     scanner_id, beacons = b
-    return [(scanner_id, [rot90(beacon, i, (0, 1)) for beacon in beacons]) for i in range(4)]
+    return [(scanner_id, [rot90(beacon, i, 0) for beacon in beacons]) for i in range(4)]
 
 
 def first(a):

@@ -46,6 +46,8 @@ def gen_rot(b):
                             (1, 3, 0), (2, 0, 0), (2, 0, 1), (2, 1, 0),
                             (2, 3, 0), (3, 0, 0), (3, 0, 1), (3, 1, 0)])
 
+match_limit = 12
+
 def gen_trans(a,b):
     need = set(a[1])
     seen = set()
@@ -149,8 +151,6 @@ def parse(f):
         beacons = tuple((tuple(map(int, b.strip().split(','))) + (0,))[:3] for b in l[1:])
         return scannerid, beacons
     return [parse_scanner(x.splitlines()) for x in f.read().split('\n\n')]
-
-match_limit = 12
 
 for match_limit, name in [(2, "test_input"),
              (12, "test_input2"),

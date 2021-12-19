@@ -71,7 +71,7 @@ def align(a):
     known = (a[0], (), (0,0,0))
     pending = a[1:]
     while pending:
-        for i in len(pending):
+        for i in range(len(pending)):
             candidate = pending[i]
             for origin, _, _ in known:
                 match = align_pair(origin, candidate)

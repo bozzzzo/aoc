@@ -99,6 +99,9 @@ def first(a):
 
 
 def second(a):
+    aligned = align(a)
+    scanners = (x[3] for x in aligned)
+    pprint(scanners)
     pass
 
 def test():
@@ -158,7 +161,7 @@ def parse(f):
 for match_limit, name in [(2, "test_input"),
              (12, "test_input2"),
              # ("test_input3"),  
-             (12, "input")][:3
+             (12, "input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

@@ -46,7 +46,7 @@ def gen_rot(b):
                                  (1, 3, 0), (2, 0, 0), (2, 0, 1), (2, 1, 0),
                                  (2, 3, 0), (3, 0, 0), (3, 0, 1), (3, 1, 0)])
 
-def gen_tranes(a,b):
+def gen_trans(a,b):
     need = set(a[1])
     for i in a[1]:
         for j in b[1]:

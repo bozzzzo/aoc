@@ -65,7 +65,7 @@ def gen_trans(a,b):
 
 
 def first(a):
-    pprint(list(gen_trans(("origin", [(0,0,0),(1,0,0),(0,1,0),(0,0,1)]), ("test", [(42,42,42),(44,44,44), (42,42,43)]))))
+    pprint(list(gen_trans(a[0],a[1])))
     pass
 
 
@@ -78,6 +78,9 @@ def test():
         print()
         assert a==b, f"{a}!={b}"
 
+    pprint(list(gen_trans(("origin", [(0,0,0),(1,0,0),(0,1,0),(0,0,1)]),
+                          ("test", [(42,42,42),(44,44,44), (42,42,43)]))))
+    
     pass
 
 

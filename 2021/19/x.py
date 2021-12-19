@@ -70,7 +70,7 @@ def align(a,b):
 
 
 def first(a):
-    pprint(list(gen_trans(a[0],a[1])))
+    pprint(list(align(a[0],a[1])))
     pass
 
 

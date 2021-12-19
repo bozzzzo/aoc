@@ -150,6 +150,7 @@ def parse(f):
         return scannerid, beacons
     return [parse_scanner(x.splitlines()) for x in f.read().split('\n\n')]
 
+match_limit = 12
 
 for match_limit, name in [(2, "test_input"),
              (12, "test_input2"),

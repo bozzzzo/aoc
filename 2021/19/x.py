@@ -46,9 +46,18 @@ def gen_rot(b):
                                  (1, 3, 0), (2, 0, 0), (2, 0, 1), (2, 1, 0),
                                  (2, 3, 0), (3, 0, 0), (3, 0, 1), (3, 1, 0)])
 
+def gen_trans(a,b):
+    for i in a[1]:
+        for j in b[1]:
+            def translate(p):
+                return tuple(x-l+o for x,l,o in zip(p,j,i))
+            bp = (b[0], tuple(map(translate, b[1])))
+            yield bp
+
+
 
 def first(a):
-    pprint(gen_rot(a[0]))
+    pprint(list(gen_trans(a[0], a[1]))
     pass
 
 

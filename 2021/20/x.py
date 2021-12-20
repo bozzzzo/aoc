@@ -46,7 +46,7 @@ def enhance(a):
 
 def first(a):
     show_grid(a[1])
-    print
+    print()
     show_grid(enhance(a))
     pass
 

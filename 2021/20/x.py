@@ -91,7 +91,7 @@ def parse(f):
                 if c == '#')
     return alg, scan
 
-for match_limit, name in [("test_input"),
+for name in [("test_input"),
              # ("test_input2"),
              # ("test_input3"),  
              ("input")][:1

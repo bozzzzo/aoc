@@ -36,9 +36,9 @@ def enhance(a):
     Mx = max(map(fst, scan))
     My = max(map(snd, scan))
     def enhance_pix(x,y):
-        area = defaultdict(int, (((dx,dy), scan[(x+dx-1, y+dy-1)])
-                                 for dx in range(3)
-                                 for dy in range(3)))
+        area = collections.defaultdict(int, (((dx,dy), scan[(x+dx-1, y+dy-1)])
+                                             for dx in range(3)
+                                             for dy in range(3)))
         print(x,y)
         show_grid(area)
         return sum(2**(8-dx*3-dy)

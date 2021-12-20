@@ -105,12 +105,13 @@ def parse(f):
     alg = alg.replace(' ','').replace('\n','')
     garbage = alg.replace('.','').replace('#','')
     assert not garbage, f">{garbage}<"
-    alg = tuple(int(c=='#') for c in alg)
+    alg_ = tuple(int(c=='#') for c in alg)
+    assert alg == "".join(".#"[x] for x in alg_)
     scan = collections.defaultdict(int, (((x,-y), int(c=='#'))
                                         for y,l in enumerate(scan.splitlines())
                                         for x,c in enumerate(l)
                                         ))
-    return alg, scan
+    return alg_, scan
 
 for name in [("test_input"),
              # ("test_input2"),

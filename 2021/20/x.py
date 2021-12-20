@@ -60,7 +60,7 @@ def first(a):
     scan = enhance(alg, scan)
     #show_grid(scan)
     return sum(scan.values())
-    pass
+    pass 
 
 
 

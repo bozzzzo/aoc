@@ -28,7 +28,19 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
-
+def enhance(a):
+    alg, scan = a
+    ret = {}
+    mx = min(map(fst, scan))
+    my = min(map(snd, scan))
+    Mx = max(map(fst, scan))
+    My = max(map(snd, scan))
+    def enhance_pix(x,y):
+        for 
+    print("\n".join("".join(str(a.get((x,y), ' '))
+                            for x in irange(mx,Mx))
+                    for y in irange(My,my)))
+    for c in scan:
 def first(a):
     show_grid(a[1])
     pass
@@ -88,10 +100,10 @@ def parse(f):
     garbage = alg.replace('.','').replace('#','')
     assert not garbage, f">{garbage}<"
     alg = frozenset(i for i,c in enumerate(alg) if c=='#')
-    scan = dict(((x,-y), '#')
-                for y,l in enumerate(scan.splitlines())
-                for x,c in enumerate(l)
-                if c == '#')
+    scan = collections.defautdict(int, (((x,-y), 1)
+                                        for y,l in enumerate(scan.splitlines())
+                                        for x,c in enumerate(l)
+                                        if c == '#'))
     return alg, scan
 
 for name in [("test_input"),

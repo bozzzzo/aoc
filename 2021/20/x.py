@@ -42,7 +42,7 @@ def enhance(a):
                        if scan[(x+(dx-1), y+(dy-1))])]
     return collections.defaultdict(int, (((x,y),enhance_pix(x,y))
                                          for x in irange(mx-3,Mx+3)
-                                         for y in irange(my-3,mY+3)))
+                                         for y in irange(my-3,My+3)))
 
 def first(a):
     show_grid(a[1])

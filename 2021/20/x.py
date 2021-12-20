@@ -38,7 +38,7 @@ def enhance(a):
     def enhance_pix(x,y):
         return alg[sum(2**((dx+1)*3+dy+1)
                        for dx in range(-1,2)
-                       for dy in range(1:-2,-1)
+                       for dy in range(1,-2,-1)
                        if scan[(x+dx, y+dy)])]
     return collections.defaultdict(int, (((x,y),enhance_pix(x,y))
                                          for x in irange(mx-2,Mx+2)

@@ -82,11 +82,14 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    def parse_scanner(l):
-        scannerid = l[0].strip().strip('-').strip()
-        beacons = tuple((tuple(map(int, b.strip().split(','))) + (0,))[:3] for b in l[1:])
-        return scannerid, beacons
-    return [parse_scanner(x.splitlines()) for x in f.read().split('\n\n')]
+    alg, scan = f.read().split('\n\n')
+    assert not alg.replace('.','').replace('#','')
+    alg = frozenset(i for i,c in enumerate(alg.replace(' ','').replace('\n','')) if c=='#')
+    scan = dict(((x,y), '#')
+                for y,l in enumerate(scan.splitlines())
+                for x,c in enumerate(l)
+                if c == '#')
+    return alg, scan
 
 for match_limit, name in [("test_input"),
              # ("test_input2"),

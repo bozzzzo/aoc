@@ -52,13 +52,11 @@ def enhance(alg, scan):
 
 def first(a):
     alg, scan = a
-    show_grid(scan)
-    #print()
+    print("input"); show_grid(scan)
     scan = enhance(alg, scan)
-    #show_grid(scan)
-    #print()
+    print("enhance 1"); show_grid(scan)
     scan = enhance(alg, scan)
-    #show_grid(scan)
+    print("enhance 2"); show_grid(scan)
     return sum(scan.values())
     pass 
 

@@ -46,9 +46,9 @@ def enhance(alg, scan):
 
     #print(enhance_pix(2,2))
     #print("======")
-    return collections.defaultdict(int, (((x,y),alg[enhance_pix(x,y)])
-                                         for x in irange(mx-3,Mx+3)
-                                         for y in irange(my-3,My+3)))
+    return collections.defaultdict(lambda:alg[0], (((x,y),alg[enhance_pix(x,y)])
+                                                   for x in irange(mx-3,Mx+3)
+                                                   for y in irange(my-3,My+3)))
 
 def first(a):
     alg, scan = a

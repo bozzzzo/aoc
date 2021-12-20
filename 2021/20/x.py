@@ -36,7 +36,10 @@ def enhance(a):
     Mx = max(map(fst, scan))
     My = max(map(snd, scan))
     def enhance_pix(x,y):
-        for 
+        return alg[sum(2**((dx+1)*3+dy+1)
+                       for dx in range(-1,2)
+                       for dy in range(-1,2)
+                       if scan[(x+dx, y+dy)])]
     print("\n".join("".join(str(a.get((x,y), ' '))
                             for x in irange(mx,Mx))
                     for y in irange(My,my)))
@@ -73,7 +76,8 @@ def show_grid(a):
     my = min(map(snd, a))
     Mx = max(map(fst, a))
     My = max(map(snd, a))
-    print("\n".join("".join(str(a.get((x,y), ' '))
+    ui = {0:'.',1:'#'}
+    print("\n".join("".join(str(ui.get(a.get((x,y),0), ' '))
                             for x in irange(mx,Mx))
                     for y in irange(My,my)))
 
@@ -100,10 +104,10 @@ def parse(f):
     garbage = alg.replace('.','').replace('#','')
     assert not garbage, f">{garbage}<"
     alg = frozenset(i for i,c in enumerate(alg) if c=='#')
-    scan = collections.defautdict(int, (((x,-y), 1)
+    scan = collections.defautdict(int, (((x,-y), int(c=='#'))
                                         for y,l in enumerate(scan.splitlines())
                                         for x,c in enumerate(l)
-                                        if c == '#'))
+                                        ))
     return alg, scan
 
 for name in [("test_input"),

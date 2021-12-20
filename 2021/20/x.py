@@ -88,7 +88,7 @@ def parse(f):
     garbage = alg.replace('.','').replace('#','')
     assert not garbage, f">{garbage}<"
     alg = frozenset(i for i,c in enumerate(alg) if c=='#')
-    scan = dict(((x,-y), '#')
+    scan = dict(((x,y), '#')
                 for y,l in enumerate(scan.splitlines())
                 for x,c in enumerate(l)
                 if c == '#')

@@ -81,7 +81,7 @@ def show_grid(a):
     ui = {0:'.',1:'#'}
     print("\n".join("".join(str(ui.get(a.get((x,y),0), ' '))
                             for x in irange(mx,Mx))
-                    for y in irange(My,my)))
+                    for y in irange(my,My)))
 
 def parse_grid(f):
     def parse_line(l):

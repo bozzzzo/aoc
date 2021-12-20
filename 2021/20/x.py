@@ -40,12 +40,14 @@ def enhance(a):
                        for dx in range(-1,2)
                        for dy in range(-1,2)
                        if scan[(x+dx, y+dy)])]
-    print("\n".join("".join(str(a.get((x,y), ' '))
-                            for x in irange(mx,Mx))
-                    for y in irange(My,my)))
-    for c in scan:
+    return collections.defaultdict(int, (((x,y),enhance_pix(x,y))
+                                         for x in irange(mx-2,Mx+2)
+                                         for y in irange(My+2,my-2)))
+
 def first(a):
     show_grid(a[1])
+    print
+    show_grid(enhance(a[1]))
     pass
 
 

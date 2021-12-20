@@ -83,9 +83,10 @@ def parse_graph(f):
 
 def parse(f):
     alg, scan = f.read().split('\n\n')
+    alg = alg.replace(' ','').replace('\n','')
     garbage = alg.replace('.','').replace('#','')
     assert not garbage, f">{garbage}<"
-    alg = frozenset(i for i,c in enumerate(alg.replace(' ','').replace('\n','')) if c=='#')
+    alg = frozenset(i for i,c in enumerate(alg) if c=='#')
     scan = dict(((x,y), '#')
                 for y,l in enumerate(scan.splitlines())
                 for x,c in enumerate(l)

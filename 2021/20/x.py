@@ -107,7 +107,7 @@ def parse(f):
     assert not garbage, f">{garbage}<"
     alg_ = tuple(int(c=='#') for c in alg)
     assert alg == "".join(".#"[x] for x in alg_)
-    scan = collections.defaultdict(int, (((x,-y), int(c=='#'))
+    scan = collections.defaultdict(int, (((x,y), int(c=='#'))
                                         for y,l in enumerate(scan.splitlines())
                                         for x,c in enumerate(l)
                                         ))

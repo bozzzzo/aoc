@@ -106,7 +106,7 @@ def parse(f):
     garbage = alg.replace('.','').replace('#','')
     assert not garbage, f">{garbage}<"
     alg = frozenset(i for i,c in enumerate(alg) if c=='#')
-    scan = collections.defautdict(int, (((x,-y), int(c=='#'))
+    scan = collections.defaultdict(int, (((x,-y), int(c=='#'))
                                         for y,l in enumerate(scan.splitlines())
                                         for x,c in enumerate(l)
                                         ))

@@ -40,7 +40,7 @@ def enhance(a):
                                              for dx in range(3)
                                              for dy in range(3)))
         #print(x,y)
-        show_grid(area)
+        #show_grid(area)
         bits = tuple(area[(dx,dy)] for dy in range(3) for dx in range(3))
         #print(bits)
         return functools.reduce(lambda x,y: x*2+y, bits)

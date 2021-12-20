@@ -36,7 +36,7 @@ def enhance(a):
     Mx = max(map(fst, scan))
     My = max(map(snd, scan))
     def enhance_pix(x,y):
-        return alg[sum(2**((dx+1)*3+1+2-dy)
+        return alg[sum(2**((dx+1)*3+2-dy)
                        for dx in range(-1,2)
                        for dy in range(-1,2)
                        if scan[(x+dx, y+dy)])]

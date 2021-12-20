@@ -30,6 +30,7 @@ def irange(a,b):
 
 
 def first(a):
+    show_grid(a[1])
     pass
 
 

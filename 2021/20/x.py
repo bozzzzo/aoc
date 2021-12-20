@@ -28,8 +28,7 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
-def enhance(a):
-    alg, scan = a
+def enhance(alg, scan):
     ret = {}
     mx = min(map(fst, scan))
     my = min(map(snd, scan))
@@ -52,9 +51,14 @@ def enhance(a):
                                          for y in irange(my-3,My+3)))
 
 def first(a):
-    show_grid(a[1])
+    alg, scan = a
+    show_grid(scan)
     print()
-    show_grid(enhance(a))
+    scan = enhance(alg, scan)
+    show_grid(scan)
+    print()
+    scan = enhance(alg, scan)
+    show_grid(scan)
     pass
 
 

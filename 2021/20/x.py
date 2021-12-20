@@ -36,10 +36,10 @@ def enhance(a):
     Mx = max(map(fst, scan))
     My = max(map(snd, scan))
     def enhance_pix(x,y):
-        return alg[sum(2**((dx+1)*3+2-dy)
-                       for dx in range(-1,2)
-                       for dy in range(-1,2)
-                       if scan[(x+dx, y+dy)])]
+        return alg[sum(2**(8-dx*3-dy)
+                       for dx in range(3)
+                       for dy in range(3)
+                       if scan[(x+dx-1, y+(dy-1))])]
     return collections.defaultdict(int, (((x,y),enhance_pix(x,y))
                                          for x in irange(mx-2,Mx+2)
                                          for y in irange(My+2,my-2)))

@@ -39,10 +39,10 @@ def enhance(a):
         return alg[sum(2**(8-dx*3-dy)
                        for dx in range(3)
                        for dy in range(3)
-                       if scan[(x+dx-1, y-(dy-1))])]
+                       if scan[(x+(dx-1), y+(dy-1))])]
     return collections.defaultdict(int, (((x,y),enhance_pix(x,y))
                                          for x in irange(mx-2,Mx+2)
-                                         for y in irange(My+2,my-2)))
+                                         for y in irange(my-2,mY+2)))
 
 def first(a):
     show_grid(a[1])

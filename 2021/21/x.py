@@ -61,8 +61,44 @@ def first(a):
     return l_score * w_rolls
 
 
+def dirac(a):
+    die = collections.Counter([a+b+c for a in range(1,4) for b in range(1,4) for c in range(1, 4)])
+    uni = collections.Counter([(a,(0,0))])
+
+    print(die)
+    print(uni)
+
 def second(a):
     pass
+
+
+111 3
+  2 4
+  3 5
+ 21 4
+  2 5
+  3 6
+ 31 5
+  2 6
+  3 7
+211 4
+  2 5
+  3 6
+ 21 5
+  2 6
+  3 7
+ 31 6
+  2 7
+  3 8
+311 5
+  2 6
+  3 7
+ 21 6
+  2 7
+  3 8
+ 31 7
+  2 8
+  3 9
 
 def test():
     def _(a,b):

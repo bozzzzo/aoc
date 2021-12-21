@@ -67,8 +67,10 @@ def dirac(a):
 
     print(die)
     print(uni)
+    return uni
 
 def second(a):
+    r = dirac(a)
     pass
 
 

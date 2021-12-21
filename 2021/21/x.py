@@ -91,6 +91,8 @@ def dirac(a):
         unis = new_unis
         if len(unis) < 100:
             print(throw, unis)
+        else:
+            print(throw, len(unis))
 
     return wins
 

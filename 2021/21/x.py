@@ -37,18 +37,19 @@ def game(a, die):
     first_pos, second_pos = a
     first_score = 0
     second_score = 0
-    def move(pos, score):
+    def move(who, pos, score):
         _, a = next(die)
         _, b = next(die)
         rolls, c = next(die)
         pos = (pos - 1 + a + b + c) % 10 + 1
         score += pos
+        print(f"{who} {a}+{b}+{c} to {pos} total {score}")
         return pos, score, rolls
     while True:
-        first_pos, first_score, rolls = move(first_pos, first_score)
+        first_pos, first_score, rolls = move("one", first_pos, first_score)
         if first_score >= 1000:
             return 0, ((first_pos, first_score, rolls), (second_pos, second_score, rolls))
-        second_pos, second_score, rolls = move(second_pos, second_score)
+        second_pos, second_score, rolls = move("two", second_pos, second_score)
         if second_score >= 1000:
             return 1, ((first_pos, first_score, rolls), (second_pos, second_score, rolls))
 
@@ -112,7 +113,7 @@ def parse(f):
 for name in [("test_input"),
              # ("test_input2"),
              # ("test_input3"),  
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

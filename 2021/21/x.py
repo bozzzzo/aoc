@@ -33,7 +33,7 @@ def deterministic():
         yield from range(1,101)
 
 def game(a, die):
-    die = enumerate(die)
+    die = enumerate(die, 1)
     first_pos, second_pos = a
     first_score = 0
     second_score = 0

@@ -70,7 +70,7 @@ def dirac(a):
     while unis:
         throw += 1
         new_unis = collections.Counter()
-        for (uni, uni_count), (roll, roll_count) in itertool.product(unis.items(), die.items()):
+        for (uni, uni_count), (roll, roll_count) in itertools.product(unis.items(), die.items()):
             pos = uni[0][who]
             score = uni[1][who]
             count = uni_count * roll_count

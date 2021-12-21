@@ -28,10 +28,34 @@ def irange(a,b):
     d = 1 if b >= a else -1
     return range(a,b+d,d)
 
+def deterministic():
+    while True:
+        yield from range(1,101)
+
+def game(a, die):
+    die = enumerate(die)
+    first_pos, second_pos = a
+    first_score = 0
+    second_score = 0
+    def move(pos, score):
+        _, a = next(die)
+        _, b = next(die)
+        rolls, c = next(die)
+        pos = (pos - 1 + a + b + c) % 10 + 1
+        score += pos
+        return pos, score, rolls
+    while True:
+        first_pos, first_score, rolls = move(first_pos, first_score)
+        if first_score >= 1000:
+            return 0, ((first_pos, first_score, rolls), (second_pos, second_score, rolls))
+        second_pos, second_score, rolls = move(second_pos, second_score)
+        if second_score >= 1000:
+            return 1, ((first_pos, first_score, rolls), (second_pos, second_score, rolls))
 
 def first(a):
-    pass 
-
+    winner, results = game(a, deterministic())
+    pos, score, rolls = results[1-winner]
+    return score * rolls
 
 
 def second(a):

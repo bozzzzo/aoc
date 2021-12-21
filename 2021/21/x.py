@@ -63,15 +63,42 @@ def first(a):
 
 def dirac(a):
     die = collections.Counter([a+b+c for a in range(1,4) for b in range(1,4) for c in range(1, 4)])
-    uni = collections.Counter([(a,(0,0))])
+    unis = collections.Counter([(a,(0,0))])
+    wins = collections.Counter()
+    who = 0
+    throw = 0
+    while unis:
+        throw += 1
+        new_unis = collections.Counter()
+        for (uni, uni_count), (roll, roll_count) in itertool.product(unis.items(), die.items()):
+            pos = uni[0][who]
+            score = uni[1][who]
+            count = uni_count * roll_count
 
-    print(die)
-    print(uni)
-    return uni
+            pos = (pos - 1 + roll) % 10 + 1
+            score += pos
+
+            if score >= 21:
+                wins[who] += count
+            else:
+                if who == 0:
+                    new_uni = (pos, uni[0][1]), (score, uni[1][1])
+                else:
+                    new_uni = (uni[0][0], pos), (uni[1][0], score)
+                new_unis[new_uni] += count
+
+        who = 1 - who
+        unis = new_unis
+        if len(unis) < 100:
+            print(throw, unis)
+
+    return wins
 
 def second(a):
     r = dirac(a)
-    pass
+    print(r)
+    return max(r.values())
+
 
 
 def test():

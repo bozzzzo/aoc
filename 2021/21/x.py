@@ -43,7 +43,7 @@ def game(a, die):
         rolls, c = next(die)
         pos = (pos - 1 + a + b + c) % 10 + 1
         score += pos
-        print(f"{who} {a}+{b}+{c} to {pos} total {score}")
+        #print(f"{who} {a}+{b}+{c} to {pos} total {score}")
         return pos, score, rolls
     while True:
         first_pos, first_score, rolls = move("one", first_pos, first_score)
@@ -55,8 +55,9 @@ def game(a, die):
 
 def first(a):
     winner, results = game(a, deterministic())
-    pos, score, rolls = results[1-winner]
-    return score * rolls
+    w_pos, w_score, w_rolls = results[winner]
+    l_pos, l_score, l_rolls = results[1-winner]
+    return l_score * w_rolls
 
 
 def second(a):

@@ -55,6 +55,7 @@ def game(a, die):
 
 def first(a):
     winner, results = game(a, deterministic())
+    print (winner, results)
     w_pos, w_score, w_rolls = results[winner]
     l_pos, l_score, l_rolls = results[1-winner]
     return l_score * w_rolls

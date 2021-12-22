@@ -133,6 +133,8 @@ class Reactor:
                     yield from cuboid + other
         return type(self)(new_cuboids())
 
+    def __repr__(self):
+        return repr(self.contents)
 
 
 def first(a):
@@ -140,7 +142,7 @@ def first(a):
     for c in a:
         print("c", c)
         r = r + c
-        pprint(r)
+        pprint("r", r)
     pass
 
 

@@ -82,7 +82,12 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    return tuple(int(l.strip()) for l in f)
+    def cuboid(l):
+        state, d = l.split()
+        d = dict((i, tuple(map(int, x.split('..'))))
+                 for i, x in [c.split('=') for c in d.split(',')])
+        return (state, ) + tuple(d[i] for i in "xyz")
+    return tuple(cuboid(l.strip()) for l in f)
 
 for name in [("test_input"),
              # ("test_input2"),

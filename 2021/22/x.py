@@ -106,7 +106,7 @@ class On(Cuboid):
             partition(a,b) for a,b in zip(self.coords, other.coords)))
         for cube in cubes:
             if not cube.inside(other) and cube.volume:
-                yield cube
+                yield cube 
 
 
 class Off(Cuboid):

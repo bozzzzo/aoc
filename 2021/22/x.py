@@ -80,10 +80,10 @@ class Cuboid:
         return functools.reduce(operator.mul, map(len, self.coords))
 
     def overlaps(self, other):
-        return all(map(overlaps, zip(self.coords, other.coords)))
+        return all(overlaps(a,b) for a,b in zip(self.coords, other.coords))
 
     def inside(self, other):
-        return all(map(inside, zip(self.coords, other.coords)))
+        return all(inside(a,b) for a,b in zip(self.coords, other.coords))
 
 class On(Cuboid):
     def __add__(self, other):
@@ -103,7 +103,7 @@ class On(Cuboid):
 
     def without(self, other):
         cubes = (On(c) for c in itertools.product(
-            map(partition, zip(self.coords, other.coords))))
+            partition(a,b) for a,b in zip(self.coords, other.coords)))
         for cube in cubes:
             if not cube.inside(other) and cube.volume:
                 yield cube

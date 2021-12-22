@@ -217,9 +217,9 @@ def parse(f):
     return tuple(cuboid(l.strip()) for l in f)
 
 for name in [("test_input"),
-             # ("test_input2"),
+             ("test_input2"),
              # ("test_input3"),  
-             ("input")][:1
+             ("input")][:3
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

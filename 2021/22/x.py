@@ -90,20 +90,20 @@ class On(Cuboid):
         assert isinstance(self, On)
         if isinstance(other, On):
             if not self.overlaps(other):
-                return ((self,), (other,))
+                return ((self,), True)
             if self.inside(other):
-                return ((), (other,))
+                return ((), True)
             elif other.inside(self):
-                return ((self,), ())
+                return ((self,), False)
             else:
-                return ((self,), tuple(other.without(self)))
+                return (tuple(self.without(other)), True)
         elif isinstance(other, Off):
             if not self.overlaps(other):
-                return ((self,), (other,))
+                return ((self,), True)
             elif self.inside(other):
-                return ((), other)
+                return ((), True)
             else:
-                return (tuple(self.without(other)), (other,))
+                return (tuple(self.without(other)), True)
         else:
             assert False, str(other)
 
@@ -128,13 +128,19 @@ class Reactor:
         return sum(x.volume for x in self.contents)
 
     def __add__(self, other):
-        def new_cuboids():
-            if not self.contents:
-                yield other
-            else:
-                for cuboid in self.contents:
-                    yield from cuboid + other
-        return type(self)(new_cuboids())
+        new_cuboids = []
+        for i, cuboid in enumerate(self.contents):
+            parts, proceed = cuboid + other
+            new_cuboids.extend(parts)
+            if not proceed:
+                new_cuboids.extend(self.contents[i+1:])
+                break
+        else:
+            if isinstance(other, On):
+                new_cuboids.append(other)
+
+
+        return type(self)(new_cuboids)
 
     def __repr__(self):
         return repr(self.contents)

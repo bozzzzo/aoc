@@ -102,7 +102,6 @@ def parse(f):
         state, d = l.split()
         d = dict((i, tuple(map(int, x.split('..'))))
                  for i, x in [c.split('=') for c in d.split(',')])
-        return globals()[state.capitalize]
         return states[state](srange(*d[i]) for i in "xyz")
     return tuple(cuboid(l.strip()) for l in f)
 

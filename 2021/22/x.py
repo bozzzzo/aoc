@@ -32,7 +32,8 @@ def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
 class Cuboid(tuple):
-    pass
+    def __str__(self):
+        return type(self).__name__ + str(super())
 
 class On(Cuboid):
     pass

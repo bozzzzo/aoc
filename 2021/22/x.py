@@ -33,7 +33,7 @@ def srange(a,b):
 
 class Cuboid:
     def __init__(self, coords):
-        self.coords = tuple((coords)
+        self.coords = tuple(coords)
     def __repr__(self):
         return type(self).__name__ + str(self.coords)
 

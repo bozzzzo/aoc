@@ -113,7 +113,12 @@ class On(Cuboid):
 class Off(Cuboid):
     def __radd__(self, other):
         assert isinstance(other, On)
-        yield other
+        if not self.overlaps.other:
+            yield other
+        elif other.inside(self):
+            pass
+        else:
+            yield from other.without(self)
     pass
 
 class Reactor:

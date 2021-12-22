@@ -37,13 +37,20 @@ class Cuboid:
     def __repr__(self):
         return type(self).__name__ + str(self.coords)
 
+    @property
+    def volume(self):
+        return functools.reduce(operator.mul, map(len, self.coords))
+
 class On(Cuboid):
     pass
 
 class Off(Cuboid):
     pass
 
-class Reactor(tuple):
+class Reactor:
+    def __init__(self, *contents):
+        self.contents = tuple(*contents)
+
     pass
 
 def first(a):

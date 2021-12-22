@@ -31,6 +31,44 @@ def irange(a,b):
 def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
+def overlaps(r1, r2):
+    assert r1.step == 1
+    assert r2.step == 1
+    if r1.stop <= r2.start: return False
+    if r2.stop <= r1.start: return False
+    return True
+
+def inside(r1, r2):
+    assert r1.step == 1
+    assert r2.step == 1
+    return r1.start >= r2.start and r1.stop <= r2.stop
+
+def partition(r1, r2):
+    "return all parts of r1 chopped by r2"
+    if r1.start <= r2.start:
+        if r1.stop <= r2.start:
+            yield r1
+        elif r1.stop <= r2.stop:
+            yield range(r1.start, r2.start)
+            yield range(r2.start, r1.stop)
+        else:
+            yield range(r1.start, r2.start)
+            yield r2
+            yield range(r2.stop, r1.stop)
+    else:
+        if r2.stop <= r1.start:
+            yield r1
+        elif r2.stop <= r1.stop:
+            yield range(r1.start, r2.stop)
+            yield range(r2.stop, r1.stop)
+        else:
+            yield r1
+
+
+def common(r1, r2):
+    assert overlaps(r1, r2)
+    return range(max(r1.start, r2.start), min(r1.stop, r2.stop))
+
 class Cuboid:
     def __init__(self, coords):
         self.coords = tuple(coords)
@@ -41,17 +79,59 @@ class Cuboid:
     def volume(self):
         return functools.reduce(operator.mul, map(len, self.coords))
 
+    def overlaps(self, other):
+        return all(map(overlaps, zip(self.coords, other.coords)))
+
+    def inside(self, other):
+        return all(map(inside, zip(self.coords, other.coords)))
+
 class On(Cuboid):
-    pass
+    def __add__(self, other):
+        if isinstance(other, Off):
+            return NotImplemented
+        assert isinstance(other, On)
+        if not self.overlaps(other):
+            yield self
+            yield other
+        elif self.inside(other):
+            yield other
+        elif other.inside(self):
+            yield self
+        else:
+            yield other
+            yield from self.without(other)
+
+    def without(self, other):
+        cubes = (On(c) for c in itertools.product(
+            map(partition, zip(self.coords, other.coords))))
+        for cube in cubes:
+            if not cube.inside(other) and cube.volume:
+                yield cube
+
 
 class Off(Cuboid):
+    def __radd__(self, other):
+        assert isinstance(other, On)
+        yield other
     pass
 
 class Reactor:
     def __init__(self, *contents):
         self.contents = tuple(*contents)
 
-    pass
+    @property
+    def volume(self):
+        return sum(x.volume for x in self.contents)
+
+    def __add__(self, other):
+        def new_cuboids():
+            for cuboid in self.contents:
+                yield from cuboid + other
+        return type(self)(new_cuboids())
+
+    def __repr__(self):
+        return repr(self.contents)
+
 
 def first(a):
     pass

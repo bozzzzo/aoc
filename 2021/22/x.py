@@ -142,7 +142,7 @@ def first(a):
     for c in a:
         print("c", c)
         r = r + c
-        print("r", r)
+        pprint("r", r)
     pass
 
 

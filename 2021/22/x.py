@@ -97,7 +97,7 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    states = dict(off=Off,on=On):
+    states = dict(off=Off,on=On)
     def cuboid(l):
         state, d = l.split()
         d = dict((i, tuple(map(int, x.split('..'))))

@@ -151,14 +151,18 @@ def first(a):
     print("core", core)
     r = Reactor()
     for c in a:
-        print("c", c)
+        #        print("c", c)
         if c.inside(core):
             r = r + c
-        print("r", r.volume)
+        #print("r", r.volume)
     return r.volume
 
 
 def second(a):
+    r = Reactor()
+    for c in a:
+        r = r + c
+    return r.volume
     pass
 
 

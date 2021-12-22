@@ -87,19 +87,27 @@ class Cuboid:
 
 class On(Cuboid):
     def __add__(self, other):
-        if isinstance(other, Off):
-            return NotImplemented
-        assert isinstance(other, On)
-        if not self.overlaps(other):
-            yield self
-            yield other
-        elif self.inside(other):
-            yield other
-        elif other.inside(self):
-            yield self
+        assert isinstance(self, On)
+        if isinstance(other, On):
+            if not self.overlaps(other):
+                yield self
+                yield other
+            elif self.inside(other):
+                yield other
+            elif other.inside(self):
+                yield self
+            else:
+                yield other
+                yield from self.without(other)
+        elif isinstance(other, Off):
+            if not self.overlaps(other):
+                yield self
+            elif self.inside(other):
+                pass
+            else:
+                yield from self.without(other)
         else:
-            yield other
-            yield from self.without(other)
+            assert False, str(other)
 
     def without(self, other):
         cubes = tuple(On(c) for c in itertools.product(
@@ -111,14 +119,6 @@ class On(Cuboid):
 
 
 class Off(Cuboid):
-    def __radd__(self, other):
-        assert isinstance(other, On)
-        if not self.overlaps.other:
-            yield other
-        elif other.inside(self):
-            pass
-        else:
-            yield from other.without(self)
     pass
 
 class Reactor:

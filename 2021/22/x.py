@@ -31,9 +31,11 @@ def irange(a,b):
 def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
-class Cuboid(tuple):
+class Cuboid:
+    def __init__(self, coords):
+        self.coords = coords
     def __repr__(self):
-        return type(self).__name__ + str(super())
+        return type(self).__name__ + str(self.coords)
 
 class On(Cuboid):
     pass

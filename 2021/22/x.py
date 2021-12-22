@@ -155,7 +155,7 @@ def first(a):
         if c.inside(core):
             r = r + c
         print("r", r.volume)
-    pass
+    return r.volume
 
 
 def second(a):

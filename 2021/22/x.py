@@ -102,7 +102,7 @@ class On(Cuboid):
             yield from self.without(other)
 
     def without(self, other):
-        cubes = (On(c) for c in itertools.product(
+        cubes = tuple(On(c) for c in itertools.product(
             partition(a,b) for a,b in zip(self.coords, other.coords)))
         for cube in cubes:
             if not cube.inside(other) and cube.volume:

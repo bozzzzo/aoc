@@ -125,8 +125,11 @@ class Reactor:
 
     def __add__(self, other):
         def new_cuboids():
-            for cuboid in self.contents:
-                yield from cuboid + other
+            if not self.contents:
+                yield other
+            else:
+                for cuboid in self.contents:
+                    yield from cuboid + other
         return type(self)(new_cuboids())
 
     def __repr__(self):

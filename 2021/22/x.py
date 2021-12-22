@@ -137,7 +137,7 @@ def first(a):
     r = Reactor()
     for c in a:
         print(c)
-        r += c
+        r = r + c
         print(r)
     pass
 

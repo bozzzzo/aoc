@@ -136,9 +136,9 @@ class Reactor:
 def first(a):
     r = Reactor()
     for c in a:
-        print(c)
+        print("c", c)
         r = r + c
-        print(r)
+        print("r", r)
     pass
 
 

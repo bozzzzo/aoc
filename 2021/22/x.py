@@ -147,6 +147,8 @@ class Reactor:
 
 
 def first(a):
+    core = Cuboid([range(-50,51)]*3)
+    print("core", core)
     r = Reactor()
     for c in a:
         print("c", c)

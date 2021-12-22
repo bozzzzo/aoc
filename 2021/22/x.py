@@ -103,7 +103,7 @@ class On(Cuboid):
 
     def without(self, other):
         cubes = tuple(On(c) for c in itertools.product(
-            partition(a,b) for a,b in zip(self.coords, other.coords)))
+            *(partition(a,b) for a,b in zip(self.coords, other.coords))))
         print("without", cubes)
         for cube in cubes:
             if not cube.inside(other) and cube.volume:

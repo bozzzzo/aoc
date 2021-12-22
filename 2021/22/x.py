@@ -90,22 +90,20 @@ class On(Cuboid):
         assert isinstance(self, On)
         if isinstance(other, On):
             if not self.overlaps(other):
-                yield self
-                yield other
-            elif self.inside(other):
-                yield other
+                return ((self,), (other,))
+            if self.inside(other):
+                return ((), (other,))
             elif other.inside(self):
-                yield self
+                return ((self,), ())
             else:
-                yield other
-                yield from self.without(other)
+                return ((self,), tuple(other.without(self)))
         elif isinstance(other, Off):
             if not self.overlaps(other):
-                yield self
+                return ((self,), (other,))
             elif self.inside(other):
-                pass
+                return ((), other)
             else:
-                yield from self.without(other)
+                return (tuple(self.without(other)), (other,))
         else:
             assert False, str(other)
 
@@ -115,7 +113,7 @@ class On(Cuboid):
         print("without", cubes)
         for cube in cubes:
             if not cube.inside(other) and cube.volume:
-                yield cube 
+                yield cube
 
 
 class Off(Cuboid):

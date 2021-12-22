@@ -152,7 +152,8 @@ def first(a):
     r = Reactor()
     for c in a:
         print("c", c)
-        r = r + c
+        if c.inside(core):
+            r = r + c
         print("r", r.volume)
     pass
 

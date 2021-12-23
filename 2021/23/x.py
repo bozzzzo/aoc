@@ -40,10 +40,37 @@ costs = dict(A=1,
 def moves(a, cost):
     going = tuple(((x,y), c) for (x,y), c in a.items() if c in 'ABCD' and a.get((x,y-1),' ') not in 'ABCD' and y > 1)
     destinations = (1,2,4,6,8,10,11)
+    for (sx, sy), c in going:
+        ny = 1
+        for nx in destinations:
+            if a[(nx,ny)] != '.':
+                continue
+            if any(a[(x,1)] in 'ABCD' for x in irange(sx,nx)):
+                continue
+            b = a.copy()
+            b[(sx,sy)] = '.'
+            b[(nx,ny)] = c
+            exp = abs(ny-sy) + abs(nx-sx)
+            yield b, cost + exp * costs[c]
+
+    coming = tuple(((x,y), c) for (x,y), c in a.items() if c in 'ABCD' and a.get((x,y-1),' ') not in 'ABCD' and all(a[t] in (c, '.') for t in targets[c]))
+    for (sx,sy), c in coming:
+        for nx, ny in targets[c]:
+            if a[(nx,ny+1)] == '.':
+                continue
+            if any(a[(x,1)] in 'ABCD' for x in irange(sx,nx)):
+                continue
+            b = a.copy()
+            b[(sx,sy)] = '.'
+            b[(nx,ny)] = c
+            exp = abs(ny-sy) + abs(nx-sx)
+            yield b, cost + exp * costs[c]
 
 def first(a):
-    moves(a, 0)
-    print(list(x for x,y in a.items() if y == '.'))
+    print("=====")
+    for x,c in moves(a, 0):
+        print(c)
+        show_grid(x)
     pass
 
 def second(a):

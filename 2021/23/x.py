@@ -100,7 +100,7 @@ def parse(f):
   #B#C#A#A#
   #########
 
-x = collections.Counter((
+x = collections.Counter(dict(
  ('d', 2),
  ('a', 3),
  ('d', 3),

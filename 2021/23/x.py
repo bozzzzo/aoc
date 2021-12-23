@@ -83,7 +83,7 @@ def moves(a, cost):
     yield from going_moves(a, cost)
     yield from coming_moves(a, cost)
 
-def all_moves(start, start_key, *, _seen, d, i):
+def all_moves(start, start_key, *, _seen, d):
     if start_key not in _seen:
         _seen.add(start_key)
         for i, (move, cost) in enumerate(moves(start, 0)):

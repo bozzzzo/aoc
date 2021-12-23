@@ -31,11 +31,14 @@ def irange(a,b):
 def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
-targets = [((x*2 + 1, y), c) for x, c in enumerate('abcd', 1) for y in (2,3)]
+targets = dict((c, tuple((x*2 + 1, y) for y in (2,3))) for x, c in enumerate('abcd', 1))
+
+
 
 def first(a):
-    for k,v in targets:
-        a[k]=v
+    for k,v in targets.items():
+        for c in v:
+            a[c] = k
     show_grid(a)
     pass
 

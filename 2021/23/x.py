@@ -32,8 +32,16 @@ def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
 targets = dict((c, tuple((x*2 + 1, y) for y in (2,3))) for x, c in enumerate('abcd', 1))
+costs = dict(A=1,
+             B=10,
+             C=100,
+             D=1000)
 
-
+def moves(a, cost):
+    candidates = tuple(((x,y), c) for (x,y), c in a.items() if c in 'ABCD' and a.get((x,y-1),' ') not in 'ABCD')
+    a=a.copy()
+    a.update((x,c.lower()) for x,c in candidates)
+    show_grid(a)
 
 def first(a):
     for k,v in targets.items():

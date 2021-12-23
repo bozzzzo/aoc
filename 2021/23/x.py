@@ -73,11 +73,13 @@ def moves(a, cost):
             exp = abs(ny-sy) + abs(nx-sx)
             yield b, cost + exp * costs[c]
 
-def all_moves(start, start_key):
+def all_moves(start, start_key, _seen=set()):
     for move, cost in moves(a, 0):
         move_key = render_grid(move)
         yield (move_key, start_key), cost
-        yield from all_moves(move, move_key)
+        if move_key not in _seen:
+            _seen.add(move_key)
+            yield from all_moves(move, move_key)
 
 def first(a):
     start = a
@@ -89,6 +91,7 @@ def first(a):
     end_key = render_grid(end)
 
 
+    assert any(end_key == k2 for k1,k2 in graph)
     assert any(end_key == k1 for k1,k2 in graph)
 
     dist = dict([(end_key, 0)] + [(k2, 99999999999999999999999999999) for k1,k2 in graph])

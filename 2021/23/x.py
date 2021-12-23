@@ -100,9 +100,9 @@ def first(a):
             k=k.replace('\n',',')
             return f'"{k}"'
         fd.write("digraph {")
-        fd.write(f'{f(start_key)} [label="start"]\n')
-        fd.write(f'{f(end_key)} [label="end"]\n')
-        fd.writelines(f'{f(k1)} -> {f(k2)} [label="{c}"];'
+        fd.write(f'{lbl(start_key)} [label="start"]\n')
+        fd.write(f'{lbl(end_key)} [label="end"]\n')
+        fd.writelines(f'{lbl(k1)} -> {lbl(k2)} [label="{c}"];'
                       for (k1,k2),c in graph.items())
         fd.write("}")
 

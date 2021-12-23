@@ -115,6 +115,7 @@ def first(a):
     graph = dict(all_moves(start, start_key, _seen=seen))
 
     assert start_key in seen
+    assert end_key in seen
 
     # assert any(end_key == k2 for k1,k2 in graph)
     assert any(end_key == k1 for k1,k2 in graph)

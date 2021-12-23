@@ -110,7 +110,7 @@ def first(a):
 
     while start_key in Q:
         cost, u = min((dist[x], x) for x in Q)
-        unvisited.remove(u)
+        Q.remove(u)
         print("looking at ", cost)
         print(u)
         for (x, v), c in graph.items():

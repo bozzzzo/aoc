@@ -62,8 +62,7 @@ def show_grid(a):
     my = min(map(snd, a))
     Mx = max(map(fst, a))
     My = max(map(snd, a))
-    ui = {0:'.',1:'#'}
-    print("\n".join("".join(str(ui.get(a.get((x,y),0), ' '))
+    print("\n".join("".join(str(a.get((x,y))
                             for x in irange(mx,Mx))
                     for y in irange(my,My)))
 

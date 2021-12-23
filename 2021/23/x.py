@@ -69,7 +69,7 @@ def show_grid(a):
 def parse_grid(f):
     def parse_line(l):
         return l
-    return {(x,y):z  for y, l in enumerate(f) for x,z in enumerate(parse_line(l)) if z not in " \n" and (y != 1 or x not in (3,5,7,9))}
+    return {(x,y):z  for y, l in enumerate(f) for x,z in enumerate(parse_line(l)) if z not in "# \n" and (y != 1 or x not in (3,5,7,9))}
     pass
 
 def parse_graph(f):

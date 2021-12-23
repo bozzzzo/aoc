@@ -90,10 +90,10 @@ def first(a):
     end.update((x, c) for c, t in targets.items() for x in t)
     end_key = render_grid(end)
 
-    costs = dict([(end_key, 0)] + [(k2, 99999999999999999999999999999) for k1,k2 in graph])
+    dist = dict([(end_key, 0)] + [(k2, 99999999999999999999999999999) for k1,k2 in graph])
     prev = dict()
-    unvisited = set(costs)
-    assert start_key in unvisited
+    Q = set(dist)
+    assert start_key in Q
 
     with open(f"{name}.dot", "w") as fd:
         def lbl(k):
@@ -108,19 +108,20 @@ def first(a):
                       for (k1,k2),c in graph.items())
         fd.write("}")
 
-    while unvisited:
-        cost, u = min((costs[x], x) for x in unvisited)
+    while start_key in Q:
+        cost, u = min((dist[x], x) for x in Q)
         unvisited.remove(u)
-        
+        print("looking at ", cost)
+        print(u)
         for (x, v), c in graph.items():
-            if x != u or v not in unvisited:
+            if x != u or v not in Q:
                 continue
-            alt = cost + c
-            if alt < costs[v]:
-                costs[v] = alt
+            alt = dist[u] + c
+            if alt < dist[v]:
+                dist[v] = alt
                 prev[v] = u
 
-    return costs[start_key]
+    return dist[start_key]
 
 
     print(len(graph))

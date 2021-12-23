@@ -83,15 +83,16 @@ def moves(a, cost):
     yield from going_moves(a, cost)
     yield from coming_moves(a, cost)
 
-def all_moves(start, start_key, *, _seen, d):
+def all_moves(start, start_key, *, _seen, d, i):
     if start_key not in _seen:
         _seen.add(start_key)
-        print(d)
-        print(start)
-        for move, cost in moves(start, 0):
+        for i, (move, cost) in enumerate(moves(start, 0)):
+            print (' ' * d, i, "   ", cost)
+            show_grid(move, prefix=' '*d)
             move_key = render_grid(move)
             yield (move_key, start_key), cost
             yield from all_moves(move, move_key, _seen=_seen, d=d+1)
+            print(' '*d, "--")
 
 def first(a):
     sys.setrecursionlimit(100000)
@@ -188,17 +189,17 @@ def strint(x):
     return x
 
 
-def show_grid(a):
-    print(render_grid(a))
+def show_grid(a, *, prefix=''):
+    print(render_grid(a, prefix=''))
 
-def render_grid(a):
+def render_grid(a, *, prefix=''):
     mx = min(map(fst, a))
     my = min(map(snd, a))
     Mx = max(map(fst, a))
     My = max(map(snd, a))
-    return ("\n".join("".join(str(a.get((x,y), '_'))
-                            for x in irange(mx,Mx))
-                    for y in irange(my,My)))
+    return prefix + ((prefix+"\n").join("".join(str(a.get((x,y), '_'))
+                                                for x in irange(mx,Mx))
+                                        for y in irange(my,My)))
 
 def parse_grid(f):
     def parse_line(l):

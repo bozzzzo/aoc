@@ -85,18 +85,43 @@ def parse_graph(f):
     pass
 
 def parse(f):
-    states = dict(off=Off,on=On)
-    def cuboid(l):
-        state, d = l.split()
-        d = dict((i, tuple(map(int, x.split('..'))))
-                 for i, x in [c.split('=') for c in d.split(',')])
-        return states[state](srange(*d[i]) for i in "xyz")
-    return tuple(cuboid(l.strip()) for l in f)
+    pass
+
+# test_input
+#############
+#...........#
+###B#C#B#D###
+  #A#D#C#A#
+  #########
+
+#############
+#...........#
+###C#B#D#D###
+  #B#C#A#A#
+  #########
+
+x = collections.Counter((
+ ('d', 2),
+ ('a', 3),
+ ('d', 3),
+ ('d', 4),
+ ('a', 3),
+ ('c', 7),
+ ('b', 2),
+ ('c', 5),
+ ('b', 3),
+ ('b', 5),
+ ('a', 7),
+ ('a', 8),
+))
+print(x)
+cost = dict(a=1, b=10, c=100, d=1000)
+print(sum(cost[k]*v for k,v in x.items()))
 
 for name in [("test_input"),
              # ("test_input2"),
              # ("test_input3"),
-             ("input")][:3
+             ("input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

@@ -100,6 +100,12 @@ def first(a):
     prev[1,1], prev[5,2] = prev[5,2], prev[1,1]
     prev_key = render_grid(prev)
     show_grid(prev)
+
+    assert not list (going_moves(prev, 0))
+    com = list(coming_moves(prev, 0))
+    assert com
+    assert len(com) == 1
+    show_grid(com[0][0])
     return "TBD"
 
     assert any(end_key == k2 for k1,k2 in graph)

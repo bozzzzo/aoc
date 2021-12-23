@@ -31,7 +31,7 @@ def irange(a,b):
 def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
-targets = dict((c, tuple((x*2 + 1, y) for y in (2,3))) for x, c in enumerate('abcd', 1))
+targets = dict((c, tuple((x*2 + 1, y) for y in (2,3))) for x, c in enumerate('ABCD', 1))
 costs = dict(A=1,
              B=10,
              C=100,
@@ -53,7 +53,11 @@ def moves(a, cost):
             exp = abs(ny-sy) + abs(nx-sx)
             yield b, cost + exp * costs[c]
 
-    coming = tuple(((x,y), c) for (x,y), c in a.items() if c in 'ABCD' and a.get((x,y-1),' ') not in 'ABCD' and all(a[t] in (c, '.') for t in targets[c]))
+    coming = tuple(((x,y), c)
+                   for (x,y), c in a.items()
+                   if c in 'ABCD' and
+                   a.get((x,y-1),' ') not in 'ABCD' and
+                   all(a[t] in (c, '.') for t in targets[c]))
     for (sx,sy), c in coming:
         for nx, ny in targets[c]:
             if a[(nx,ny+1)] == '.':

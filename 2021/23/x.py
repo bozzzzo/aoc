@@ -63,8 +63,8 @@ def show_grid(a):
     Mx = max(map(fst, a))
     My = max(map(snd, a))
     print("\n".join("".join(str(a.get((x,y))
-                            for x in irange(mx,Mx))
-                    for y in irange(my,My))))
+                            for x in irange(mx,Mx)))
+                    for y in irange(my,My)))
 
 def parse_grid(f):
     def parse_line(l):

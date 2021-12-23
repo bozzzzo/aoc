@@ -72,14 +72,19 @@ def moves(a, cost):
             exp = abs(ny-sy) + abs(nx-sx)
             yield b, cost + exp * costs[c]
 
+def all_moves(start, start_key, _seen=set()):
+    for move, cost in moves(a, cost):
+        key = render_grid(move)
+        yield (start_key, move_key), cost
+        if move_key not in _seen:
+            _seen.add(move_key)
+            yield from all_moves(move, key)
+
 def first(a):
-    print("=====")
-    m = list(moves(a,0))
-    s=m[4]
-    show_grid(s[0])
-    for i, (x,c) in enumerate(moves(s[0], s[1])):
-        print(i, c)
-        show_grid(x)
+    start = a
+    start_key = render_grid(a)
+    graph = dict(all_moves(start, start_key))
+    print(len(graph))
     print('----------------------')
     pass
 

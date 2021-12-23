@@ -82,13 +82,13 @@ def moves(a, cost):
     yield from going_moves(a, cost)
     yield from coming_moves(a, cost)
 
-def all_moves(start, start_key, _seen=set()):
+def all_moves(start, start_key, *, _seen):
     if start_key not in _seen:
         _seen.add(start_key)
         for move, cost in moves(a, 0):
             move_key = render_grid(move)
             yield (move_key, start_key), cost
-            yield from all_moves(move, move_key, _seen)
+            yield from all_moves(move, move_key, _seen=_seen)
 
 def first(a):
     print("start")
@@ -114,8 +114,8 @@ def first(a):
     seen = set()
     graph = dict(all_moves(start, start_key, _seen=seen))
 
-    assert prev_key in seen
     assert start_key in seen
+    assert prev_key in seen
     assert end_key in seen
 
     # assert any(end_key == k2 for k1,k2 in graph)

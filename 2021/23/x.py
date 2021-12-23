@@ -43,7 +43,7 @@ def moves(a, cost):
 
 def first(a):
     moves(a, 0)
-    print(list(x for x,y in a if y == '.'))
+    print(list(x for x,y in a.items() if y == '.'))
     pass
 
 def second(a):

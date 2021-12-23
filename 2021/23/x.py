@@ -101,7 +101,6 @@ def first(a):
     prev_key = render_grid(prev)
     show_grid(prev)
 
-    assert not list (going_moves(prev, 0))
     com = list(coming_moves(prev, 0))
     assert com
     assert len(com) == 1

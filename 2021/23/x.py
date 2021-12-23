@@ -38,13 +38,12 @@ costs = dict(A=1,
              D=1000)
 
 def moves(a, cost):
-    candidates = tuple(((x,y), c) for (x,y), c in a.items() if c in 'ABCD' and a.get((x,y-1),' ') not in 'ABCD')
-    a=a.copy()
-    a.update((x,c.lower()) for x,c in candidates)
-    show_grid(a)
+    going = tuple(((x,y), c) for (x,y), c in a.items() if c in 'ABCD' and a.get((x,y-1),' ') not in 'ABCD' and y > 1)
+    destinations = (1,2,4,6,8,10,11)
 
 def first(a):
     moves(a, 0)
+    print(list(x for x,y in a if y == '.'))
     pass
 
 def second(a):

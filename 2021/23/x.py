@@ -86,7 +86,8 @@ def moves(a, cost):
 def all_moves(start, start_key, *, _seen, d):
     if start_key not in _seen:
         _seen.add(start_key)
-        print(d, end=' ')
+        print(d)
+        print(start)
         for move, cost in moves(start, 0):
             move_key = render_grid(move)
             yield (move_key, start_key), cost

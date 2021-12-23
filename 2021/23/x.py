@@ -60,6 +60,7 @@ def coming_moves(a, cost):
                    if c in 'ABCD' and
                    a.get((x,y-1),' ') not in 'ABCD' and
                    all(a[t] in (c, '.') for t in targets[c]))
+    print("coming", coming)
     for (sx,sy), c in coming:
         for nx, ny in targets[c]:
             if sx == nx:

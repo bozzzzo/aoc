@@ -75,7 +75,8 @@ def coming_moves(a, cost):
             yield b, cost + exp * costs[c]
 
 def moves(a, cost):
-    yield from going_moves()
+    yield from going_moves(a, cost)
+    yield from coming_moves(a, cost)
 
 def all_moves(start, start_key, _seen=set()):
     for move, cost in moves(a, 0):

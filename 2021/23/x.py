@@ -65,18 +65,13 @@ def coming_moves(a, cost):
     for (sx,sy), c in coming:
         for nx, ny in targets[c]:
             if sx == nx:
-                print(f'same x')
                 continue
             if a.get((nx,ny+1)) == '.':
-                print(f'below')
                 continue
             if a.get((nx,ny)) != '.':
-                print(f'busy')
                 continue
             if any(a.get((x,1), ' ') in 'ABCD' for x in irange(sx,nx) if x != sx):
-                print('in the way')
                 continue
-            print(sx,sy,nx,ny)
             b = a.copy()
             b[(sx,sy)] = '.'
             b[(nx,ny)] = c
@@ -115,7 +110,6 @@ def first(a):
     assert com
     assert len(com) == 1
     show_grid(com[0][0])
-    return "TBD"
 
     graph = dict(all_moves(start, start_key))
 

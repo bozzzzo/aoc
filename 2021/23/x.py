@@ -90,6 +90,9 @@ def first(a):
     end.update((x, c) for c, t in targets.items() for x in t)
     end_key = render_grid(end)
 
+
+    assert any(end_key == k1 for k1,k2 in graph)
+
     dist = dict([(end_key, 0)] + [(k2, 99999999999999999999999999999) for k1,k2 in graph])
     prev = dict()
     Q = set(dist)

@@ -114,6 +114,7 @@ def first(a):
     seen = set()
     graph = dict(all_moves(start, start_key, _seen=seen))
 
+    assert prev_key in seen
     assert start_key in seen
     assert end_key in seen
 

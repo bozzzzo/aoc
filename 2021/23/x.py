@@ -113,13 +113,16 @@ def first(a):
         Q.remove(u)
         print("looking at ", cost)
         print(u)
+        has_neighbors = False
         for (x, v), c in graph.items():
             if x != u or v not in Q:
                 continue
+            has_neighbors = True
             alt = dist[u] + c
             if alt < dist[v]:
                 dist[v] = alt
                 prev[v] = u
+        assert has_neighbors
 
     return dist[start_key]
 

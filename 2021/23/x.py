@@ -92,6 +92,7 @@ def all_moves(start, start_key, *, _seen, d):
             yield from all_moves(move, move_key, _seen=_seen, d=d+1)
 
 def first(a):
+    sys.setrecursionlimit(100000)
     print("start")
     start = a
     start_key = render_grid(start)

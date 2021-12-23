@@ -95,10 +95,21 @@ def first(a):
     unvisited = set(costs)
     assert start_key in unvisited
 
+    with open(f"{name}.dot", "w") as fd:
+        def lbl(k):
+            k=k.replace('\n',',')
+            return f'"{k}"'
+        fd.write("digraph {")
+        fd.write(f'{f(start_key)} [label="start"]\n')
+        fd.write(f'{f(end_key)} [label="end"]\n')
+        fd.writelines(f'{f(k1)} -> {f(k2)} [label="{c}"];'
+                      for (k1,k2),c in graph.items())
+        fd.write("}")
+
     while unvisited:
         cost, u = min((costs[x], x) for x in unvisited)
         unvisited.remove(u)
-
+        
         for (x, v), c in graph.items():
             if x != u or v not in unvisited:
                 continue

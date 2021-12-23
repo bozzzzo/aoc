@@ -113,7 +113,7 @@ def first(a):
 
     graph = dict(all_moves(start, start_key))
 
-    assert any(end_key == k2 for k1,k2 in graph)
+    # assert any(end_key == k2 for k1,k2 in graph)
     assert any(end_key == k1 for k1,k2 in graph)
 
     dist = dict([(end_key, 0)] + [(k2, 99999999999999999999999999999) for k1,k2 in graph])

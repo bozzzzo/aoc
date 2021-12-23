@@ -60,6 +60,8 @@ def moves(a, cost):
                    all(a[t] in (c, '.') for t in targets[c]))
     for (sx,sy), c in coming:
         for nx, ny in targets[c]:
+            if sx == nx:
+                continue
             if a.get((nx,ny+1)) == '.':
                 continue
             if any(a.get((x,1), ' ') in 'ABCD' for x in irange(sx,nx)):

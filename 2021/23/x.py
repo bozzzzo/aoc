@@ -33,18 +33,28 @@ def irange(a,b):
 def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
-targets = dict((c, tuple((x*2 + 1, y) for y in (2,3))) for x, c in enumerate('ABCD', 1))
+targets = dict((c, tuple((x*2 + 1, y) for y in (2,3,4,5))) for x, c in enumerate('ABCD', 1))
 costs = dict(A=1,
              B=10,
              C=100,
              D=1000)
 
 def going_moves(a, cost):
-    going = tuple(((x,y), c) for (x,y), c in a.items() if c in 'ABCD' and a.get((x,y-1),' ') not in 'ABCD' and y > 1)
+    depth = max(y for (x,y), c in a.items() if c in 'ABCD')
+    going = tuple(((x,y), c)
+                  for (x,y), c in a.items()
+                  if
+                  y > 1 and
+                  c in 'ABCD' and
+                  a.get((x,y-1),' ') not in 'ABCD'
+                  )
     destinations = (1,2,4,6,8,10,11)
     for (sx, sy), c in going:
         ny = 1
         for nx in destinations:
+            if sx == targets[c][0][0]:
+                if all(a[(sx,y)] == c for y in irange(sy, depth)):
+                    continue
             if a[(nx,ny)] != '.':
                 continue
             if any(a.get((x,1),' ') in 'ABCD' for x in irange(sx,nx)):
@@ -52,19 +62,22 @@ def going_moves(a, cost):
             b = a.copy()
             b[(sx,sy)] = '.'
             b[(nx,ny)] = c
-            exp = abs(ny-sy) + abs(nx-sx)
+            exp = abs(ny-1) + abs(sy-1) + abs(nx-sx)
             yield b, cost + exp * costs[c]
 
 def coming_moves(a, cost):
+    depth = max(y for (x,y), c in a.items() if c in 'ABCD')
     coming = tuple(((x,y), c)
                    for (x,y), c in a.items()
                    if c in 'ABCD' and
                    a.get((x,y-1),' ') not in 'ABCD' and
-                   all(a[t] in (c, '.') for t in targets[c]) and
+                   all(a[t] in (c, '.') for t in targets[c] if t[1] <= depth) and
                    ( y == 1 or
                      x != targets[c][0][0]))
     for (sx,sy), c in coming:
         for nx, ny in targets[c]:
+            if ny > depth:
+                continue
             if sx == nx:
                 continue
             if a.get((nx,ny+1)) == '.':
@@ -76,7 +89,7 @@ def coming_moves(a, cost):
             b = a.copy()
             b[(sx,sy)] = '.'
             b[(nx,ny)] = c
-            exp = abs(ny-sy) + abs(nx-sx)
+            exp = abs(ny-1) + abs(sy-1) + abs(nx-sx)
             yield b, cost + exp * costs[c]
 
 def moves(a, cost):
@@ -87,49 +100,55 @@ def all_moves(start, start_key, *, _seen, d):
     if start_key not in _seen:
         _seen.add(start_key)
         for i, (move, cost) in enumerate(moves(start, 0)):
-            print (' ' * d, i, "   ", cost)
-            show_grid(move, prefix=' '*d)
+            # print (' ' * d, i, "   ", cost)
+            # show_grid(move, prefix=' '*d)
             move_key = render_grid(move)
             yield (move_key, start_key), cost
             yield from all_moves(move, move_key, _seen=_seen, d=d+1)
-            print(' '*d, "--")
+            # print(' '*d, "--")
 
 def first(a):
     sys.setrecursionlimit(100000)
+    depth = max(y for (x,y), c in a.items() if c in 'ABCD')
+
     print("start")
     start = a
     start_key = render_grid(start)
 
     print("end")
     end = a.copy()
-    end.update((x, c) for c, t in targets.items() for x in t)
+    end.update((x, c) for c, t in targets.items() for x in t if x[1] <= depth)
     end_key = render_grid(end)
 
     print("prev")
     prev = end.copy()
     prev[1,1], prev[5,2] = prev[5,2], prev[1,1]
     prev_key = render_grid(prev)
-    show_grid(prev)
 
     com = list(coming_moves(prev, 0))
     assert com
     assert len(com) == 1
-    show_grid(com[0][0])
 
+    print("========================================")
     seen = set()
     graph = dict(all_moves(start, start_key, _seen=seen, d=0))
-
+    print("graph", len(graph))
     assert start_key in seen
-    assert prev_key in seen
     assert end_key in seen
 
     # assert any(end_key == k2 for k1,k2 in graph)
     assert any(end_key == k1 for k1,k2 in graph)
+    print("========================================")
 
-    dist = dict([(end_key, 0)] + [(k2, 99999999999999999999999999999) for k1,k2 in graph])
+    dist = dict(
+        [(k2, 99999999999999999999999999999) for k1,k2 in graph] +
+        [(k1, 99999999999999999999999999999) for k1,k2 in graph] +
+        [(end_key, 0)])
     prev = dict()
     Q = set(dist)
     assert start_key in Q
+    assert end_key in Q
+    assert start_key != end_key
 
     with open(f"{name}.dot", "w") as fd:
         def lbl(k):
@@ -144,21 +163,47 @@ def first(a):
                       for (k1,k2),c in graph.items())
         fd.write("}")
 
-    while start_key in Q:
-        cost, u = min((dist[x], x) for x in Q)
+    neighbors = collections.defaultdict(set)
+    for k1,k2 in graph:
+        neighbors[k1].add(k2)
+
+    assert neighbors[end_key]
+    assert start_key not in neighbors[end_key]
+
+    mindist = list((dist[q], q) for q in Q)
+    heapq.heapify(mindist)
+
+    print("search in ", len(Q))
+    while Q:
+        while True:
+            cost, u = heapq.heappop(mindist)
+            if u in Q:
+                break
         Q.remove(u)
-        print("looking at ", cost)
-        print(u)
-        has_neighbors = False
-        for (x, v), c in graph.items():
-            if x != u or v not in Q:
-                continue
-            has_neighbors = True
-            alt = dist[u] + c
+        assert cost == dist[u]
+        print(len(Q), end='\r        ', flush=True)
+        if u == end_key:
+            assert cost == 0
+            print("found end", cost, "next", neighbors[u])
+        if u == start_key:
+            print("found start", cost)
+        for v in neighbors[u].intersection(Q):
+            alt = dist[u] + graph[(u,v)]
             if alt < dist[v]:
                 dist[v] = alt
                 prev[v] = u
-        assert has_neighbors
+                heapq.heappush(mindist, (alt, v))
+
+    print('done             ')
+
+    def show_solution():
+        x = start_key
+        i = 0
+        while x != end_key:
+            print(f"==== step {i} {dist[x]} {graph[(prev[x],x)]}")
+            print(x)
+            x = prev[x]
+    
 
     return dist[start_key]
 
@@ -197,7 +242,7 @@ def render_grid(a, *, prefix=''):
     my = min(map(snd, a))
     Mx = max(map(fst, a))
     My = max(map(snd, a))
-    return prefix + ((prefix+"\n").join("".join(str(a.get((x,y), '_'))
+    return prefix + (("\n"+prefix).join("".join(str(a.get((x,y), '_'))
                                                 for x in irange(mx,Mx))
                                         for y in irange(my,My)))
 
@@ -244,12 +289,20 @@ for name in [("test_input"),
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
-        a = parse_grid(f)
+        f = f.readlines()
+    a = parse_grid(f)
     show_grid(a)
 
     w = first(a)
     print("first", w)
-    w = second(a)
+    f[3:3] = [
+        '  #D#C#B#A#',
+        '  #D#B#A#C#'
+    ]
+    print(f)
+    a = parse_grid(f)
+    show_grid(a)
+    w = first(a)
     print("second", w)
 
 print("==================",flush=True)

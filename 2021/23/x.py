@@ -110,7 +110,7 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         a = parse_grid(f)
-    show_grid(a)
+    print(a)
 
     w = first(a)
     print("first", w)

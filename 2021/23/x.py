@@ -100,7 +100,7 @@ def parse(f):
   #B#C#A#A#
   #########
 
-x = collections.Counter(dict(
+x = collections.Counter(dict((
  ('d', 2),
  ('a', 3),
  ('d', 3),
@@ -113,7 +113,7 @@ x = collections.Counter(dict(
  ('b', 5),
  ('a', 7),
  ('a', 8),
-))
+)))
 print(x)
 cost = dict(a=1, b=10, c=100, d=1000)
 print(sum(cost[k]*v for k,v in x.items()))

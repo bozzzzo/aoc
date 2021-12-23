@@ -90,10 +90,24 @@ def first(a):
     end.update((x, c) for c, t in targets.items() for x in t)
     end_key = render_grid(end)
 
-    costs = [(0,end_key)] + [(99999999999999999999999999999, k2) for k1,k2 in graph]
-    unvisited = set(map(snd, costs))
+    costs = dict([(end_key, 0)] + [(k2, 99999999999999999999999999999) for k1,k2 in graph])
+    prev = dict()
+    unvisited = set(costs)
     assert start_key in unvisited
-    
+
+    while unvisited:
+        cost, u = min((costs[x], x) for x in unvisited)
+        unvisited.remove(u)
+
+        for (x, v), c in graph.items():
+            if x != u or v not in unvisited:
+                continue
+            alt = cost + c
+            if alt < costs[v]:
+                costs[v] = alt
+                prev[v] = u
+
+    return costs[start_key]
 
 
     print(len(graph))

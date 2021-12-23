@@ -75,9 +75,10 @@ def first(a):
     m = list(moves(a,0))
     s=m[4]
     show_grid(s[0])
-    for x,c in moves(s[0], s[1]):
-        print(c)
+    for i, (x,c) in enumerate(moves(s[0], s[1])):
+        print(i, c)
         show_grid(x)
+    print('----------------------')
     pass
 
 def second(a):

@@ -69,8 +69,8 @@ def show_grid(a):
 
 def parse_grid(f):
     def parse_line(l):
-        return l.strip()
-    return {(x,y):int(z)  for x, l in enumerate(f) for y,z in enumerate(parse_line(l))}
+        return l
+    return {(x,y):z  for x, l in enumerate(f) for y,z in enumerate(parse_line(l)) if z not in " \n"}
     pass
 
 def parse_graph(f):
@@ -89,94 +89,19 @@ def parse(f):
 
 # test_input
 #############
-#...........#
+#.. . . . ..#
 ###B#C#B#D###
   #A#D#C#A#
   #########
 
+
+
 #############
-#...........#
+#.. . . . ..#
 ###C#B#D#D###
   #B#C#A#A#
   #########
 
-x = collections.Counter(dict((
- ('d', 2),
-#############
-#.......D...#
-###C#B#D#.###
-  #B#C#A#A#
-  #########
- ('a', 3),
-#############
-#.......D.A.#
-###C#B#D#.###
-  #B#C#A#.#
-  #########
- ('d', 3),
-#############
-#.........A.#
-###C#B#D#.###
-  #B#C#A#D#
-  #########
- ('d', 4),
-#############
-#.........A.#
-###C#B#.#D###
-  #B#C#A#D#
-  #########
- ('a', 3),
-#############
-#.......A.A.#
-###C#B#.#D###
-  #B#C#.#D#
-  #########
- ('c', 7),
-#############
-#.......A.A.#
-###.#B#.#D###
-  #B#C#C#D#
-  #########
- ('b', 2),
-#############
-#...B...A.A.#
-###.#.#.#D###
-  #B#C#C#D#
-  #########
- ('c', 5),
-#############
-#...B...A.A.#
-###.#.#C#D###
-  #B#.#C#D#
-  #########
- ('b', 3),
-#############
-#.......A.A.#
-###.#.#C#D###
-  #B#B#C#D#
-  #########
- ('b', 5),
-#############
-#.......A.A.#
-###.#B#C#D###
-  #.#B#C#D#
-  #########
- ('a', 7),
-#############
-#.........A.#
-###.#B#C#D###
-  #A#B#C#D#
-  #########
- ('a', 8),
-#############
-#...........#
-###A#B#C#D###
-  #A#B#C#D#
-  #########
-)))
-print(x)
-cost = dict(a=1, b=10, c=100, d=1000)
-print(sum(cost[k]*v for k,v in x.items()))
 
 for name in [("test_input"),
              # ("test_input2"),
@@ -185,8 +110,8 @@ for name in [("test_input"),
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
-        a = parse(f)
-    pprint(a)
+        a = parse_grid(f)
+    show_grid(f)
 
     w = first(a)
     print("first", w)

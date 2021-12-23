@@ -45,7 +45,7 @@ def moves(a, cost):
         for nx in destinations:
             if a[(nx,ny)] != '.':
                 continue
-            if any(a[(x,1)] in 'ABCD' for x in irange(sx,nx)):
+            if any(a.get((x,1)) in 'ABCD' for x in irange(sx,nx)):
                 continue
             b = a.copy()
             b[(sx,sy)] = '.'
@@ -58,7 +58,7 @@ def moves(a, cost):
         for nx, ny in targets[c]:
             if a[(nx,ny+1)] == '.':
                 continue
-            if any(a[(x,1)] in 'ABCD' for x in irange(sx,nx)):
+            if any(a.get((x,1)) in 'ABCD' for x in irange(sx,nx)):
                 continue
             b = a.copy()
             b[(sx,sy)] = '.'

@@ -31,7 +31,7 @@ def irange(a,b):
 def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
-targets = [(c, (x*2 + 1, y)) for x, c in enumerate('abcd', 1) for y in (2,3)]
+targets = [((x*2 + 1, y), c) for x, c in enumerate('abcd', 1) for y in (2,3)]
 
 def first(a):
     for k,v in targets:

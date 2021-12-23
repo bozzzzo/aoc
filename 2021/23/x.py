@@ -88,7 +88,7 @@ def all_moves(start, start_key, _seen=set()):
         for move, cost in moves(a, 0):
             move_key = render_grid(move)
             yield (move_key, start_key), cost
-            yield from all_moves(move, move_key)
+            yield from all_moves(move, move_key, _seen)
 
 def first(a):
     print("start")

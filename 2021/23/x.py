@@ -73,7 +73,7 @@ def moves(a, cost):
             yield b, cost + exp * costs[c]
 
 def all_moves(start, start_key, _seen=set()):
-    for move, cost in moves(a, cost):
+    for move, cost in moves(a, 0):
         key = render_grid(move)
         yield (start_key, move_key), cost
         if move_key not in _seen:

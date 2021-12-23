@@ -70,7 +70,7 @@ def coming_moves(a, cost):
             if a.get((nx,ny+1)) == '.':
                 print(f'below')
                 continue
-            if any(a.get((x,1), ' ') in 'ABCD' for x in irange(sx,nx) and x != sx):
+            if any(a.get((x,1), ' ') in 'ABCD' for x in irange(sx,nx) if x != sx):
                 print('in the way')
                 continue
             b = a.copy()

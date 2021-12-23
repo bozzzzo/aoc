@@ -65,10 +65,13 @@ def coming_moves(a, cost):
     for (sx,sy), c in coming:
         for nx, ny in targets[c]:
             if sx == nx:
+                print(f'same x')
                 continue
             if a.get((nx,ny+1)) == '.':
+                print(f'below')
                 continue
-            if any(a.get((x,1), ' ') in 'ABCD' for x in irange(sx,nx)):
+            if any(a.get((x,1), ' ') in 'ABCD' for x in irange(sx,nx) and x != sx):
+                print('in the way')
                 continue
             b = a.copy()
             b[(sx,sy)] = '.'

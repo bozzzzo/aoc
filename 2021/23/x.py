@@ -190,7 +190,7 @@ def strint(x):
 
 
 def show_grid(a, *, prefix=''):
-    print(render_grid(a, prefix=''))
+    print(render_grid(a, prefix=prefix))
 
 def render_grid(a, *, prefix=''):
     mx = min(map(fst, a))

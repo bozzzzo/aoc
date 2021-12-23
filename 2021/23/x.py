@@ -84,6 +84,12 @@ def first(a):
     start = a
     start_key = render_grid(a)
     graph = dict(all_moves(start, start_key))
+
+    end = a.copy()
+    end.update((x, c) for c, t in targets.items() for x in t)
+    show_grid(end)
+
+
     print(len(graph))
     print('----------------------')
     pass

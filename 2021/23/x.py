@@ -44,7 +44,7 @@ def moves(a, cost):
     show_grid(a)
 
 def first(a):
-    moves(a)
+    moves(a, 0)
     pass
 
 def second(a):

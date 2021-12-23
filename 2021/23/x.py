@@ -62,7 +62,6 @@ def coming_moves(a, cost):
                    all(a[t] in (c, '.') for t in targets[c]) and
                    ( y == 1 or
                      x != targets[c][0][0]))
-    print("coming", coming)
     for (sx,sy), c in coming:
         for nx, ny in targets[c]:
             if sx == nx:
@@ -90,15 +89,16 @@ def all_moves(start, start_key, _seen=set()):
             yield from all_moves(move, move_key)
 
 def first(a):
+    print("start")
     start = a
     start_key = render_grid(start)
-    graph = dict(all_moves(start, start_key))
 
+    print("end")
     end = a.copy()
     end.update((x, c) for c, t in targets.items() for x in t)
     end_key = render_grid(end)
 
-
+    print("prev")
     prev = end.copy()
     prev[1,1], prev[5,2] = prev[5,2], prev[1,1]
     prev_key = render_grid(prev)
@@ -109,6 +109,8 @@ def first(a):
     assert len(com) == 1
     show_grid(com[0][0])
     return "TBD"
+
+    graph = dict(all_moves(start, start_key))
 
     assert any(end_key == k2 for k1,k2 in graph)
     assert any(end_key == k1 for k1,k2 in graph)

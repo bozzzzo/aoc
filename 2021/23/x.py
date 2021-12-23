@@ -7,6 +7,7 @@ import operator
 import json
 import time
 import math
+import heapq
 from dataclasses import dataclass, replace, field
 import numpy as np
 from typing import *
@@ -89,7 +90,10 @@ def first(a):
     end.update((x, c) for c, t in targets.items() for x in t)
     end_key = render_grid(end)
 
-
+    costs = [(0,end_key)] + [(99999999999999999999999999999, k2) for k1,k2 in graph]
+    unvisited = set(map(snd, costs))
+    assert start_key in unvisited
+    
 
 
     print(len(graph))

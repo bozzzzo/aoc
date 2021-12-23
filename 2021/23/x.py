@@ -72,7 +72,10 @@ def moves(a, cost):
 
 def first(a):
     print("=====")
-    for x,c in moves(a, 0):
+    m = list(moves(a,0))
+    s=m[4]
+    show_grid(s[0])
+    for x,c in moves(s[0], s[1]):
         print(c)
         show_grid(x)
     pass

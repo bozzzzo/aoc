@@ -74,11 +74,11 @@ def moves(a, cost):
 
 def all_moves(start, start_key, _seen=set()):
     for move, cost in moves(a, 0):
-        key = render_grid(move)
+        move_key = render_grid(move)
         yield (start_key, move_key), cost
         if move_key not in _seen:
             _seen.add(move_key)
-            yield from all_moves(move, key)
+            yield from all_moves(move, move_key)
 
 def first(a):
     start = a

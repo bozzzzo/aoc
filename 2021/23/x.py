@@ -38,7 +38,7 @@ costs = dict(A=1,
              C=100,
              D=1000)
 
-def moves(a, cost):
+def going_moves(a, cost):
     going = tuple(((x,y), c) for (x,y), c in a.items() if c in 'ABCD' and a.get((x,y-1),' ') not in 'ABCD' and y > 1)
     destinations = (1,2,4,6,8,10,11)
     for (sx, sy), c in going:
@@ -54,6 +54,7 @@ def moves(a, cost):
             exp = abs(ny-sy) + abs(nx-sx)
             yield b, cost + exp * costs[c]
 
+def coming_moves(a, cost):
     coming = tuple(((x,y), c)
                    for (x,y), c in a.items()
                    if c in 'ABCD' and
@@ -73,6 +74,9 @@ def moves(a, cost):
             exp = abs(ny-sy) + abs(nx-sx)
             yield b, cost + exp * costs[c]
 
+def moves(a, cost):
+    yield from going_moves()
+
 def all_moves(start, start_key, _seen=set()):
     for move, cost in moves(a, 0):
         move_key = render_grid(move)
@@ -90,6 +94,12 @@ def first(a):
     end.update((x, c) for c, t in targets.items() for x in t)
     end_key = render_grid(end)
 
+
+    prev = end.copy()
+    prev[1,1], prev[5,2] = prev[5,2], prev[1,1]
+    prev_key = render_grid(prev)
+    show_grid(prev)
+    return "TBD"
 
     assert any(end_key == k2 for k1,k2 in graph)
     assert any(end_key == k1 for k1,k2 in graph)

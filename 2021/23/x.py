@@ -44,10 +44,7 @@ def moves(a, cost):
     show_grid(a)
 
 def first(a):
-    for k,v in targets.items():
-        for c in v:
-            a[c] = k
-    show_grid(a)
+    moves(a)
     pass
 
 def second(a):

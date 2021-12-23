@@ -73,6 +73,7 @@ def coming_moves(a, cost):
             if any(a.get((x,1), ' ') in 'ABCD' for x in irange(sx,nx) if x != sx):
                 print('in the way')
                 continue
+            print(sx,sy,nx,ny)
             b = a.copy()
             b[(sx,sy)] = '.'
             b[(nx,ny)] = c

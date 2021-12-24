@@ -180,7 +180,7 @@ class Op(Lazy):
 
     def __repr__(self):
         op = self.__class__.__name__
-        return f'{self.l} {self.REP} {self.r}'
+        return f'({self.l} {self.REP} {self.r})'
 
     @property
     def value(self):

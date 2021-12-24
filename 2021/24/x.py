@@ -93,8 +93,8 @@ def monad(a):
     return run
 
 class Context:
-    def __init__(self, *args, **kwargs):
-        self.data = dict(*args, kwargs)
+    def __init__(self, args):
+        self.data = dict(args)
         self._encoding = None
 
     def merge(self, other):

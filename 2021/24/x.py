@@ -67,8 +67,12 @@ def monad(a):
             assert False, str((op, reg, arg))
 
     code.append(f'{indent}if z{digit}: continue')
-    ret = ",".join(ret)
-    code.append(f'{indent}ret = [{ret}]')
+    def mul(ret):
+        if len(ret) == 1:
+            return ret[0]
+        else:
+            return f'({mul(ret[:-1])} * 10 + {ret[-1]})'
+    code.append(f'{indent}return {mul(ret)}')
     code.append('return None')
 
     code = "\n".join(code)

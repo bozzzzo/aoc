@@ -103,7 +103,7 @@ class Context:
     def merge(self, other):
         common = set(self.data).intersection(set(other.data))
         if any(self.data[v] != other.data[v] for v in common):
-            print("context merge conflict", common, self.data, other.data)
+            #print("context merge conflict", common, self.data, other.data)
             return None
         return Context(itertools.chain(self.data.items(), other.data.items()))
 

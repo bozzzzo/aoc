@@ -103,6 +103,9 @@ class Const:
     def const(self):
         return True
 
+    def __repr__(self):
+        return repr(self.value)
+
 class Var(Lazy):
     def __init__(self, i, value=range(1,10)):
         self.listeners = []
@@ -145,34 +148,34 @@ class Add(Op):
     @property
     def value(self):
         assert self.const
-        return self.l + self.r
+        return Const(self.l.value + self.r.value)
 
 class Mul(Op):
     @property
     def value(self):
         assert self.const
-        return self.l * self.r
+        return Const(self.l.value * self.r.value)
 
 
 class Div(Op):
     @property
     def value(self):
         assert self.const
-        return self.l // self.r
+        return Const(self.l.value // self.r.value)
 
 
 class Mod(Op):
     @property
     def value(self):
         assert self.const
-        return self.l % self.r
+        return Const(self.l.value % self.r.value)
 
 
 class Eq(Op):
     @property
     def value(self):
         assert self.const
-        return int(self.l == self.r)
+        return Const(int(self.l == self.r))
 
 
 def monad2(a):

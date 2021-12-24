@@ -50,7 +50,7 @@ def monad(a):
         elif op == 'mul':
             state[reg] = f'({state[reg]} * {arg})'
         elif op == 'eql':
-            state[reg] = f'({state[reg]} == {arg})'
+            state[reg] = f'int({state[reg]} == {arg})'
         else:
             assert False, str((op, reg, arg))
 

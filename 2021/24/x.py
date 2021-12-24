@@ -72,6 +72,7 @@ def monad(a):
             return ret[0]
         else:
             return f'({mul(ret[:-1])} * 10 + {ret[-1]})'
+    code.append(f'{indent}# {ret}')
     code.append(f'{indent}return {mul(ret)}')
     code.append('return None')
 

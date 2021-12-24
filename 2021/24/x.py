@@ -114,6 +114,7 @@ class Var(Lazy):
 
     @property
     def value(self):
+        assert self.const
         return self._value
 
     @property

@@ -58,7 +58,7 @@ def monad(a):
         else:
             assert False, str((op, reg, arg))
 
-    print(state)
+        print(op, reg, arg, state)
 
     return lambda x: 0
 

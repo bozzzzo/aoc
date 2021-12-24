@@ -37,7 +37,7 @@ def monad(a):
     zero = '0'
     state = dict(x=zero, y=zero, z=zero, w=zero)
     def evl(x):
-        if isintance(x, int):
+        if isinstance(x, int):
             return x
         else:
             return state[x]

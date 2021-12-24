@@ -217,6 +217,8 @@ def monad2(a):
                 state[reg] = argval
             elif regval.const and argval.const:
                 state[reg] = Const(regval.value + argval.value)
+            elif isinstance(regval, Add) and regval.r.const and argval.const:
+                state[reg] = Add(regval.l, Const(regval.r.value + argval.value))
             else:
                 state[reg] = Add(regval, argval)
         elif op == 'mul':

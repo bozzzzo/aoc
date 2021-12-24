@@ -73,21 +73,18 @@ def monad(a):
         else:
             return f'({mul(ret[:-1])} * 10 + {ret[-1]})'
     code.append(f'{indent}# {ret}')
-    code.append(f'{indent}return {mul(ret)}')
-    code.append('return None')
+    code.append(f'{indent}ret = {mul(ret)}')
+    code.append(f'{indent}return ret')
 
     code = "\n".join(code)
     print(code)
 
-    return 0
-
     prog = compile(code, 'monad', 'exec')
 
     def run(s):
-        state=dict(x=0,y=0,z=0,w=0,s=s)
+        state=dict(s=s, ret=None)
         eval(prog, globals(), state)
-        # print("??", state)
-        return state['z']
+        return state['ret']
 
     return run
 

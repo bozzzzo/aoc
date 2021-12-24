@@ -98,7 +98,7 @@ class Context:
         self._encoding = None
 
     def merge(self, other):
-        common = set(self).intersection(other)
+        common = set(self.data).intersection(other.data)
         if all(self.data[v] == other.data[v] for v in common):
             return Context(itertools.chain(self.data.items(), other.data.items()))
         else:

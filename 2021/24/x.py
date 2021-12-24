@@ -83,9 +83,10 @@ def monad(a):
     print(code)
 
     prog = compile(code, 'monad', 'exec')
+    print(prog)
 
-    def run(s):
-        state=dict(s=s, ret=None)
+    def run():
+        state=dict(ret=None)
         eval(prog, globals(), state)
         return state['ret']
 

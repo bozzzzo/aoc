@@ -138,6 +138,7 @@ def monad2(a):
             else:
                 state[reg] = f'eq({regval}, {argval})'
 
+    print("== state")
 
 def first(a):
     f = monad2(a)

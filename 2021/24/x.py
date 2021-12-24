@@ -68,7 +68,7 @@ def monad(a):
 
     code.append(f'{indent}if z{digit}: continue')
     ret = ",".join(ret)
-    code.append(f'{indent}ret = {",",join(ret)}')
+    code.append(f'{indent}ret = [{ret}]')
     code.append('return None')
 
     code = "\n".join(code)

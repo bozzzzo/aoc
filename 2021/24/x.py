@@ -56,12 +56,13 @@ def monad(a):
 
     code = "; ".join(code)
     print(code)
-    return lambda x: 0 
 
-    z = compile(state['z'], 'monad', 'eval')
+    prog = compile(code, 'monad', 'exec')
 
     def run(s):
-        return eval(z)
+        x=y=z=w=0
+        eval(prog)
+        return z
 
     return run
 

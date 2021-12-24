@@ -97,6 +97,9 @@ class Context:
         self.data = dict(*args)
         self._encoding = None
 
+    def __repr__(self):
+        return repr(self.data)
+
     def merge(self, other):
         common = set(self.data).intersection(set(other.data))
         if any(self.data[v] != other.data[v] for v in common):

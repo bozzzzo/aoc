@@ -148,6 +148,7 @@ class Op(Lazy):
     def recalc(self):
         pass
 
+    @property
     def const(self):
         return self.l.const and self.r.const
 

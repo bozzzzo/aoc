@@ -137,7 +137,6 @@ class Const:
     def __eq__(self, other):
         return type(self) == type(other) and self.value == other.value
 
-    vars = set()
 
 class Var(Lazy):
     NAMES = iter('abcdefghijklmnop')
@@ -158,7 +157,6 @@ class Var(Lazy):
         self.listeners = []
         self.i = i
         self._value = value
-        self.vars = set(self.name)
 
     @property
     def value(self):
@@ -195,7 +193,6 @@ class Op(Lazy):
         self.ops = ops
         self.l, self.r = ops
         self._possibilities = None
-        self.vars = self.l.vars | self.r.vars
         for op in ops:
             if isinstance(op, Lazy):
                 op.listeners.append(self)
@@ -297,7 +294,7 @@ def monad2(a):
 def first(a):
     global better_of
     def better_of(c1,c2):
-        return c2 if c2 > c1 else c1
+        return c2 if c1 < c2 else c1
 
     f = monad2(a)
     return f[0]

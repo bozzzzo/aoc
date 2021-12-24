@@ -67,6 +67,7 @@ def monad(a):
             assert False, str((op, reg, arg))
 
     code.append(f'{indent}if z{digit}: continue')
+    ret = ",".join(ret)
     code.append(f'{indent}ret = {",",join(ret)}')
     code.append('return None')
 

@@ -57,9 +57,9 @@ def monad(a):
 
     #code.append('print("==",x,y,z,w)')
 
-    code = "; ".join(code)
+    code = "\n".join(code)
     print(code)
-    
+
 
     prog = compile(code, 'monad', 'exec')
 

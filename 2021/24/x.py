@@ -33,7 +33,25 @@ def irange(a,b):
 def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
+def monad(a):
+    zero = '0'
+    state = dict(x=zero, y=zero, z=zero, w=zero)
+    for op, reg, *_arg in a:
+        arg = _arg[0] if _arg else None
+        if op == 'inp':
+            state[reg] = 'next(s)'
+        elif op == 'add':
+            state[reg] = f'({state[reg]} + {state[arg]})'
+        else:
+            assert False, str((op, reg, arg))
+
+    print(state)
+
+def
+
+
 def first(a):
+    f = monad(a)
     pass
 
 def second(a):
@@ -97,7 +115,7 @@ def parse(f):
 for name in [("test_input"),
              ("test_input2"),
              ("test_input3"),
-             ("input")][:
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

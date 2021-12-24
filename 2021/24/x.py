@@ -113,6 +113,10 @@ class Var(Lazy):
         self._value = value
 
     @property
+    def value(self):
+        return self._value
+
+    @property
     def const(self):
         return isinstance(self._value, int)
 

@@ -72,7 +72,7 @@ def monad(a):
 
 def first(a):
     f = monad(a)
-    print(flush=True)
+    print(f)
     for model in itertools.product(range(9,0,-1), repeat=14):
         if f(iter(model)) == 0:
             return model

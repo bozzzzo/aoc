@@ -254,7 +254,7 @@ def monad2(a):
     print("== ", state)
 
 def first(a):
-    f = monad2(a)
+    f = monad2(a[:30])
     pass
 
 def second(a):

@@ -103,6 +103,9 @@ class Const:
     def const(self):
         return True
 
+    def possibilities(self):
+        return (self.value, )
+
     def __repr__(self):
         return repr(self.value)
 
@@ -164,39 +167,29 @@ class Op(Lazy):
             op = op +'!'
         return f'{op}({repr(self.l)}, {repr(self.r)})'
 
-    
-class Add(Op):
     @property
     def value(self):
         assert self.const
-        return Const(self.l.value + self.r.value)
+        return Const(int(self.OP(self.l.value, self.r.value)))
+
+    def possibilities(self):
+        return tuple(self.OP(l,r) for l,r in itertools.product(self.l.possibilities(), self.r.possibilities()))
+
+
+class Add(Op):
+    OP = operator.add
 
 class Mul(Op):
-    @property
-    def value(self):
-        assert self.const
-        return Const(self.l.value * self.r.value)
-
+    OP = operator.mul
 
 class Div(Op):
-    @property
-    def value(self):
-        assert self.const
-        return Const(self.l.value // self.r.value)
-
+    OP = operator.floordiv
 
 class Mod(Op):
-    @property
-    def value(self):
-        assert self.const
-        return Const(self.l.value % self.r.value)
-
+    OP = operator.mod
 
 class Eq(Op):
-    @property
-    def value(self):
-        assert self.const
-        return Const(int(self.l == self.r))
+    OP = operator.eq
 
 
 def monad2(a):

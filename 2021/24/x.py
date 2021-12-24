@@ -142,7 +142,7 @@ class Var(Lazy):
         op = self.__class__.__name__
         if self.const:
             op = op +'!'
-        return f"{op}({self.i},{self._value})"
+        return f"{op}({self.i})"
 
 
 class Op(Lazy):
@@ -204,12 +204,9 @@ def monad2(a):
             argval = None
         regval = state[reg]
         if op == 'inp':
+            print()
             inps.append(Var(len(inps)))
             state[reg] = inps[-1]
-            s = str(state)
-            print(inps, l, s)
-            if len(s) > 1000:
-                return None
         elif op == 'add':
             if argval == Const(0):
                 pass
@@ -257,7 +254,10 @@ def monad2(a):
                 state[reg] = Eq(regval, argval)
         else:
             assert False
-        print(l, op, reg, _arg, state)
+        s = str(state)
+        print(l, op, reg, _arg, s)
+        if len(s) > 1000:
+            return None
 
 
     print("== ", state)

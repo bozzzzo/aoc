@@ -40,6 +40,7 @@ def monad(a):
     for op, reg, *_arg in a:
         arg = _arg[0] if _arg else None
         if op == 'inp':
+            code.append('print(">>", x,y,z,w)')
             code.append(f'{reg} = next(s)')
         elif op == 'add':
             code.append(f'{reg} += {arg}')
@@ -53,6 +54,8 @@ def monad(a):
             code.append(f'{reg} = int({reg} == {arg})')
         else:
             assert False, str((op, reg, arg))
+
+    code.append('print("==",x,y,z,w)')
 
     code = "; ".join(code)
     print(code)

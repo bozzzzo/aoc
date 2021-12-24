@@ -149,7 +149,10 @@ class Op(Lazy):
         return ops[0].const and ops[1].const
 
     def __repr__(self):
-        return f'{self.__class__.__name__}({repr(self.ops[0])}, {repr(self.ops[1])})'
+        op = self.__class__.__name__
+        if self.const:
+            op = op +'!'
+        return f'{}({repr(self.ops[0])}, {repr(self.ops[1])})'
 
     
 class Add(Op):

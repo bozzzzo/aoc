@@ -42,16 +42,22 @@ def monad(a):
             state[reg] = 'next(s)'
         elif op == 'add':
             state[reg] = f'({state[reg]} + {state[arg]})'
+        elif op == 'mul':
+            state[reg] = f'({state[reg]} * {state[arg]})'
         else:
             assert False, str((op, reg, arg))
 
     print(state)
 
+    def run(s):
+        return eval(state['z'])
 
+    return run
 
 
 def first(a):
     f = monad(a)
+    
     pass
 
 def second(a):

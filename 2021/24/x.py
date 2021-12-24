@@ -133,7 +133,7 @@ def monad2(a):
             else:
                 state[reg] = f'mod({regval}, {argval})'
         elif op == 'eql':
-            elif isinstance(regval, int) and isinstance(argval, int):
+            if isinstance(regval, int) and isinstance(argval, int):
                 state[reg] = int(regval == argval)
             else:
                 state[reg] = f'eq({regval}, {argval})'

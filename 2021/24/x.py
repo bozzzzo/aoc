@@ -59,6 +59,7 @@ def monad(a):
 
     code = "; ".join(code)
     print(code)
+    
 
     prog = compile(code, 'monad', 'exec')
 

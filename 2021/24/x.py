@@ -54,8 +54,7 @@ def monad(a):
         else:
             assert False, str((op, reg, arg))
 
-    code.append('return z')
-    code = "    x=y=z=w=0" + "\n    ".join(code)
+    code = ";".join(code)
     print(code)
     return lambda x: 0 
 

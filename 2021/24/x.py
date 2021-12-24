@@ -300,6 +300,7 @@ def first(a):
         return c2 if c2 > c1 else c1
 
     f = monad2(a)
+    return f[0]
     pass
 
 def second(a):

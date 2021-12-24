@@ -273,7 +273,10 @@ def monad2(a):
         elif op == 'add':
             state[reg] = Add(regval, argval)
         elif op == 'mul':
-            state[reg] = Mul(regval, argval)
+            if arg == 0:
+                state[reg] = Const(0)
+            else:
+                state[reg] = Mul(regval, argval)
         elif op == 'div':
             state[reg] = Div(regval, argval)
         elif op == 'mod':
@@ -313,6 +316,7 @@ def test():
 
     print(Const(1).possibilities())
     print(Mul(Var(0, (1,5)), Var(1, (2, 3))).possibilities())
+    print(Mul(Var(0, (1,5)), Const(1)).possibilities())
     pass
 
 

@@ -66,7 +66,10 @@ def monad(a):
 
 def first(a):
     f = monad(a)
-    return f(iter([1,2,3,4,5,6,7,8,9,1,2,3,4,5]))
+    for model in itertools.product(*([range(9,0,-1)] * 14)):
+        if f(iter(model)) == 0:
+            return model
+    return None
     pass
 
 def second(a):

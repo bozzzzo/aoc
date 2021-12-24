@@ -242,6 +242,8 @@ def monad2(a):
                 state[reg] = Const(0)
             elif regval.const and argval.const:
                 state[reg] = Const(regval.value % argval.value)
+            elif argval.const and all(v < argval.value for v in regval.possibilities()):
+                pass
             else:
                 state[reg] = Mod(regval, argval)
         elif op == 'eql':

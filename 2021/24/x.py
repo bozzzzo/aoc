@@ -254,7 +254,7 @@ def monad2(a):
         elif op == 'eql':
             if regval.const and argval.const:
                 state[reg] = Const(int(regval.value == argval.value))
-            elif regval.const and isinstance(argval, Val) and regval.value not in argval.possibilities():
+            elif regval.const and isinstance(argval, Var) and regval.value not in argval.possibilities():
                 state[reg] = Const(0)
             else:
                 state[reg] = Eq(regval, argval)

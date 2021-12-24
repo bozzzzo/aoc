@@ -36,22 +36,30 @@ def srange(a,b):
 def monad(a):
     zero = 0
 
-    code = []
-    for op, reg, *_arg in a:
+    digit = 0
+    indent = ""
+    code = ['x0=y0=z0=w0=0']
+    ret = []
+    for op, _reg, *_arg in a:
         arg = _arg[0] if _arg else None
+        arg = arg is isinstance(arg, int) else arg+str(digit)
+        reg = _reg + str(digit)
         if op == 'inp':
-            code.append(f'{reg} = next(s)')
+            digit += 1
+            code.append(f'{indent}for {_reg}{digit} in range(9,0,-1):')
+            indent += "  "
+            code.extend(f'{indent}{r}{digit}={r}{digit-1}' for r in 'xyzw' if r != _reg)
             #code.append('print(">>", x,y,z,w)')
         elif op == 'add':
-            code.append(f'{reg} += {arg}')
+            code.append(f'{indent}{reg} += {arg}')
         elif op == 'mul':
-            code.append(f'{reg} *= {arg}')
+            code.append(f'{indent}{reg} *= {arg}')
         elif op == 'div':
-            code.append(f'{reg} //= {arg}')
+            code.append(f'{indent}{reg} //= {arg}')
         elif op == 'mod':
-            code.append(f'{reg} %= {arg}')
+            code.append(f'{indent}{reg} %= {arg}')
         elif op == 'eql':
-            code.append(f'{reg} = int({reg} == {arg})')
+            code.append(f'{indent}{reg} = int({reg} == {arg})')
         else:
             assert False, str((op, reg, arg))
 
@@ -60,6 +68,7 @@ def monad(a):
     code = "\n".join(code)
     print(code)
 
+    return 0
 
     prog = compile(code, 'monad', 'exec')
 
@@ -75,9 +84,6 @@ def monad(a):
 def first(a):
     f = monad(a)
     print(f)
-    for model in itertools.product(range(9,0,-1), repeat=14):
-        if f(iter(model)) == 0:
-            return model
     return None
     pass
 

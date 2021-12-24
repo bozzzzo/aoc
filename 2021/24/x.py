@@ -308,6 +308,9 @@ def test():
         assert a==b, f"{a}!={b}"
 
     assert not Var(1).const
+
+    print(Const(1).possibilities())
+    print(Var(0).possibilities())
     pass
 
 

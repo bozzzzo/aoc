@@ -179,6 +179,7 @@ def monad2(a):
     state = dict((v, Const(0)) for v in 'xyzw')
     inps = []
     for l, (op, reg, *_arg) in enumerate(a):
+        print(l, op, reg, _arg)
         if _arg:
             arg = _arg[0]
             argval = Const(arg) if isinstance(arg, int) else state[arg]

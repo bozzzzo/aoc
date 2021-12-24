@@ -203,7 +203,7 @@ def monad2(a):
                 state[reg] = Add(regval, argval)
         elif op == 'mul':
             if arg == 0:
-                state[reg] = 0
+                state[reg] = Const(0)
             elif arg == 1:
                 pass
             elif regval.const and argval.const:
@@ -219,7 +219,7 @@ def monad2(a):
                 state[reg] = Div(regval, argval)
         elif op == 'mod':
             if arg == 1:
-                state[reg] = 0
+                state[reg] = Const(0)
             elif regval.const and argval.const:
                 state[reg] = regval.value % argval.value
             else:

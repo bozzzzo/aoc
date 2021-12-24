@@ -64,7 +64,7 @@ def monad(a):
 
     def run(s):
         state=dict(x=0,y=0,z=0,w=0,s=s)
-        eval(prog, globals(), state
+        eval(prog, globals(), state)
         print("??", state)
         return state['z']
 

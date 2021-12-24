@@ -112,7 +112,7 @@ class Context:
 
     def encode(self):
         if self._encoding is None:
-            self.encoding = tuple(
+            self._encoding = tuple(
                 v for i,v in sorted((k.i, v)
                                     for k,v in self.data.items()))
         return self._encoding

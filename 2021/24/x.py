@@ -36,14 +36,19 @@ def srange(a,b):
 def monad(a):
     zero = '0'
     state = dict(x=zero, y=zero, z=zero, w=zero)
+    def evl(x):
+        if isintance(x, int):
+            return x
+        else:
+            return state[x]
     for op, reg, *_arg in a:
-        arg = _arg[0] if _arg else None
+        arg = evl(_arg[0]) if _arg else None
         if op == 'inp':
             state[reg] = 'next(s)'
         elif op == 'add':
-            state[reg] = f'({state[reg]} + {state[arg]})'
+            state[reg] = f'({state[reg]} + {arg})'
         elif op == 'mul':
-            state[reg] = f'({state[reg]} * {state[arg]})'
+            state[reg] = f'({state[reg]} * {arg})'
         else:
             assert False, str((op, reg, arg))
 

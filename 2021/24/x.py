@@ -47,7 +47,9 @@ def monad(a):
         code.append(f"{indent}# {op} {_reg}, {_arg}")
         if op == 'inp':
             digit += 1
-            code.append(f'{indent}for {_reg}{digit} in range(9,0,-1):')
+            it = _reg + str(digit)
+            code.append(f'{indent}for {it} in range(9,0,-1):')
+            ret.append(it)
             indent += "  "
             code.extend(f'{indent}{r}{digit}={r}{digit-1}' for r in 'xyzw' if r != _reg)
             #code.append('print(">>", x,y,z,w)')
@@ -64,7 +66,9 @@ def monad(a):
         else:
             assert False, str((op, reg, arg))
 
-    #code.append('print("==",x,y,z,w)')
+    code.append(f'{indent}if z{digit}: continue')
+    code.append(f'{indent}ret = {ret}')
+    code.append('return None')
 
     code = "\n".join(code)
     print(code)

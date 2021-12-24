@@ -55,7 +55,7 @@ def monad(a):
             assert False, str((op, reg, arg))
 
     print(code)
-    return lambda x: 0
+    return lambda x: 0 
 
     z = compile(state['z'], 'monad', 'eval')
 

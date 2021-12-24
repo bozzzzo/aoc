@@ -95,8 +95,7 @@ def monad(a):
 
 def first(a):
     f = monad(a)
-    print(f)
-    return None
+    return f()
     pass
 
 def second(a):

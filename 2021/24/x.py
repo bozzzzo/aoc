@@ -141,7 +141,6 @@ def monad2(a):
 
 def first(a):
     f = monad2(a)
-    return f()
     pass
 
 def second(a):

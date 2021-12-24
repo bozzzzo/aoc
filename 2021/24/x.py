@@ -152,7 +152,7 @@ class Op(Lazy):
         op = self.__class__.__name__
         if self.const:
             op = op +'!'
-        return f'{}({repr(self.ops[0])}, {repr(self.ops[1])})'
+        return f'{op}({repr(self.ops[0])}, {repr(self.ops[1])})'
 
     
 class Add(Op):

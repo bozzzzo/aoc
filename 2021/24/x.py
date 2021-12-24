@@ -41,7 +41,7 @@ def monad(a):
         arg = _arg[0] if _arg else None
         if op == 'inp':
             code.append(f'{reg} = next(s)')
-            code.append('print(">>", x,y,z,w)')
+            #code.append('print(">>", x,y,z,w)')
         elif op == 'add':
             code.append(f'{reg} += {arg}')
         elif op == 'mul':
@@ -55,7 +55,7 @@ def monad(a):
         else:
             assert False, str((op, reg, arg))
 
-    code.append('print("==",x,y,z,w)')
+    #code.append('print("==",x,y,z,w)')
 
     code = "; ".join(code)
     print(code)
@@ -65,7 +65,7 @@ def monad(a):
     def run(s):
         state=dict(x=0,y=0,z=0,w=0,s=s)
         eval(prog, globals(), state)
-        print("??", state)
+        # print("??", state)
         return state['z']
 
     return run

@@ -183,7 +183,7 @@ def monad2(a):
         argval = Const(arg) if isinstance(arg, int) else state[arg]
         regval = state[reg]
         if op == 'inp':
-            inps.append(Val(len(inps)))
+            inps.append(Var(len(inps)))
             state[reg] = inps[-1]
             s = str(state)
             print(inps, l, s)

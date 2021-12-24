@@ -93,8 +93,54 @@ def monad(a):
     return run
 
 
+def monad2(a):
+    state = dict(x=0,y=0,z=0,w=0)
+    for op, reg, *_arg in a:
+        arg = _arg[0] if _arg else 0
+        argval = arg if isinstance(arg, int) else state[arg]
+        regval = state[reg]
+        if op == 'inp':
+            state[reg] = range(1,10)
+            print(state)
+        elif op == 'add':
+            if arg == 0:
+                pass
+            elif isinstance(regval, int) and isinstance(argval, int):
+                state[reg] = regval + argval
+            else:
+                state[reg] = f'add({regval}, {argval})'
+        elif op == 'mul':
+            if arg == 0:
+                state[reg] = 0
+            elif arg == 1:
+                pass
+            elif isinstance(regval, int) and isinstance(argval, int):
+                state[reg] = regval * argval
+            else:
+                state[reg] = f'mul({regval}, {argval})'
+        elif op == 'div':
+            if arg == 1:
+                pass
+            elif isinstance(regval, int) and isinstance(argval, int):
+                state[reg] = regval // argval
+            else:
+                state[reg] = f'div({regval}, {argval})'
+        elif op == 'mod':
+            if arg == 1:
+                state[reg] = 0
+            elif isinstance(regval, int) and isinstance(argval, int):
+                state[reg] = regval % argval
+            else:
+                state[reg] = f'mod({regval}, {argval})'
+        elif op == 'eql':
+            elif isinstance(regval, int) and isinstance(argval, int):
+                state[reg] = int(regval == argval)
+            else:
+                state[reg] = f'eq({regval}, {argval})'
+
+
 def first(a):
-    f = monad(a)
+    f = monad2(a)
     return f()
     pass
 
@@ -159,7 +205,7 @@ def parse(f):
 for name in [("test_input"),
              #("test_input2"),
              #("test_input3"),
-             ("input")][:2
+             ("input")][:1
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

@@ -263,6 +263,7 @@ def test():
         print()
         assert a==b, f"{a}!={b}"
 
+    assert not Var(1).const
     pass
 
 

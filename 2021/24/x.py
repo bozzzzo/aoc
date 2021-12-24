@@ -130,7 +130,10 @@ class Var(Lazy):
             l.recalc()
 
     def __repr__(self):
-        return f"Var({self.i},{self._value})"
+        op = self.__class__.__name__
+        if self.const:
+            op = op +'!'
+        return f"{op}({self.i},{self._value})"
 
 
 class Op(Lazy):

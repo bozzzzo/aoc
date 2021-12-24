@@ -63,9 +63,10 @@ def monad(a):
     prog = compile(code, 'monad', 'exec')
 
     def run(s):
-        x=y=z=w=0
-        eval(prog, globals(), locals())
-        return z
+        state=dict(x=0,y=0,z=0,w=0,s=s)
+        eval(prog, globals(), state
+        print("??", state)
+        return state['z']
 
     return run
 

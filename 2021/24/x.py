@@ -98,11 +98,11 @@ class Context:
         self._encoding = None
 
     def merge(self, other):
-        common = set(self.data).intersection(other.data)
-        if all(self.data[v] == other.data[v] for v in common):
-            return Context(itertools.chain(self.data.items(), other.data.items()))
-        else:
+        common = set(self.data).intersection(set(other.data))
+        if any(self.data[v] != other.data[v] for v in common):
+            print("context merge conflict", common, self.data, other.data)
             return None
+        return Context(itertools.chain(self.data.items(), other.data.items()))
 
     def __lt__(self, other):
         return self.encode() < other.encode()

@@ -60,6 +60,8 @@ def monad(a):
 
     print(state)
 
+    return lambda x: 0
+
     z = compile(state['z'], 'monad', 'eval')
 
     def run(s):
@@ -70,7 +72,8 @@ def monad(a):
 
 def first(a):
     f = monad(a)
-    for model in itertools.product(*([range(9,0,-1)] * 14)):
+    print(flush=True)
+    for model in itertools.product(range(9,0,-1), repeat=14):
         if f(iter(model)) == 0:
             return model
     return None

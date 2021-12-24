@@ -180,7 +180,11 @@ class Op(Lazy):
 
     def __repr__(self):
         op = self.__class__.__name__
-        return f'({self.l} {self.REP} {self.r})[{len(self.possibilities())}]'
+        p = self.possibilities()
+        ps = ",".join(map(str,p[:3]))
+        if len(p) > 3:
+            ps += f'...{len(p)}'
+        return f'({self.l} {self.REP} {self.r})[{ps}]'
 
     @property
     def value(self):
@@ -190,7 +194,7 @@ class Op(Lazy):
     def possibilities(self):
         p = self._possibilities
         if p is None:
-            p = self._possibilities = tuple(set(self.OP(l,r) for l,r in itertools.product(self.l.possibilities(), self.r.possibilities())))
+            p = self._possibilities = tuple(sorted(set(self.OP(l,r) for l,r in itertools.product(self.l.possibilities(), self.r.possibilities()))))
         return p
 
 

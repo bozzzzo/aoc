@@ -56,8 +56,10 @@ def monad(a):
 
     print(state)
 
+    z = compile(state['z'], 'monad', 'eval')
+
     def run(s):
-        return eval(state['z'])
+        return eval(z)
 
     return run
 

@@ -292,6 +292,7 @@ def monad2(a):
 
 
     print("== ", state)
+    return state['z'].possibilities()
 
 def first(a):
     global better_of

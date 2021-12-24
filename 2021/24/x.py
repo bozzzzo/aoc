@@ -112,11 +112,23 @@ class Const:
     def __eq__(self, other):
         return type(self) == type(other) and self.value == other.value
 
+    vars = set()
+
 class Var(Lazy):
+    NAMES = iter('abcdefghijklmnop')
+    _VARS = {}
+
+    @classmethod
+    def getVar(cls, name):
+        return cls._VARS[name]
+
     def __init__(self, i, value=range(1,10)):
+        self.name = next(self.NAMES)
+        self._VARS[self.name] = self
         self.listeners = []
         self.i = i
         self._value = value
+        self.vars = set(self.name)
 
     @property
     def value(self):
@@ -142,7 +154,7 @@ class Var(Lazy):
         op = self.__class__.__name__
         if self.const:
             op = op +'!'
-        return f"{op}({self.i})"
+        return f"{self.name}"
 
 
 class Op(Lazy):
@@ -150,11 +162,16 @@ class Op(Lazy):
         self.listeners = []
         self.ops = ops
         self.l, self.r = ops
+        self._possibilities = None
+        self.vars = self.l.vars | self.r.vars
         for op in ops:
             if isinstance(op, Lazy):
                 op.listeners.append(self)
 
     def recalc(self):
+        self._possibilities = None
+        for parent in self.listeners:
+            parent.recalc()
         pass
 
     @property
@@ -163,9 +180,7 @@ class Op(Lazy):
 
     def __repr__(self):
         op = self.__class__.__name__
-        if self.const:
-            op = op +'!'
-        return f'{op}({repr(self.l)}, {repr(self.r)})'
+        return f'{self.l} {self.REP} {self.r}'
 
     @property
     def value(self):
@@ -173,23 +188,31 @@ class Op(Lazy):
         return Const(int(self.OP(self.l.value, self.r.value)))
 
     def possibilities(self):
-        return tuple(set(self.OP(l,r) for l,r in itertools.product(self.l.possibilities(), self.r.possibilities())))
+        p = self._possibilities
+        if p is None:
+            p = self._possibilities = tuple(set(self.OP(l,r) for l,r in itertools.product(self.l.possibilities(), self.r.possibilities())))
+        return p
 
 
 class Add(Op):
     OP = operator.add
+    REP = '+'
 
 class Mul(Op):
     OP = operator.mul
+    REP = '*'
 
 class Div(Op):
     OP = operator.floordiv
+    REP = '/'
 
 class Mod(Op):
     OP = operator.mod
+    REP = '%'
 
 class Eq(Op):
     OP = operator.eq
+    REP = '=='
 
 
 def monad2(a):

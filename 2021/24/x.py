@@ -313,7 +313,7 @@ def test():
     assert not Var(1).const
 
     print(Const(1).possibilities())
-    print(Var(0, (1,5)).possibilities())
+    print(Mul(Var(0, (1,5)), Var(1, (2, 3))).possibilities())
     pass
 
 

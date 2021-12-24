@@ -47,7 +47,7 @@ def monad(a):
 
     print(state)
 
-def
+
 
 
 def first(a):

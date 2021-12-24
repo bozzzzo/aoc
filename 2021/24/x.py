@@ -95,13 +95,18 @@ def monad(a):
 
 def monad2(a):
     state = dict(x=0,y=0,z=0,w=0)
-    for op, reg, *_arg in a:
+    inps = 0
+    for l, (op, reg, *_arg) in enumerate(a):
         arg = _arg[0] if _arg else 0
         argval = arg if isinstance(arg, int) else state[arg]
         regval = state[reg]
         if op == 'inp':
+            inps += 1
             state[reg] = range(1,10)
-            print(state)
+            s = str(state)
+            print(inps, l, s)
+            if len(s) > 1000:
+                return None
         elif op == 'add':
             if arg == 0:
                 pass

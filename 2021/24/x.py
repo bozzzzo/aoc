@@ -278,7 +278,8 @@ def monad2(a):
         else:
             assert False
         s = str(state)
-        print(l, op, reg, _arg, s)
+        print(l, op, reg, _arg)
+        pprint(state)
         if len(s) > 1000:
             return None
 

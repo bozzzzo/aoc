@@ -41,7 +41,7 @@ def monad(a):
     code = ['x0=y0=z0=w0=0']
     ret = []
     for op, _reg, *_arg in a:
-        arg = _arg[0] if _arg else None
+        arg = _arg[0] if _arg else 0
         arg = arg if isinstance(arg, int) else arg+str(digit)
         reg = _reg + str(digit)
         if op == 'inp':

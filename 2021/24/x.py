@@ -106,6 +106,9 @@ class Const:
     def __repr__(self):
         return repr(self.value)
 
+    def __eq__(self, other):
+        return type(self) == type(other) and self.value == other.value
+
 class Var(Lazy):
     def __init__(self, i, value=range(1,10)):
         self.listeners = []
@@ -203,17 +206,21 @@ def monad2(a):
             if len(s) > 1000:
                 return None
         elif op == 'add':
-            if arg == 0:
+            if argval == Const(0):
                 pass
+            elif regval == Const(0):
+                state[reg] = argval
             elif regval.const and argval.const:
                 state[reg] = Const(regval.value + argval.value)
             else:
                 state[reg] = Add(regval, argval)
         elif op == 'mul':
-            if arg == 0:
+            if argval == Const(0):
                 state[reg] = Const(0)
-            elif arg == 1:
+            elif argval == Const(1):
                 pass
+            elif regval == Const(1):
+                state[reg] = argval
             elif regval.const and argval.const:
                 state[reg] = Const(regval.value * argval.value)
             else:

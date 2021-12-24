@@ -64,7 +64,7 @@ def monad(a):
 
 def first(a):
     f = monad(a)
-    
+    return f(iter([1,2,3,4,5,6,7,8,9,1,2,3,4,5]))
     pass
 
 def second(a):

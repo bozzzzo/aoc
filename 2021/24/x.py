@@ -49,6 +49,10 @@ def monad(a):
             state[reg] = f'({state[reg]} + {arg})'
         elif op == 'mul':
             state[reg] = f'({state[reg]} * {arg})'
+        elif op == 'div':
+            state[reg] = f'({state[reg]} // {arg})'
+        elif op == 'mod':
+            state[reg] = f'({state[reg]} % {arg})'
         elif op == 'eql':
             state[reg] = f'int({state[reg]} == {arg})'
         else:

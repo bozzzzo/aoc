@@ -38,7 +38,7 @@ def monad(a):
 
     digit = 0
     indent = "  "
-    code = ['def loop(s):',
+    code = ['def loop():',
             '  x0=y0=z0=w0=0'
             ]
     ret = []
@@ -77,7 +77,7 @@ def monad(a):
     code.append(f'{indent}# {ret}')
     code.append(f'{indent}ret = {mul(ret)}')
     code.append(f'{indent}return ret')
-    code.append('ret=loop(s)')
+    code.append('ret=loop()')
 
     code = "\n".join(code)
     print(code)

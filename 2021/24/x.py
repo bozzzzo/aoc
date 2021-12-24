@@ -64,7 +64,7 @@ def monad(a):
 
     def run(s):
         x=y=z=w=0
-        eval(prog)
+        eval(prog, globals(), locals())
         return z
 
     return run

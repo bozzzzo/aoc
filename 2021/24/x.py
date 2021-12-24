@@ -198,7 +198,7 @@ def monad2(a):
             if arg == 0:
                 pass
             elif regval.const and argval.const:
-                state[reg] = regval.value + argval.value
+                state[reg] = Const(regval.value + argval.value)
             else:
                 state[reg] = Add(regval, argval)
         elif op == 'mul':
@@ -207,26 +207,26 @@ def monad2(a):
             elif arg == 1:
                 pass
             elif regval.const and argval.const:
-                state[reg] = regval.value * argval.value
+                state[reg] = Const(regval.value * argval.value)
             else:
                 state[reg] = Mul(regval, argval)
         elif op == 'div':
             if arg == 1:
                 pass
             elif regval.const and argval.const:
-                state[reg] = regval.value // argval.value
+                state[reg] = Const(regval.value // argval.value)
             else:
                 state[reg] = Div(regval, argval)
         elif op == 'mod':
             if arg == 1:
                 state[reg] = Const(0)
             elif regval.const and argval.const:
-                state[reg] = regval.value % argval.value
+                state[reg] = Const(regval.value % argval.value)
             else:
                 state[reg] = Mod(regval, argval)
         elif op == 'eql':
             if regval.const and argval.const:
-                state[reg] = int(regval.value == argval.value)
+                state[reg] = Const(int(regval.value == argval.value))
             else:
                 state[reg] = Eq(regval, argval)
 

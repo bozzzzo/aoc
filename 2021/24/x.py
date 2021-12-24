@@ -107,11 +107,11 @@ class Var(Lazy):
     def __init__(self, i, value=range(1,10)):
         self.listeners = []
         self.i = i
-        self.value = value
+        self._value = value
 
     @property
     def const(self):
-        return isinstance(self.value, int)
+        return isinstance(self._value, int)
 
     def set(self, value):
         self.value = value
@@ -119,16 +119,20 @@ class Var(Lazy):
             l.recalc()
 
     def __repr__(self):
-        return f"Var({self.i},{self.value})"
+        return f"Var({self.i},{self._value})"
 
 
 class Op(Lazy):
     def __init__(self, *ops):
         self.listeners = []
         self.ops = ops
+        self.l, self.r = ops
         for op in ops:
             if isinstance(op, Lazy):
                 op.listeners.append(self)
+
+    def recalc(self):
+        pass
 
     def const(self):
         return ops[0].const and ops[1].const
@@ -138,19 +142,37 @@ class Op(Lazy):
 
     
 class Add(Op):
-    pass
+    @property
+    def value(self):
+        assert self.const
+        return self.l + self.r
 
 class Mul(Op):
-    pass
+    @property
+    def value(self):
+        assert self.const
+        return self.l * self.r
+
 
 class Div(Op):
-    pass
+    @property
+    def value(self):
+        assert self.const
+        return self.l // self.r
+
 
 class Mod(Op):
-    pass
+    @property
+    def value(self):
+        assert self.const
+        return self.l % self.r
+
 
 class Eq(Op):
-    pass
+    @property
+    def value(self):
+        assert self.const
+        return int(self.l == self.r)
 
 
 def monad2(a):
@@ -170,8 +192,8 @@ def monad2(a):
         elif op == 'add':
             if arg == 0:
                 pass
-            elif isinstance(regval, int) and isinstance(argval, int):
-                state[reg] = regval + argval
+            elif regval.const and argval.const:
+                state[reg] = regval.value + argval.value
             else:
                 state[reg] = Add(regval, argval)
         elif op == 'mul':
@@ -179,27 +201,27 @@ def monad2(a):
                 state[reg] = 0
             elif arg == 1:
                 pass
-            elif isinstance(regval, int) and isinstance(argval, int):
-                state[reg] = regval * argval
+            elif regval.const and argval.const:
+                state[reg] = regval.value * argval.value
             else:
-                state[reg] = Mul({regval}, {argval})
+                state[reg] = Mul(regval, argval)
         elif op == 'div':
             if arg == 1:
                 pass
-            elif isinstance(regval, int) and isinstance(argval, int):
-                state[reg] = regval // argval
+            elif regval.const and argval.const:
+                state[reg] = regval.value // argval.value
             else:
                 state[reg] = Div(regval, argval)
         elif op == 'mod':
             if arg == 1:
                 state[reg] = 0
-            elif isinstance(regval, int) and isinstance(argval, int):
-                state[reg] = regval % argval
+            elif regval.const and argval.const:
+                state[reg] = regval.value % argval.value
             else:
                 state[reg] = Mod(regval, argval)
         elif op == 'eql':
-            if isinstance(regval, int) and isinstance(argval, int):
-                state[reg] = int(regval == argval)
+            if regval.const and argval.const:
+                state[reg] = int(regval.value == argval.value)
             else:
                 state[reg] = Eq(regval, argval)
 

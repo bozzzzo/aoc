@@ -92,6 +92,28 @@ def monad(a):
 
     return run
 
+class Context:
+    def __init__(self, *args, **kwargs):
+        self.data = dict(*args, kwargs)
+        self._encoding = None
+
+    def merge(self, other):
+        common = set(self).intersection(other)
+        if all(self.data[v] == other.data[v] for v in common):
+            return Context(itertools.chain(self.data.items(), other.data.items()))
+        else:
+            return None
+
+    def __lt__(self, other):
+        return self.encode() < other.encode()
+
+    def encode(self):
+        if self._encoding is None:
+            self.encoding = tuple(
+                v for i,v in sorted((k.i, v)
+                                    for k,v in self.data.items()))
+        return self._encoding
+
 class Lazy:
     pass
 
@@ -104,7 +126,7 @@ class Const:
         return True
 
     def possibilities(self):
-        return (self.value, )
+        return {self.value: Context()}
 
     def __repr__(self):
         return repr(self.value)
@@ -146,9 +168,11 @@ class Var(Lazy):
 
     def possibilities(self):
         if isinstance(self._value, int):
-            return (self._value, )
+            vals = (self._value, )
         else:
-            return self._value
+            vals = self._value
+
+        return {val:Context(((self, val),)) for val in vals}
 
     def set(self, value):
         self.value = value
@@ -199,7 +223,16 @@ class Op(Lazy):
     def possibilities(self):
         p = self._possibilities
         if p is None:
-            p = self._possibilities = tuple(sorted(set(self.OP(l,r) for l,r in itertools.product(self.l.possibilities(), self.r.possibilities()))))
+            p = {}
+            for (l, lv), (r, rv) in itertools.product(self.l.possibilities(), self.r.possibilities()):
+                c = lv.merge(rv)
+                if c is None:
+                    continue
+                val = self.OP(l,r)
+                if val not in p:
+                    p[val] = c
+                else:
+                    p[val] = better_of(p[val], c)
         return p
 
 
@@ -241,50 +274,15 @@ def monad2(a):
             inps.append(Var(len(inps)))
             state[reg] = inps[-1]
         elif op == 'add':
-            if argval == Const(0):
-                pass
-            elif regval == Const(0):
-                state[reg] = argval
-            elif regval.const and argval.const:
-                state[reg] = Const(regval.value + argval.value)
-            elif isinstance(regval, Add) and regval.r.const and argval.const:
-                state[reg] = Add(regval.l, Const(regval.r.value + argval.value))
-            else:
-                state[reg] = Add(regval, argval)
+            state[reg] = Add(regval, argval)
         elif op == 'mul':
-            if argval == Const(0):
-                state[reg] = Const(0)
-            elif argval == Const(1):
-                pass
-            elif regval == Const(1):
-                state[reg] = argval
-            elif regval.const and argval.const:
-                state[reg] = Const(regval.value * argval.value)
-            else:
-                state[reg] = Mul(regval, argval)
+            state[reg] = Mul(regval, argval)
         elif op == 'div':
-            if arg == 1:
-                pass
-            elif regval.const and argval.const:
-                state[reg] = Const(regval.value // argval.value)
-            else:
-                state[reg] = Div(regval, argval)
+            state[reg] = Div(regval, argval)
         elif op == 'mod':
-            if arg == 1:
-                state[reg] = Const(0)
-            elif regval.const and argval.const:
-                state[reg] = Const(regval.value % argval.value)
-            elif argval.const and all(v < argval.value for v in regval.possibilities()):
-                pass
-            else:
-                state[reg] = Mod(regval, argval)
+            state[reg] = Mod(regval, argval)
         elif op == 'eql':
-            if regval.const and argval.const:
-                state[reg] = Const(int(regval.value == argval.value))
-            elif set(regval.possibilities()).isdisjoint(set(argval.possibilities())):
-                state[reg] = Const(0)
-            else:
-                state[reg] = Eq(regval, argval)
+            state[reg] = Eq(regval, argval)
         else:
             assert False
         s = str(state)
@@ -296,6 +294,10 @@ def monad2(a):
     print("== ", state)
 
 def first(a):
+    global better_of
+    def better_of(c1,c2):
+        return c2 if c2 > c1 else c1
+
     f = monad2(a)
     pass
 

@@ -42,7 +42,7 @@ def monad(a):
     ret = []
     for op, _reg, *_arg in a:
         arg = _arg[0] if _arg else None
-        arg = arg is isinstance(arg, int) else arg+str(digit)
+        arg = arg if isinstance(arg, int) else arg+str(digit)
         reg = _reg + str(digit)
         if op == 'inp':
             digit += 1

@@ -122,6 +122,11 @@ class Var(Lazy):
     def getVar(cls, name):
         return cls._VARS[name]
 
+    @classmethod
+    def reset_names(cls):
+        cls.NAMES = iter('abcdefghijklmnop')
+
+
     def __init__(self, i, value=range(1,10)):
         self.name = next(self.NAMES)
         self._VARS[self.name] = self
@@ -282,8 +287,7 @@ def monad2(a):
         else:
             assert False
         s = str(state)
-        print(l, op, reg, _arg)
-        pprint(state)
+        print(l, op, reg, _arg, s)
         if len(s) > 1000:
             return None
 

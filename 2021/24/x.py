@@ -227,6 +227,7 @@ class Eq(Op):
 def monad2(a):
     state = dict((v, Const(0)) for v in 'xyzw')
     inps = []
+    Var.reset_names()
     for l, (op, reg, *_arg) in enumerate(a):
         if _arg:
             arg = _arg[0]

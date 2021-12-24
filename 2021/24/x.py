@@ -173,7 +173,7 @@ class Op(Lazy):
         return Const(int(self.OP(self.l.value, self.r.value)))
 
     def possibilities(self):
-        return tuple(self.OP(l,r) for l,r in itertools.product(self.l.possibilities(), self.r.possibilities()))
+        return tuple(set(self.OP(l,r) for l,r in itertools.product(self.l.possibilities(), self.r.possibilities())))
 
 
 class Add(Op):

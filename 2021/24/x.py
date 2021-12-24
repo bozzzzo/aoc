@@ -223,8 +223,8 @@ class Op(Lazy):
     def possibilities(self):
         p = self._possibilities
         if p is None:
-            p = {}
-            for (l, lv), (r, rv) in itertools.product(self.l.possibilities(), self.r.possibilities()):
+            self._possibilites = p = {}
+            for (l, lv), (r, rv) in itertools.product(self.l.possibilities().items(), self.r.possibilities().items()):
                 c = lv.merge(rv)
                 if c is None:
                     continue

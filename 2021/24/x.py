@@ -34,32 +34,27 @@ def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
 def monad(a):
-    zero = '0'
-    state = dict(x=zero, y=zero, z=zero, w=zero)
-    def evl(x):
-        if isinstance(x, int):
-            return x
-        else:
-            return state[x]
+    zero = 0
+
+    code = []
     for op, reg, *_arg in a:
-        arg = evl(_arg[0]) if _arg else None
+        arg = _arg[0] if _arg else None
         if op == 'inp':
-            state[reg] = 'next(s)'
+            code.append(f'reg = next(s)')
         elif op == 'add':
-            state[reg] = f'({state[reg]} + {arg})'
+            code.append(f'{reg} += {arg}')
         elif op == 'mul':
-            state[reg] = f'({state[reg]} * {arg})'
+            code.append(f'{reg} *= {arg}')
         elif op == 'div':
-            state[reg] = f'({state[reg]} // {arg})'
+            code.append(f'{reg} //= {arg}')
         elif op == 'mod':
-            state[reg] = f'({state[reg]} % {arg})'
+            code.append(f'{reg} %= {arg}')
         elif op == 'eql':
-            state[reg] = f'int({state[reg]} == {arg})'
+            code.append(f'{reg} = int({reg} == {arg})')
         else:
             assert False, str((op, reg, arg))
 
-        print(op, reg, arg, state)
-
+    print(code)
     return lambda x: 0
 
     z = compile(state['z'], 'monad', 'eval')

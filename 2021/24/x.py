@@ -124,6 +124,12 @@ class Var(Lazy):
     def const(self):
         return isinstance(self._value, int)
 
+    def possibilities(self):
+        if isinstance(self._value, int):
+            return (self._value, )
+        else:
+            return self._value
+
     def set(self, value):
         self.value = value
         for l in listeners:
@@ -247,6 +253,9 @@ def monad2(a):
                 state[reg] = Mod(regval, argval)
         elif op == 'eql':
             if regval.const and argval.const:
+                state[reg] = Const(int(regval.value == argval.value))
+            elif regval.const and isinstance(argval, Val):
+                if regval.value not in argval
                 state[reg] = Const(int(regval.value == argval.value))
             else:
                 state[reg] = Eq(regval, argval)

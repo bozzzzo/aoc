@@ -210,10 +210,7 @@ class Op(Lazy):
     def __repr__(self):
         op = self.__class__.__name__
         p = self.possibilities()
-        ps = ",".join(map(str,p[:3]))
-        if len(p) > 3:
-            ps += f'...{len(p)}'
-        return f'{self.REP}[{ps}]'
+        return f'{self.REP}[{len(p)}]'
 
     @property
     def value(self):

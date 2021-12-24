@@ -184,7 +184,7 @@ class Op(Lazy):
         ps = ",".join(map(str,p[:3]))
         if len(p) > 3:
             ps += f'...{len(p)}'
-        return f'({self.l} {self.REP} {self.r})[{ps}]'
+        return f'{self.REP}[{ps}]'
 
     @property
     def value(self):

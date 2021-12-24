@@ -44,6 +44,7 @@ def monad(a):
         arg = _arg[0] if _arg else 0
         arg = arg if isinstance(arg, int) else arg+str(digit)
         reg = _reg + str(digit)
+        code.append(f"{indent}# {op} {_reg}, {_arg}")
         if op == 'inp':
             digit += 1
             code.append(f'{indent}for {_reg}{digit} in range(9,0,-1):')

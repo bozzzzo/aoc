@@ -38,7 +38,8 @@ class Context:
         self._encoding = None
 
     def __repr__(self):
-        return repr(self.data)
+        p = ", ".join(map(str, self.data[:2]))
+        return f"{p}...[{len(self.data)}]"
 
     def merge(self, other):
         dbg and print("merge >>", self, other)

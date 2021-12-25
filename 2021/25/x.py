@@ -34,11 +34,52 @@ def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
 
-def move_left(a):
-    b
+def left(a, c):
+    x,y = c
+    n = (x+1,y)
+    t = a.get(n)
+    if t is None:
+        n = (0,y)
+        return n, a[n]
+    else:
+        return n, t
+
+def left(a, c):
+    x,y = c
+    n = (x,y+1)
+    t = a.get(n)
+    if t is None:
+        n = (x,0)
+        return n, a[n]
+    else:
+        return n, t
+
+def move(a, who, where):
+    moves = []
+    for c, o in a.items():
+        if o != who:
+            continue
+        n, t = where(a, c)
+        if t != '.':
+            continue
+        moves.append(n, o)
+        moves.append(c, t)
+
+    return moves
+
+def step(a):
+    moves = move(a, '>', left) + move(a, 'v', down)
+    a.update(moves)
+    return len(a)
+
+def evolve(a):
+    i = 0
+    while step(a):
+        i += 1
+    return i
 
 def first(a):
-    pass
+    return evolve(a)
 
 def second(a):
     pass

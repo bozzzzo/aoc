@@ -261,7 +261,8 @@ def first(a):
     def better_of(c1,c2):
         return c2 if c1 < c2 else c1
 
-    f = monad2(a[:20])
+    f = monad2(a[:30])
+
     return f[0]
     pass
 

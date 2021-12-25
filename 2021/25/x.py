@@ -78,9 +78,9 @@ def evolve(a):
     i = 1
     while step(a):
         i += 1
-        print("after step", i)
-        show_grid(a)
-        assert i < 60
+        #print("after step", i)
+        #show_grid(a)
+        #assert i < 60
     return i
 
 def first(a):

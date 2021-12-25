@@ -246,10 +246,10 @@ def monad2(a, **kwargs):
             state[reg] = Eq(regval, argval)
         else:
             assert False
-        s = str(state)
-        print(l, op, reg, _arg, s)
-        if len(s) > 10000:
-            return None
+        #s = str(state)
+        #print(l, op, reg, _arg, s)
+        #if len(s) > 10000:
+        #    return None
 
 
     print("== ", state)
@@ -260,7 +260,7 @@ class Partial:
     def __init__(self, i, part):
         self.i = i
         self.part = part
-        self.z = Var(i, range(0,26) if i else range(1), name=f'z_{i}')
+        self.z = Var(i, range(-26*26,26*26) if i else range(1), name=f'z_{i}')
         self.w = Var(i, range(1,10), name=f'w_{i}')
         self.f = monad2(part[1:], z=self.z, w=self.w)
         self.prev = None

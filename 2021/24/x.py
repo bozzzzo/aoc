@@ -183,6 +183,7 @@ class Op(Lazy):
             self._possibilites = p = {}
             for (l, lv), (r, rv) in itertools.product(self.l.possibilities().items(), self.r.possibilities().items()):
                 val = self.OP(l,r)
+                print(f'merge of       {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')
                 c = lv.merge(rv)
                 if c is None:
                     print(f'merge conflict {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')

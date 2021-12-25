@@ -106,8 +106,8 @@ class Var(Lazy):
         cls.NAMES = iter('abcdefghijklmnop')
 
 
-    def __init__(self, i, value=range(1,10)):
-        self.name = next(self.NAMES)
+    def __init__(self, i, value=range(1,10), name=None):
+        self.name = next(self.NAMES) if name is None else name
         self._VARS[self.name] = self
         self.listeners = []
         self.i = i
@@ -270,17 +270,24 @@ def first(a):
     parts = list(chop(a))
     # print(parts)
 
-    print(">>>> -1")
-    z1 = Var(13,range(-100,100))
-    f = monad2(parts[-1], z=z1)
-    print(f"===== -1 [0]", f[0].data)
+    print(">>>> 13")
+    z13 = Var(13, range(-100,100), name='z13')
+    w13 = Var(13, range(1,10), name='w13')
+    f13_results = [0]
+    f13 = monad2(parts[-1][1:], z=z13, w=w13)
+    
+    print(f"===== 13 [0]", f[0].data)
     print(">>>> -2")
-    z2 = Var(12,range(-100,100))
-    g = monad2(parts[-2], z=z2)
+    z2 = Var(11,range(-100,100))
+    w2 = Var()
+    g = monad2(parts[-2][1:], z=z2, w=w2)
+    
+    z1_inputs = []
     for c in f[0].data:
         z = c[z1]
         print("z=", object.__repr__(z))
         if z in g:
+            z1_inputs
             print(f"===== -2 [{z}]", g[z].data)
         else:
             print(f"===== -2 [{z}] no solution")
@@ -361,7 +368,7 @@ def parse_graph(f):
 def parse(f):
     def parse_insn(l):
         return tuple(map(strint, l.split()))
-    return tuple(map(parse_insn, f.splitlines()))
+    return tuple(map(parse_insn, filter(None, (l.split('#')[0] for l in f.splitlines())))
     pass
 
 

@@ -76,6 +76,7 @@ def evolve(a):
     i = 0
     while step(a):
         i += 1
+        print("after step", i)
         show_grid(a)
     return i
 
@@ -148,7 +149,6 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         f = f.read()
-    f="""...>>>>>..."""
     a = parse_grid(f.splitlines())
     show_grid(a)
 

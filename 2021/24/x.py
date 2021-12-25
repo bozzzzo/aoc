@@ -271,7 +271,7 @@ def first(a):
     print(parts)
 
     f = monad2(parts[-1], z=Var(13,range(-100,100)))
-    print("=====", f)
+    print("=====", f[0])
 
     # f = monad2(a)
 

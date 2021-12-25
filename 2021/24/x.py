@@ -210,7 +210,8 @@ class Op(Lazy):
     def __repr__(self):
         op = self.__class__.__name__
         p = self.possibilities()
-        return f'{self.REP}[{len(p)}]'
+        ps = ", ".join(map(str, p[:3]))
+        return f'{self.REP}[{ps}...{len(p)]'
 
     @property
     def value(self):
@@ -299,7 +300,7 @@ def first(a):
     def better_of(c1,c2):
         return c2 if c1 < c2 else c1
 
-    f = monad2(a)
+    f = monad2(a[:20])
     return f[0]
     pass
 
@@ -369,7 +370,7 @@ def parse(f):
 for name in [("test_input"),
              #("test_input2"),
              #("test_input3"),
-             ("input")][:2
+             ("input")][1:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:

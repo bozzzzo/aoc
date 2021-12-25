@@ -55,6 +55,7 @@ class Context:
                     continue
                 yield dict(itertools.chain(ds.items(), do.items()))
         possibilities = tuple(inner())
+        print("merge << ", possibilities)
         if not possibilities:
             return None
         return Context(possibilities)

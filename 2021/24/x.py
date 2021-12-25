@@ -273,7 +273,7 @@ class Partial:
     def resolve(self, outputs):
         self.inputs = inputs = collections.defaultdict(set)
         for o in outputs:
-            for s in self.f[o]:
+            for s in self.f[o].data:
                 z = s[self.z]
                 w = s[self.w]
                 if self.prev is not None and z not in self.prev.f or \

@@ -44,17 +44,20 @@ class Context:
 
     def merge(self, other):
         print("merge", self, other)
-        ks = set(self.data)
-        ko = set(other.data)
-        kc = ks.intersection(ko)
-        common = {k:self.data[k].union(other.data[k]) for k in kc}
-        if not all(common.values()):
-            print(f"merge no solution for {[(k, self.data[k], other.data[k]) for k,v in common.items() if not v]}")
+        def inner():
+            for ds, do in itertools.product(self.data, other.data)
+            ks = set(ds)
+            ko = set(do)
+            kc = ks.intersection(ko)
+            common = {k:ds[k].intersection(do[k]) for k in kc}
+            if not all(common.values()):
+                print(f"merge no solution for {ds} {do} due to {kc}")
+                continue
+            yield dict(itertools.chain(ds.items(), do.items()))
+        possibilities = tuple(inner())
+        if not possibilities:
             return None
-        return Context(itertools.chain(
-            ((k, self.data[k]) for k in ks),
-            ((k, other.data[k]) for k in ko),
-            common.items()))
+        return Context(possibilities)
 
     def __lt__(self, other):
         return self.encode() < other.encode()

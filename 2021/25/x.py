@@ -147,7 +147,7 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         f = f.read()
-f="""...>>>>>..."""
+    f="""...>>>>>..."""
     a = parse_grid(f.splitlines())
     show_grid(a)
 

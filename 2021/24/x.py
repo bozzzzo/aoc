@@ -256,15 +256,16 @@ def test():
         print()
         assert a==b, f"{a}!={b}"
 
-    assert not Var(1).const
+    a = Var(0)
+    b = Var(1)
+    print(Mul(a,b))
 
-    print(Const(1).possibilities())
-    print(Mul(Var(0, (1,5)), Var(1, (2, 3))).possibilities())
-    print(Mul(Var(0, (1,5)), Const(1)).possibilities())
+    exit()
     pass
 
 
 test()
+
 
 def strint(x):
     try:

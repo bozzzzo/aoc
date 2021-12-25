@@ -250,7 +250,7 @@ def monad2(a):
             assert False
         s = str(state)
         print(l, op, reg, _arg, s)
-        if len(s) > 1000:
+        if len(s) > 10000:
             return None
 
 
@@ -262,7 +262,7 @@ def first(a):
     def better_of(c1,c2):
         return c2 if c1 < c2 else c1
 
-    f = monad2(a[:30])
+    f = monad2(a)
 
     return f[0]
     pass

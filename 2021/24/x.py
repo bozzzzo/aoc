@@ -168,7 +168,7 @@ class Op(Lazy):
         op = self.__class__.__name__
         p = self.possibilities()
         ps = ", ".join(map(str, itertools.islice(p.items(),3)))
-        return f'{self.REP}[{ps}...{len(p)}]'
+        return f'{self.REP}[{ps}....{len(p)}]'
 
     @property
     def value(self):

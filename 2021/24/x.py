@@ -270,29 +270,17 @@ def first(a):
     parts = list(chop(a))
     # print(parts)
 
-    print(">>>> 13")
-    z13 = Var(13, range(-100,100), name='z13')
-    w13 = Var(13, range(1,10), name='w13')
-    f13_results = [0]
-    f13 = monad2(parts[-1][1:], z=z13, w=w13)
-    
-    print(f"===== 13 [0]", f[0].data)
-    print(">>>> -2")
-    z2 = Var(11,range(-100,100))
-    w2 = Var()
-    g = monad2(parts[-2][1:], z=z2, w=w2)
-    
-    z1_inputs = []
-    for c in f[0].data:
-        z = c[z1]
-        print("z=", object.__repr__(z))
-        if z in g:
-            z1_inputs
-            print(f"===== -2 [{z}]", g[z].data)
-        else:
-            print(f"===== -2 [{z}] no solution")
+    def partials(parts):
+        for i, part in enumerate(parts):
+            z = Var(i, range(-100,100), name=f'z_{i}')
+            w = Var(i, range(1,10), name=f'w_{i}')
+            f = monad2(part[1:], z=z, w=w)
+            yield z, w, f
+
+    stuff = list(partials(parts))
 
 
+    pprint(stuff)
 
     # f = monad2(a)
 

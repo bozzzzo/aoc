@@ -49,8 +49,7 @@ class Context:
                 ks = set(ds)
                 ko = set(do)
                 kc = ks.intersection(ko)
-                common = {k:ds[k].intersection(do[k]) for k in kc}
-                if not all(common.values()):
+                if not all(ds[k] == do[k] for k in kc):
                     print(f"merge no solution for {ds} {do} due to {kc}")
                     continue
                 yield dict(itertools.chain(ds.items(), do.items()))

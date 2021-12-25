@@ -117,7 +117,7 @@ def render_grid(a, *, prefix=''):
 
 def parse_grid(f):
     def parse_line(l):
-        return l
+        return l.strip()
     return {(x,y):z  for y, l in enumerate(f) for x,z in enumerate(parse_line(l)) if z not in " \n"}
     pass
 
@@ -147,6 +147,7 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         f = f.read()
+f="""...>>>>>..."""
     a = parse_grid(f.splitlines())
     show_grid(a)
 

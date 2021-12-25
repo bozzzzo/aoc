@@ -216,7 +216,7 @@ class Eq(Op):
 
 
 def monad2(a, **kwargs):
-    state = dict((v, Const(kwargs.get(v, 0))) for v in 'xyzw')
+    state = dict((v, kwargs.get(v, Const(0))) for v in 'xyzw')
     inps = []
     Var.reset_names()
     for l, (op, reg, *_arg) in enumerate(a):
@@ -270,7 +270,7 @@ def first(a):
     parts = list(chop(a))
     print(parts)
 
-    f = monad2(parts[-1], z=range(-100,100))
+    f = monad2(parts[-1], z=Var(13,range(-100,100)))
     print("=====", f)
 
     # f = monad2(a)

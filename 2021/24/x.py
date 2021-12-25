@@ -36,7 +36,7 @@ def srange(a,b):
 
 class Context:
     def __init__(self, *args):
-        self.data = dict(*args)
+        self.data = [dict(*args)]
         self._encoding = None
 
     def __repr__(self):

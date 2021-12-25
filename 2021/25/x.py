@@ -76,6 +76,7 @@ def evolve(a):
     i = 0
     while step(a):
         i += 1
+        show_grid(a)
     return i
 
 def first(a):

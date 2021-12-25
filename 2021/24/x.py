@@ -43,6 +43,7 @@ class Context:
         return repr(self.data)
 
     def merge(self, other):
+        print("merge", self, other)
         ks = set(self.data)
         ko = set(other.data)
         kc = ks.intersection(ko)

@@ -272,7 +272,7 @@ def first(a):
 
     def partials(parts):
         for i, part in enumerate(parts):
-            z = Var(i, range(-100,100) if i else range(1), name=f'z_{i}')
+            z = Var(i, range(0,26) if i else range(1), name=f'z_{i}')
             w = Var(i, range(1,10), name=f'w_{i}')
             f = monad2(part[1:], z=z, w=w)
             yield z, w, f

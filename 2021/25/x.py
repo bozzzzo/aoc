@@ -75,7 +75,7 @@ def step(a):
     return len(ml) + len(md)
 
 def evolve(a):
-    i = 0
+    i = 1
     while step(a):
         i += 1
         print("after step", i)

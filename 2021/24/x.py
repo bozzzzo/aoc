@@ -51,8 +51,8 @@ class Context:
             print(f"merge no solution for {[(k, self.data[k], other.data[k]) for k,v in commom.items() if not v]}")
             return None
         return Context(itertools.chain(
-            ((k:self.data[k]) for k in ks),
-            ((k:other.data[k]) for k in ko),
+            ((k, self.data[k]) for k in ks),
+            ((k, other.data[k]) for k in ko),
             common.items()))
 
     def __lt__(self, other):

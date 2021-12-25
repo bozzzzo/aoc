@@ -147,13 +147,13 @@ def parse(f):
 for name in [("test_input"),
              #("test_input2"),
              #("test_input3"),
-             ("input")][:1
+             ("input")][:2
                         ]:
     print("=======\n",name, flush=True)
     with open(name) as f:
         f = f.read()
     a = parse_grid(f.splitlines())
-    show_grid(a)
+    #show_grid(a)
 
     w = first(a)
     print("first", w)

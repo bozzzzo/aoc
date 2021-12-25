@@ -43,11 +43,17 @@ class Context:
         return repr(self.data)
 
     def merge(self, other):
-        common = set(self.data).intersection(set(other.data))
-        if any(self.data[v] != other.data[v] for v in common):
-            #print("context merge conflict", common, self.data, other.data)
+        ks = set(self.data)
+        ko = set(other.data)
+        kc = ks.intersection(ko)
+        common = {k:self.data[k].intersection(other.data[k]) for k in kc}
+        if not all(common.values()):
+            print(f"merge no solution for {[(k, self.data[k], other.data[k]) for k,v in commom.items() if not v]}")
             return None
-        return Context(itertools.chain(self.data.items(), other.data.items()))
+        return Context(itertools.chain(
+            ((k:self.data[k]) for k in ks),
+            ((k:other.data[k]) for k in ko),
+            common.items()))
 
     def __lt__(self, other):
         return self.encode() < other.encode()

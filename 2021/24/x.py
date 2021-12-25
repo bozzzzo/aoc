@@ -271,7 +271,9 @@ def test():
         return Context((k, a.data[k]|b.data[k]) for k in a.data)
 
     a = Var(0, (1,2))
+    print("a=", a)
     b = Var(1, (1,2,3))
+    print("b=", b)
     print(Mod(Mul(a,b), Add(a,b)))
 
     exit()

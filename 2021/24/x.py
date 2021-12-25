@@ -43,7 +43,7 @@ class Context:
         return repr(self.data)
 
     def merge(self, other):
-        print("merge", self, other)
+        print("merge >>", self, other)
         def inner():
             for ds, do in itertools.product(self.data, other.data):
                 ks = set(ds)

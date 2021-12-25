@@ -168,14 +168,14 @@ class Op(Lazy):
                 val = self.OP(l,r)
                 c = lv.merge(rv)
                 if c is None:
-                    print(f'merge conflict {val}={l}{self.REP}{r} {lv} {rv}')
+                    print(f'merge conflict {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')
                     continue
                 if val not in p:
-                    print(f'merge first    {val}={l}{self.REP}{r} {lv} {rv} {c}')
+                    print(f'merge first    {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c}')
                     p[val] = c
                 else:
                     np = better_of(p[val], c)
-                    print(f'merge existing {val}={l}{self.REP}{r} {lv} {rv} {c} {p[val]} {np}')
+                    print(f'merge existing {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c} pval:{p[val]} np:{np}')
                     p[val] = np
         return p
 

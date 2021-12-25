@@ -252,7 +252,7 @@ class Mod(Op):
 
 class Eq(Op):
     @staticmethod
-    OP = operator.eq
+    OP = lambda s,x,y: int(x==y)
     REP = '=='
 
 

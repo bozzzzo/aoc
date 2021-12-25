@@ -62,8 +62,8 @@ def move(a, who, where):
         n, t = where(a, c)
         if t != '.':
             continue
-        moves.append(n, o)
-        moves.append(c, t)
+        moves.append((n, o))
+        moves.append((c, t))
 
     return moves
 

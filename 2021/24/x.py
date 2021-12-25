@@ -61,7 +61,10 @@ class Context:
         return Context(possibilities)
 
     def combine(self, other):
-        return Context(self.data + other.data)
+        print("combine >>", self, other)
+        ret = Context(self.data + other.data)
+        print("combine <<", ret)
+        return ret
 
     def __lt__(self, other):
         return self.encode() < other.encode()

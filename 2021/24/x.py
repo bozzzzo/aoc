@@ -256,6 +256,9 @@ def test():
         print()
         assert a==b, f"{a}!={b}"
 
+    global better_of
+    def better_of(a,b): return a
+    
     a = Var(0)
     b = Var(1)
     print(Mul(a,b))

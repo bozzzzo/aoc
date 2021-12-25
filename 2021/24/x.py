@@ -85,7 +85,7 @@ class Const:
         return True
 
     def possibilities(self):
-        return {self.value: Context(())}
+        return {self.value: Context(({},))}
 
     def __repr__(self):
         return repr(self.value)

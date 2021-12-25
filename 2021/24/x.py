@@ -272,7 +272,7 @@ def test():
 
     a = Var(0, (1,2))
     b = Var(1, (1,2,3))
-    print(Eq(Mul(a,b), Add(a,b)))
+    print(Mod(Mul(a,b), Add(a,b)))
 
     exit()
     pass

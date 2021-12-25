@@ -251,7 +251,7 @@ class Mod(Op):
     REP = '%'
 
 class Eq(Op):
-    OP = operator.eq
+    OP = lambda x,y: int(x==y)
     REP = '=='
 
 

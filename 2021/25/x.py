@@ -68,9 +68,11 @@ def move(a, who, where):
     return moves
 
 def step(a):
-    moves = move(a, '>', left) + move(a, 'v', down)
-    a.update(moves)
-    return len(a)
+    ml = move(a, '>', left)
+    a.update(ml)
+    md move(a, 'v', down)
+    a.update(md)
+    return len(ml) + len(md)
 
 def evolve(a):
     i = 0

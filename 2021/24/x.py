@@ -9,12 +9,10 @@ import time
 import math
 import heapq
 from dataclasses import dataclass, replace, field
-import numpy as np
 from typing import *
 from pprint import pprint
 import sys
 
-import numpy as np
 
 def fst(x):
     return x[0]

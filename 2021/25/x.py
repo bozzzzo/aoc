@@ -44,7 +44,7 @@ def left(a, c):
     else:
         return n, t
 
-def left(a, c):
+def down(a, c):
     x,y = c
     n = (x,y+1)
     t = a.get(n)

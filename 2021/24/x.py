@@ -368,7 +368,7 @@ def parse_graph(f):
 def parse(f):
     def parse_insn(l):
         return tuple(map(strint, l.split()))
-    return tuple(map(parse_insn, filter(None, (l.split('#')[0] for l in f.splitlines())))
+    return tuple(map(parse_insn, filter(None, (l.split('#')[0] for l in f.splitlines()))))
     pass
 
 

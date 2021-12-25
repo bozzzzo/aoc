@@ -270,8 +270,8 @@ def test():
         assert set(a.data) == set(b.data)
         return Context((k, a.data[k]|b.data[k]) for k in a.data)
 
-    a = Var(0)
-    b = Var(1)
+    a = Var(0, (1,2))
+    b = Var(1, (1,2,3))
     print(Eq(Mul(a,b), Add(a,b)))
 
     exit()

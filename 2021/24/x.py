@@ -279,10 +279,11 @@ def first(a):
     g = monad2(parts[-2], z=z2)
     for c in f[0].data:
         z = c[z1]
+        print("z=", object.__repr__(z))
         if z in g:
-            print(f"===== -2 [z]", g[z].data)
+            print(f"===== -2 [{z}]", g[z].data)
         else:
-            print(f"===== -2 [z] no solution")
+            print(f"===== -2 [{z}] no solution")
 
 
 

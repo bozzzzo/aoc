@@ -46,7 +46,7 @@ class Context:
         ks = set(self.data)
         ko = set(other.data)
         kc = ks.intersection(ko)
-        common = {k:self.data[k].intersection(other.data[k]) for k in kc}
+        common = {k:self.data[k].union(other.data[k]) for k in kc}
         if not all(common.values()):
             print(f"merge no solution for {[(k, self.data[k], other.data[k]) for k,v in common.items() if not v]}")
             return None

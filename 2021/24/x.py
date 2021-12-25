@@ -259,7 +259,7 @@ def test():
     global better_of
     def better_of(a,b):
         assert set(a.data) == set(b.data)
-        return Context((k, a.data[k]|b.data[k]) for k in a}
+        return Context((k, a.data[k]|b.data[k]) for k in a)
 
     a = Var(0)
     b = Var(1)

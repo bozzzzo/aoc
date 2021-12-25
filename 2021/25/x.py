@@ -34,6 +34,9 @@ def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
 
+def move_left(a):
+    b
+
 def first(a):
     pass
 
@@ -74,7 +77,7 @@ def render_grid(a, *, prefix=''):
 def parse_grid(f):
     def parse_line(l):
         return l
-    return {(x,y):z  for y, l in enumerate(f) for x,z in enumerate(parse_line(l)) if z not in ". \n"}
+    return {(x,y):z  for y, l in enumerate(f) for x,z in enumerate(parse_line(l)) if z not in " \n"}
     pass
 
 def parse_graph(f):

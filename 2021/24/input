@@ -16,6 +16,7 @@ add y w
 add y 13
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -34,6 +35,7 @@ add y w
 add y 10
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -52,6 +54,7 @@ add y w
 add y 3
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -70,6 +73,7 @@ add y w
 add y 1
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -88,6 +92,7 @@ add y w
 add y 9
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -106,6 +111,7 @@ add y w
 add y 3
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -124,6 +130,7 @@ add y w
 add y 5
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -142,6 +149,7 @@ add y w
 add y 1
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -160,6 +168,7 @@ add y w
 add y 0
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -178,6 +187,7 @@ add y w
 add y 13
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -196,6 +206,7 @@ add y w
 add y 7
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -214,6 +225,7 @@ add y w
 add y 15
 mul y x
 add z y
+
 inp w
 mul x 0
 add x z
@@ -232,21 +244,25 @@ add y w
 add y 12
 mul y x
 add z y
-inp w
+
+
+# z 
+
+inp w          # last digit
 mul x 0
-add x z
-mod x 26
-div z 26
-add x -10
-eql x w
-eql x 0
-mul y 0
-add y 25
-mul y x
-add y 1
-mul z y
-mul y 0
-add y w
-add y 8
-mul y x
-add z y
+add x z        # x = z
+mod x 26       # x = x % 26
+div z 26       # z = z / 26
+add x -10      # x = -10 .. 16
+eql x w        # x = 1 or 0
+eql x 0        # x = 0 or 1
+mul y 0        # y = 0
+add y 25       
+mul y x        # y = 0 or 25
+add y 1        # y = 1 or 26
+mul z y        # z = z or z * 26
+mul y 0        # y = 0
+add y w        # y = w
+add y 8        # y = w + 8
+mul y x        # y = 0 or w + 8
+add z y        # z = z + 0 or z + w * 8

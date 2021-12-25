@@ -270,8 +270,17 @@ def first(a):
     parts = list(chop(a))
     print(parts)
 
-    f = monad2(parts[-1], z=Var(13,range(-100,100)))
-    print("=====", f[0].data)
+    print(">>>> -1")
+    z1 = Var(13,range(-100,100))
+    f = monad2(parts[-1], z=z1)
+    print(f"===== -1 [0]", f[0].data)
+    print(">>>> -2")
+    z2 = Var(12,range(-100,100))
+    g = monad2(parts[-2], z=z2)
+    for c in f[0].data:
+        z = c[z1]
+        print(f"===== -2 [z]", g[z].data)
+
 
     # f = monad2(a)
 

@@ -251,7 +251,8 @@ class Mod(Op):
     REP = '%'
 
 class Eq(Op):
-    OP = lambda x,y: int(x==y)
+    @staticmethod
+    OP = operator.eq
     REP = '=='
 
 

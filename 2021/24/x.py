@@ -46,14 +46,14 @@ class Context:
         print("merge", self, other)
         def inner():
             for ds, do in itertools.product(self.data, other.data):
-            ks = set(ds)
-            ko = set(do)
-            kc = ks.intersection(ko)
-            common = {k:ds[k].intersection(do[k]) for k in kc}
-            if not all(common.values()):
-                print(f"merge no solution for {ds} {do} due to {kc}")
-                continue
-            yield dict(itertools.chain(ds.items(), do.items()))
+                ks = set(ds)
+                ko = set(do)
+                kc = ks.intersection(ko)
+                common = {k:ds[k].intersection(do[k]) for k in kc}
+                if not all(common.values()):
+                    print(f"merge no solution for {ds} {do} due to {kc}")
+                    continue
+                yield dict(itertools.chain(ds.items(), do.items()))
         possibilities = tuple(inner())
         if not possibilities:
             return None

@@ -279,6 +279,8 @@ def test():
 
     a = Var(0, (1,2))
     print("a=", a, a.possibilities())
+    aea = Eq(a,a)
+    print("a==a=", aea)
     b = Var(1, (1,2,3))
     print("b=", b, b.possibilities())
     atb = Mul(a,b)

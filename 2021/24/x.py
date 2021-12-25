@@ -22,9 +22,7 @@ def fst(x):
 def snd(x):
     return x[1]
 
-def dbg(*x, **y):
-    # print(*x, **y)
-    pass
+dbg = False
 
 def irange(a,b):
     d = 1 if b >= a else -1
@@ -43,26 +41,26 @@ class Context:
         return repr(self.data)
 
     def merge(self, other):
-        print("merge >>", self, other)
+        dbg and print("merge >>", self, other)
         def inner():
             for ds, do in itertools.product(self.data, other.data):
                 ks = set(ds)
                 ko = set(do)
                 kc = ks.intersection(ko)
                 if not all(ds[k] == do[k] for k in kc):
-                    print(f"merge no solution for {ds} {do} due to {kc}")
+                    dbg and print(f"merge no solution for {ds} {do} due to {kc}")
                     continue
                 yield dict(itertools.chain(ds.items(), do.items()))
         possibilities = tuple(inner())
-        print("merge << ", possibilities)
+        dbg and print("merge << ", possibilities)
         if not possibilities:
             return None
         return Context(possibilities)
 
     def combine(self, other):
-        print("combine >>", self, other)
+        dbg and print("combine >>", self, other)
         ret = Context(self.data + other.data)
-        print("combine <<", ret)
+        dbg and print("combine <<", ret)
         return ret
 
     def __lt__(self, other):
@@ -182,17 +180,17 @@ class Op(Lazy):
             self._possibilites = p = {}
             for (l, lv), (r, rv) in itertools.product(self.l.possibilities().items(), self.r.possibilities().items()):
                 val = self.OP(l,r)
-                print(f'merge of       {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')
+                dbg and print(f'merge of       {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')
                 c = lv.merge(rv)
                 if c is None:
-                    print(f'merge conflict {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')
+                    dbg and print(f'merge conflict {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')
                     continue
                 if val not in p:
-                    print(f'merge first    {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c}')
+                    dbg and print(f'merge first    {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c}')
                     p[val] = c
                 else:
                     np = p[val].combine(c)
-                    print(f'merge existing {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c} pval:{p[val]} np:{np}')
+                    dbg and print(f'merge existing {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c} pval:{p[val]} np:{np}')
                     p[val] = np
         return p
 

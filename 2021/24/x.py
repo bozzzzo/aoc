@@ -35,8 +35,8 @@ def srange(a,b):
 
 
 class Context:
-    def __init__(self, *args):
-        self.data = dict(*args)
+    def __init__(self, data):
+        self.data = data
         self._encoding = None
 
     def __repr__(self):
@@ -77,7 +77,7 @@ class Const:
         return True
 
     def possibilities(self):
-        return {self.value: Context()}
+        return {self.value: Context(())}
 
     def __repr__(self):
         return repr(self.value)
@@ -121,7 +121,7 @@ class Var(Lazy):
         else:
             vals = self._value
 
-        return {val:Context(((self, {val}),)) for val in vals}
+        return {val: Context(({self: val},)) for val in vals}
 
     def set(self, value):
         self.value = value

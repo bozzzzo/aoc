@@ -33,64 +33,6 @@ def irange(a,b):
 def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
-def monad(a):
-    zero = 0
-
-    digit = 0
-    indent = "  "
-    code = ['def loop():',
-            '  x0=y0=z0=w0=0'
-            ]
-    ret = []
-    for op, _reg, *_arg in a:
-        arg = _arg[0] if _arg else 0
-        arg = arg if isinstance(arg, int) else arg+str(digit)
-        reg = _reg + str(digit)
-        code.append(f"{indent}# {op} {_reg}, {_arg}")
-        if op == 'inp':
-            digit += 1
-            it = _reg + str(digit)
-            code.append(f'{indent}for {it} in range(9,0,-1):')
-            ret.append(it)
-            indent += "  "
-            code.extend(f'{indent}{r}{digit}={r}{digit-1}' for r in 'xyzw' if r != _reg)
-            #code.append('print(">>", x,y,z,w)')
-        elif op == 'add':
-            code.append(f'{indent}{reg} += {arg}')
-        elif op == 'mul':
-            code.append(f'{indent}{reg} *= {arg}')
-        elif op == 'div':
-            code.append(f'{indent}{reg} //= {arg}')
-        elif op == 'mod':
-            code.append(f'{indent}{reg} %= {arg}')
-        elif op == 'eql':
-            code.append(f'{indent}{reg} = int({reg} == {arg})')
-        else:
-            assert False, str((op, reg, arg))
-
-    code.append(f'{indent}if z{digit}: continue')
-    def mul(ret):
-        if len(ret) == 1:
-            return ret[0]
-        else:
-            return f'({mul(ret[:-1])} * 10 + {ret[-1]})'
-    code.append(f'{indent}# {ret}')
-    code.append(f'{indent}ret = {mul(ret)}')
-    code.append(f'{indent}return ret')
-    code.append('ret=loop()')
-
-    code = "\n".join(code)
-    print(code)
-
-    prog = compile(code, 'monad', 'exec')
-    print(prog)
-
-    def run():
-        state=dict(ret=None)
-        eval(prog, globals(), state)
-        return state['ret']
-
-    return run
 
 class Context:
     def __init__(self, *args):
@@ -173,7 +115,7 @@ class Var(Lazy):
         else:
             vals = self._value
 
-        return {val:Context(((self, val),)) for val in vals}
+        return {val:Context(((self, {val}),)) for val in vals}
 
     def set(self, value):
         self.value = value
@@ -223,10 +165,11 @@ class Op(Lazy):
         if p is None:
             self._possibilites = p = {}
             for (l, lv), (r, rv) in itertools.product(self.l.possibilities().items(), self.r.possibilities().items()):
+                val = self.OP(l,r)
+                print(f'merge {val}={l}{self.REP}{r} {lv} {rv}')
                 c = lv.merge(rv)
                 if c is None:
                     continue
-                val = self.OP(l,r)
                 if val not in p:
                     p[val] = c
                 else:

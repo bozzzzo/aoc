@@ -59,6 +59,9 @@ class Context:
             return None
         return Context(possibilities)
 
+    def combine(self, other):
+        return Context(self.data + other.data)
+
     def __lt__(self, other):
         return self.encode() < other.encode()
 
@@ -184,7 +187,7 @@ class Op(Lazy):
                     print(f'merge first    {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c}')
                     p[val] = c
                 else:
-                    np = better_of(p[val], c)
+                    np = p[val].combine(c)
                     print(f'merge existing {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c} pval:{p[val]} np:{np}')
                     p[val] = np
         return p
@@ -268,11 +271,6 @@ def test():
     def _(a,b):
         print()
         assert a==b, f"{a}!={b}"
-
-    global better_of
-    def better_of(a,b):
-        assert set(a.data) == set(b.data)
-        return Context((k, a.data[k]|b.data[k]) for k in a.data)
 
     a = Var(0, (1,2))
     print("a=", a, a.possibilities())

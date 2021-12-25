@@ -258,7 +258,8 @@ def test():
 
     global better_of
     def better_of(a,b):
-
+        assert set(a) == set(b)
+        return {k:a[k]|b[k] for k in a}
 
     a = Var(0)
     b = Var(1)

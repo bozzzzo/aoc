@@ -252,12 +252,13 @@ def monad2(a, **kwargs):
         #    return None
 
 
-    print("== ", state)
+    # print("== ", state)
     return state['z'].possibilities()
 
 
 class Partial:
     def __init__(self, i, part):
+        print("Partial ", i)
         self.i = i
         self.part = part
         self.z = Var(i, range(-26*26,26*26) if i else range(1), name=f'z_{i}')

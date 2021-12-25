@@ -287,7 +287,7 @@ def test():
     m = Mod(atb, apb)
     print("%=", m)
 
-    exit()
+    
     pass
 
 

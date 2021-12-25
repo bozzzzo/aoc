@@ -115,7 +115,7 @@ class Var(Lazy):
         else:
             vals = self._value
 
-        return {val:Context(((self, {val}),)) for val in vals}
+        return {val:Context(((self, val),)) for val in vals}
 
     def set(self, value):
         self.value = value

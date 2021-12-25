@@ -268,7 +268,7 @@ def first(a):
         yield part
 
     parts = list(chop(a))
-    print(parts)
+    # print(parts)
 
     print(">>>> -1")
     z1 = Var(13,range(-100,100))

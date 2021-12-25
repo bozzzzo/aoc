@@ -256,11 +256,21 @@ def monad2(a):
     return state['z'].possibilities()
 
 def first(a):
-    global better_of
-    def better_of(c1,c2):
-        return c2 if c1 < c2 else c1
 
-    f = monad2(a)
+    def chop(a):
+        part = []
+        for insn in a:
+            op, *_ = insn
+            if op == 'inp' and part:
+                yield part
+                part = []
+            part.append(insn)
+        yield part
+
+    parts = list(chop(a))
+    print(parts)
+
+    # f = monad2(a)
 
     return f[0]
     pass

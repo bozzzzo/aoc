@@ -70,7 +70,7 @@ def move(a, who, where):
 def step(a):
     ml = move(a, '>', left)
     a.update(ml)
-    md move(a, 'v', down)
+    md = move(a, 'v', down)
     a.update(md)
     return len(ml) + len(md)
 

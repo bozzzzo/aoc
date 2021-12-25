@@ -281,11 +281,11 @@ def test():
     b = Var(1, (1,2,3))
     print("b=", b, b.possibilities())
     atb = Mul(a,b)
-    print("a*b=", atb, atb.possibilities())
+    print("a*b=", atb)
     apb = Add(a, b)
-    print("a+b=", apb, apb.possibilities())
+    print("a+b=", apb)
     m = Mod(atb, apb)
-    print("%=", m, m.possibilities())
+    print("%=", m)
 
     exit()
     pass

@@ -279,7 +279,11 @@ def first(a):
     g = monad2(parts[-2], z=z2)
     for c in f[0].data:
         z = c[z1]
-        print(f"===== -2 [z]", g[z].data)
+        if z in g:
+            print(f"===== -2 [z]", g[z].data)
+        else:
+            print(f"===== -2 [z] no solution")
+
 
 
     # f = monad2(a)

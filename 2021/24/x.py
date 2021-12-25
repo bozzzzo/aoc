@@ -255,6 +255,37 @@ def monad2(a, **kwargs):
     print("== ", state)
     return state['z'].possibilities()
 
+
+class Partial:
+    def __init__(self, i, part):
+        self.i = i
+        self.part = part
+        self.z = Var(i, range(0,26) if i else range(1), name=f'z_{i}')
+        self.w = Var(i, range(1,10), name=f'w_{i}')
+        self.f = monad2(part[1:], z=self.z, w=self.w)
+        self.prev = None
+        self.next = None
+
+    def link(self, prev):
+        self.prev = prev
+        prev.next = self
+
+    def resolve(self, outputs):
+        self.inputs = inputs = collections.defaultdict(set)
+        for o in outputs:
+            for s in self.f[o]:
+                z = s[self.z]
+                w = s[self.w]
+                if self.prev is not None and z not in self.prev.f or \
+                   self.prev is None and z != 0:
+                    continue
+                inputs[z].add(w)
+        print (f"\npart {self.i} need {outputs} from {inputs}")
+        if self.prev is not None:
+            self.prev.resolve(tuple(inputs))
+
+
+
 def first(a):
 
     def chop(a):
@@ -267,18 +298,14 @@ def first(a):
             part.append(insn)
         yield part
 
-    parts = list(chop(a))
-    # print(parts)
+    partials = [Partial(i, part) for i, part in enumerate(list(chop(a)))]
 
-    def partials(parts):
-        for i, part in enumerate(parts):
-            z = Var(i, range(0,26) if i else range(1), name=f'z_{i}')
-            w = Var(i, range(1,10), name=f'w_{i}')
-            f = monad2(part[1:], z=z, w=w)
-            yield z, w, f
+    for i, partial in enumerate(partials):
+        if not i:
+            continue
+        partial.link(partials[i-1])
 
-    stuff = list(partials(parts))
-
+    partials[-1].resolve([0])
 
     pprint(stuff)
 

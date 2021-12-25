@@ -263,7 +263,7 @@ def test():
 
     a = Var(0)
     b = Var(1)
-    print(Mul(a,b))
+    print(Eq(Mul(a,b), Add(a,b)))
 
     exit()
     pass

@@ -74,7 +74,7 @@ def render_grid(a, *, prefix=''):
 def parse_grid(f):
     def parse_line(l):
         return l
-    return {(x,y):z  for y, l in enumerate(f) for x,z in enumerate(parse_line(l)) if z not in "# \n" and (y != 1 or x not in (3,5,7,9))}
+    return {(x,y):z  for y, l in enumerate(f) for x,z in enumerate(parse_line(l)) if z not in ". \n"}
     pass
 
 def parse_graph(f):
@@ -103,7 +103,8 @@ for name in [("test_input"),
     print("=======\n",name, flush=True)
     with open(name) as f:
         f = f.read()
-    a = parse(f)
+    a = parse_grid(f.splitlines())
+    show_grid(a)
 
     w = first(a)
     print("first", w)

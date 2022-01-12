@@ -75,6 +75,9 @@ class Const(Lazy):
     def positive(self):
         return self.value > 0
 
+    def rebind(self, ctx):
+        return self
+
 class Var(Lazy):
     NAMES = iter('abcdefghijklmnop')
 
@@ -120,6 +123,9 @@ class Var(Lazy):
     def positive(self):
         return min(self.values) > 0
 
+    def rebind(self, ctx):
+        return ctx.get(self, self)
+
 
 class Op(Lazy):
     def __init__(self, *ops):
@@ -154,6 +160,9 @@ class Op(Lazy):
     @property
     def values(self):
         return set(int(self.OP(l,r)) for l,r in itertools.product(self.l.values, self.r.values))
+
+    def rebind(self, ctx):
+        return type(self)(self.l.rebind(ctx), self.r.rebind(ctx))
 
 
 class Add(Op):
@@ -196,6 +205,9 @@ def show(state):
 def fork(*, state, inps, history, reg, l):
     expr = state[reg]
     used = expr.vars
+    if not used:
+        assert expr.const
+        return [(state, inps, history)]
     used_names = {var.name for var in used}
     unused = {var for var in inps if var.name not in used_names}
     unused_names = {var.name for var in unused}
@@ -213,7 +225,7 @@ def fork(*, state, inps, history, reg, l):
             new[res][var].values.add(val)
     new_states = []
     for res, used_map in new.items():
-        new_state = state.copy()
+        new_state = {k:v.rebind(used_map) for k,v in state.items()}
         new_state[reg] = Const(res)
         new_inps = unused | set(used_map.values())
         new_history = history + ((l, res),)
@@ -222,7 +234,9 @@ def fork(*, state, inps, history, reg, l):
     return new_states
 
 
-def monad2(a, **kwargs):
+def monad2(a, values=None, **kwargs):
+    if values is None:
+        values = [set(range(1,10))] * 14
     state_ = dict((v, kwargs.get(v, Const(0))) for v in 'xyzw')
     states = [(state_, set(), ())]
     _26 = Const(26)
@@ -243,7 +257,7 @@ def monad2(a, **kwargs):
                 arg = None
                 argval = None
             if op == 'inp':
-                state[reg] = Var(len(inps), name=f"{reg}{len(inps)+1}")
+                state[reg] = Var(len(inps), value=values[len(inps)], name=f"{reg}{len(inps)+1}")
                 inps.add(state[reg])
             elif op == 'add':
                 if regval.zero:
@@ -329,7 +343,7 @@ def monad2(a, **kwargs):
                 z = state['z']
                 if z.value == 0:
                     inps = sorted(inps, key=lambda v:v.i)
-                    print(f'found zero solution with {inps} history {history}')
+                    print(f'found zero solution for {pz} with {inps} history {history}')
                     yield inps
                     break
             else:
@@ -349,9 +363,15 @@ def first(a):
 
 
     z = monad2(a)
+    assert len(z) == 1
+    soln, = z
+    biggest = [(max(var.values)) for var in soln]
+    smallest = [(min(var.values)) for var in soln]
 
+    proof = monad2(a, values=[{v} for v in biggest])
+    assert proof
 
-    return ["".join(str(max(var.values)) for var in soln) for soln in z]
+    return "".join(map(str, biggest)), "".join(map(str, smallest))
     pass
 
 def second(a):

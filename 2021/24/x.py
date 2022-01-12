@@ -30,52 +30,20 @@ def srange(a,b):
     return irange(a,b) if a < b else irange(b,a)
 
 
-class Context:
-    def __init__(self, data):
-        self.data = data
-        self._encoding = None
 
-    def __repr__(self):
-        p = ", ".join(map(str, self.data[:2]))
-        return f"{p}...[{len(self.data)}]"
 
-    def merge(self, other):
-        dbg and print("merge >>", self, other)
-        def inner():
-            for ds, do in itertools.product(self.data, other.data):
-                ks = set(ds)
-                ko = set(do)
-                kc = ks.intersection(ko)
-                if not all(ds[k] == do[k] for k in kc):
-                    dbg and print(f"merge no solution for {ds} {do} due to {kc}")
-                    continue
-                yield dict(itertools.chain(ds.items(), do.items()))
-        possibilities = tuple(inner())
-        dbg and print("merge << ", possibilities)
-        if not possibilities:
-            return None
-        return Context(possibilities)
+class Lazy(object):
+    @property
+    def zero(self):
+        return self.const and self.value == 0
 
-    def combine(self, other):
-        dbg and print("combine >>", self, other)
-        ret = Context(self.data + other.data)
-        dbg and print("combine <<", ret)
-        return ret
+    @property
+    def one(self):
+        return self.const and self.value == 1
 
-    def __lt__(self, other):
-        return self.encode() < other.encode()
-
-    def encode(self):
-        if self._encoding is None:
-            self._encoding = tuple(
-                v for i,v in sorted((k.i, v)
-                                    for k,v in self.data.items()))
-        return self._encoding
-
-class Lazy:
     pass
 
-class Const:
+class Const(Lazy):
     def __init__(self, value):
         self.value = value
 
@@ -83,128 +51,136 @@ class Const:
     def const(self):
         return True
 
-    def possibilities(self):
-        return {self.value: Context(({},))}
-
     def __repr__(self):
         return repr(self.value)
+
+    def __str__(self):
+        return str(self.value)
 
     def __eq__(self, other):
         return type(self) == type(other) and self.value == other.value
 
+    @property
+    def vars(self):
+        return set()
+
+    def bind(self, ctx):
+        return self.value
+
+    @property
+    def values(self):
+        return {self.value}
+
+    @property
+    def positive(self):
+        return self.value > 0
 
 class Var(Lazy):
     NAMES = iter('abcdefghijklmnop')
-    _VARS = {}
-
-    @classmethod
-    def getVar(cls, name):
-        return cls._VARS[name]
 
     @classmethod
     def reset_names(cls):
         cls.NAMES = iter('abcdefghijklmnop')
 
 
-    def __init__(self, i, value=range(1,10), name=None):
+    def __init__(self, i, value=frozenset(range(1,10)), name=None):
         self.name = next(self.NAMES) if name is None else name
-        self._VARS[self.name] = self
-        self.listeners = []
         self.i = i
         self._value = value
 
     @property
     def value(self):
         assert self.const
-        return self._value
+        return self._value if isinstance(self._value, int) else tuple(self._value)[0]
 
     @property
     def const(self):
-        return isinstance(self._value, int)
+        return isinstance(self._value, int) or len(self._value) == 1
 
-    def possibilities(self):
-        if isinstance(self._value, int):
-            vals = (self._value, )
-        else:
-            vals = self._value
-
-        return {val: Context(({self: val},)) for val in vals}
-
-    def set(self, value):
-        self.value = value
-        for l in listeners:
-            l.recalc()
+    def __str__(self):
+        return f"{self.name}"
 
     def __repr__(self):
-        op = self.__class__.__name__
-        if self.const:
-            op = op +'!'
-        return f"{self.name}"
+        return f"{self.name}{tuple(sorted(self.values))}"
+
+    @property
+    def vars(self):
+        return set([self])
+
+    def bind(self, ctx):
+        assert self in ctx
+        assert ctx[self] in self._value
+        return ctx[self]
+
+    @property
+    def values(self):
+        return self._value
+
+    @property
+    def positive(self):
+        return min(self.values) > 0
 
 
 class Op(Lazy):
     def __init__(self, *ops):
-        self.listeners = []
         self.ops = ops
         self.l, self.r = ops
+        assert isinstance(self.l, Lazy), f"?? {type(self.l)} {self.l}"
+        assert isinstance(self.r, Lazy), f"?? {type(self.r)} {self.r}"
         self._possibilities = None
-        for op in ops:
-            if isinstance(op, Lazy):
-                op.listeners.append(self)
-
-    def recalc(self):
-        self._possibilities = None
-        for parent in self.listeners:
-            parent.recalc()
-        pass
 
     @property
     def const(self):
         return self.l.const and self.r.const
 
+    def __str__(self):
+        return f'({str(self.l)} {self.REP} {str(self.r)})'
+
     def __repr__(self):
-        op = self.__class__.__name__
-        p = self.possibilities()
-        ps = ", ".join(map(str, itertools.islice(p.items(),3)))
-        return f'{self.REP}[{ps}....{len(p)}]'
+        return f'({repr(self.l)} {self.REP} {repr(self.r)})'
 
     @property
     def value(self):
         assert self.const
-        return Const(int(self.OP(self.l.value, self.r.value)))
+        return int(self.OP(self.l.value, self.r.value))
 
-    def possibilities(self):
-        p = self._possibilities
-        if p is None:
-            self._possibilites = p = {}
-            for (l, lv), (r, rv) in itertools.product(self.l.possibilities().items(), self.r.possibilities().items()):
-                val = self.OP(l,r)
-                dbg and print(f'merge of       {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')
-                c = lv.merge(rv)
-                if c is None:
-                    dbg and print(f'merge conflict {val}={l}{self.REP}{r} lv:{lv} rv:{rv}')
-                    continue
-                if val not in p:
-                    dbg and print(f'merge first    {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c}')
-                    p[val] = c
-                else:
-                    np = p[val].combine(c)
-                    dbg and print(f'merge existing {val}={l}{self.REP}{r} lv:{lv} rv:{rv} c:{c} pval:{p[val]} np:{np}')
-                    p[val] = np
-        return p
+    @property
+    def vars(self):
+        return self.l.vars | self.r.vars
+
+    def bind(self, ctx):
+        return int(self.OP(self.l.bind(ctx), self.r.bind(ctx)))
+
+    @property
+    def values(self):
+        return set(int(self.OP(l,r)) for l,r in itertools.product(self.l.values, self.r.values))
 
 
 class Add(Op):
     OP = operator.add
     REP = '+'
 
+    @property
+    def positive(self):
+        return self.l.positive and self.r.positive
+
+
 class Mul(Op):
     OP = operator.mul
     REP = '*'
 
+    @property
+    def positive(self):
+        return self.l.positive == self.r.positive
+
 class Div(Op):
     OP = operator.floordiv
     REP = '/'
+
+    @property
+    def positive(self):
+        return False
+
 
 class Mod(Op):
     OP = operator.mod
@@ -214,105 +190,168 @@ class Eq(Op):
     OP = lambda s,x,y: int(x==y)
     REP = '=='
 
+def show(state):
+    return ", ".join(f"{n}={v}" for n,v in state.items())
+
+def fork(*, state, inps, history, reg, l):
+    expr = state[reg]
+    used = expr.vars
+    used_names = {var.name for var in used}
+    unused = {var for var in inps if var.name not in used_names}
+    unused_names = {var.name for var in unused}
+    inp_names = {var.name for var in inps}
+    assert len(used_names) == len(used)
+    assert len(unused_names) == len(unused)
+    assert len(inp_names) == len(inps)
+    assert len(used_names|unused_names) == len(inp_names)
+    assert not (used_names & unused_names), f"{used_names} intersects {unused_names}, inps={inps}"
+    assert inp_names == (used_names | unused_names)
+    new = collections.defaultdict(lambda: {v: Var(v.i, set(), name=v.name) for v in used})
+    for ctx in map(dict, itertools.product(*[[(var, val) for val in var.values] for var in used])):
+        res = expr.bind(ctx)
+        for var, val in ctx.items():
+            new[res][var].values.add(val)
+    new_states = []
+    for res, used_map in new.items():
+        new_state = state.copy()
+        new_state[reg] = Const(res)
+        new_inps = unused | set(used_map.values())
+        new_history = history + ((l, res),)
+        print(f"              #  new_state {reg}={new_state[reg]} inps {repr(new_inps)} history {new_history}")
+        new_states.append((new_state, new_inps, new_history))
+    return new_states
+
 
 def monad2(a, **kwargs):
-    state = dict((v, kwargs.get(v, Const(0))) for v in 'xyzw')
-    inps = []
+    state_ = dict((v, kwargs.get(v, Const(0))) for v in 'xyzw')
+    states = [(state_, set(), ())]
+    _26 = Const(26)
+    assert _26 == Const(26)
+    zero = Const(0)
+    one = Const(1)
     Var.reset_names()
     for l, (op, reg, *_arg) in enumerate(a):
-        if _arg:
-            arg = _arg[0]
-            argval = Const(arg) if isinstance(arg, int) else state[arg]
-        else:
-            arg = None
-            argval = None
-        regval = state[reg]
+        new_states = []
         if op == 'inp':
             print()
-            inps.append(Var(len(inps)))
-            state[reg] = inps[-1]
-        elif op == 'add':
-            state[reg] = Add(regval, argval)
-        elif op == 'mul':
-            if arg == 0:
-                state[reg] = Const(0)
+        for state, inps, history in states:
+            regval = state[reg]
+            if _arg:
+                arg = _arg[0]
+                argval = Const(arg) if isinstance(arg, int) else state[arg]
             else:
-                state[reg] = Mul(regval, argval)
-        elif op == 'div':
-            state[reg] = Div(regval, argval)
-        elif op == 'mod':
-            state[reg] = Mod(regval, argval)
-        elif op == 'eql':
-            state[reg] = Eq(regval, argval)
-        else:
-            assert False
-        #s = str(state)
-        #print(l, op, reg, _arg, s)
-        #if len(s) > 10000:
-        #    return None
+                arg = None
+                argval = None
+            if op == 'inp':
+                state[reg] = Var(len(inps), name=f"{reg}{len(inps)+1}")
+                inps.add(state[reg])
+            elif op == 'add':
+                if regval.zero:
+                    state[reg] = argval
+                elif argval.zero:
+                    pass
+                elif regval.const and isinstance(argval, Add) and argval.l.const:
+                    state[reg] = Add(Const(regval.value + argval.l.value), argval.r)
+                elif regval.const and isinstance(argval, Add) and argval.r.const:
+                    state[reg] = Add(argval.l, Const(regval.value + argval.r.value))
+                elif argval.const and isinstance(regval, Add) and regval.l.const:
+                    state[reg] = Add(Const(argval.value + regval.l.value), regval.r)
+                elif argval.const and isinstance(regval, Add) and regval.r.const:
+                    state[reg] = Add(regval.l, Const(argval.value + regval.r.value))
+                else:
+                    state[reg] = Add(regval, argval)
+            elif op == 'mul':
+                if regval.zero or argval.zero:
+                    state[reg] = zero
+                elif regval.one:
+                    state[reg] = argval
+                elif argval.one:
+                    pass
+                elif regval.const and isinstance(argval, Mul) and argval.l.const:
+                    state[reg] = Mul(Const(regval.value + argval.l.value), argval.r)
+                elif regval.const and isinstance(argval, Mul) and argval.r.const:
+                    state[reg] = Mul(argval.l, Const(regval.value + argval.r.value))
+                elif argval.const and isinstance(regval, Mul) and regval.l.const:
+                    state[reg] = Mul(Const(argval.value + regval.l.value), regval.r)
+                elif argval.const and isinstance(regval, Mul) and regval.r.const:
+                    state[reg] = Mul(regval.l, Const(argval.value + regval.r.value))
+                else:
+                    state[reg] = Mul(regval, argval)
+            elif op == 'div':
+                if argval.one:
+                    pass
+                elif isinstance(regval, Add) and isinstance(regval.l, Mul) and regval.l.r == argval:
+                    state[reg] = regval.l.l
+                elif isinstance(regval, Add) and isinstance(regval.r, Mul) and regval.r.r == argval:
+                    state[reg] = regval.r.l
+                else:
+                    state[reg] = Div(regval, argval)
+            elif op == 'mod':
+                if isinstance(regval, Add) and isinstance(regval.l, Mul) and regval.l.r == argval:
+                    state[reg] = regval.r
+                elif isinstance(regval, Add) and isinstance(regval.r, Mul) and regval.r.r == argval:
+                    state[reg] = regval.l
+                else:
+                    mod = Mod(regval, argval)
+                    if mod.values != regval.values:
+                        state[reg] = mod
+            elif op == 'eql':
+                state[reg] = Eq(regval, argval)
 
+            else:
+                assert False, f"Unknown '{op} {reg} {_arg}'"
+
+            print(f'{l:3} {op:3} {reg} {("" if arg is None else arg):3} #   {reg}={state[reg]}', end='')
+
+            # constant folding
+            if state[reg].const and not isinstance(state[reg], Const):
+                const = Const(state[reg].value)
+                print(f"  => {const}")
+                state[reg] = const
+            else:
+                print()
+
+            if isinstance(state[reg], Eq):
+                new_states.extend(fork(state=state,inps=inps,history=history,reg=reg,l=l))
+
+        if new_states:
+            states = new_states
+
+
+    def solutions():
+        for pstate, pinps, phistory in states:
+            pz = pstate['z']
+            if pz.positive:
+                print(f'no possible solution for {pz}')
+                continue
+            print(f'evaluating {pz}')
+            for state, inps, history in fork(state=pstate, inps=pinps, history=phistory, reg='z', l='z'):
+                z = state['z']
+                if z.value == 0:
+                    inps = sorted(inps, key=lambda v:v.i)
+                    print(f'found zero solution with {inps} history {history}')
+                    yield inps
+                    break
+            else:
+                print(f'no zero solution for {pz}')
 
     # print("== ", state)
-    return state['z'].possibilities()
+    return list(solutions())
 
 
-class Partial:
-    def __init__(self, i, part):
-        print("Partial ", i)
-        self.i = i
-        self.part = part
-        self.z = Var(i, range(-26*26,26*26) if i else range(1), name=f'z_{i}')
-        self.w = Var(i, range(1,10), name=f'w_{i}')
-        self.f = monad2(part[1:], z=self.z, w=self.w)
-        self.prev = None
-        self.next = None
 
-    def link(self, prev):
-        self.prev = prev
-        prev.next = self
 
-    def resolve(self, outputs):
-        self.inputs = inputs = collections.defaultdict(set)
-        for o in outputs:
-            for s in self.f[o].data:
-                z = s[self.z]
-                w = s[self.w]
-                if self.prev is not None and z not in self.prev.f or \
-                   self.prev is None and z != 0:
-                    continue
-                inputs[z].add(w)
-        print (f"\npart {self.i} need {outputs} from {inputs}")
-        if self.prev is not None:
-            self.prev.resolve(tuple(inputs))
 
 
 
 def first(a):
 
-    def chop(a):
-        part = []
-        for insn in a:
-            op, *_ = insn
-            if op == 'inp' and part:
-                yield part
-                part = []
-            part.append(insn)
-        yield part
 
-    partials = [Partial(i, part) for i, part in enumerate(list(chop(a)))]
 
-    for i, partial in enumerate(partials):
-        if not i:
-            continue
-        partial.link(partials[i-1])
+    z = monad2(a)
 
-    partials[-1].resolve([0])
 
-    pprint(stuff)
-
-    # f = monad2(a)
-
-    return f[0]
+    return ["".join(str(max(var.values)) for var in soln) for soln in z]
     pass
 
 def second(a):
@@ -324,20 +363,17 @@ def test():
         print()
         assert a==b, f"{a}!={b}"
 
-    a = Var(0, (1,2))
-    print("a=", a, a.possibilities())
-    aea = Eq(a,a)
-    print("a==a=", aea)
-    b = Var(1, (1,2,3))
-    print("b=", b, b.possibilities())
-    atb = Mul(a,b)
-    print("a*b=", atb)
-    apb = Add(a, b)
-    print("a+b=", apb)
-    m = Mod(atb, apb)
-    print("%=", m)
+    a = Const(10)
+    b = Var(0, name='test_b')
+    assert str(b) == 'test_b'
+    assert repr(b) == 'test_b(1, 2, 3, 4, 5, 6, 7, 8, 9)', repr(b)
+    eq = Eq(a,b)
+    assert not eq.const, eq
+    assert str(eq) == '(10 == test_b)'
 
-    
+    eq2 = Eq(eq,a)
+    assert not eq2.const, eq2
+    print(eq2)
     pass
 
 
@@ -384,7 +420,7 @@ def parse_graph(f):
 def parse(f):
     def parse_insn(l):
         return tuple(map(strint, l.split()))
-    return tuple(map(parse_insn, filter(None, (l.split('#')[0] for l in f.splitlines()))))
+    return tuple(map(parse_insn, filter(str.strip, (l.split('#')[0] for l in f.splitlines()))))
     pass
 
 

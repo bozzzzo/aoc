@@ -229,7 +229,7 @@ def fork(*, state, inps, history, reg, l):
         new_state[reg] = Const(res)
         new_inps = unused | set(used_map.values())
         new_history = history + ((l, res),)
-        print(f"              #  new_state {reg}={new_state[reg]} inps {repr(new_inps)} history {new_history}")
+        print(f"                 #  new_state {reg}={new_state[reg]} inps {repr(new_inps)} history {new_history}")
         new_states.append((new_state, new_inps, new_history))
     return new_states
 
@@ -248,7 +248,7 @@ def monad2(a, values=None, **kwargs):
         new_states = []
         if op == 'inp':
             print()
-        for state, inps, history in states:
+        for j, (state, inps, history) in enumerate(states):
             regval = state[reg]
             if _arg:
                 arg = _arg[0]
@@ -315,7 +315,7 @@ def monad2(a, values=None, **kwargs):
             else:
                 assert False, f"Unknown '{op} {reg} {_arg}'"
 
-            print(f'{l:3} {op:3} {reg} {("" if arg is None else arg):3} #   {reg}={state[reg]}', end='')
+            print(f'{l:3}:{j:2} {op:3} {reg} {("" if arg is None else arg):3} #   {reg}={state[reg]}', end='')
 
             # constant folding
             if state[reg].const and not isinstance(state[reg], Const):
@@ -349,7 +349,8 @@ def monad2(a, values=None, **kwargs):
             else:
                 print(f'no zero solution for {pz}')
 
-    # print("== ", state)
+    print()
+    print()
     return list(solutions())
 
 
